@@ -9,6 +9,7 @@ import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
+import org.reactome.web.diagram.client.OptionalWidget;
 import org.reactome.web.diagram.common.IconButton;
 import org.reactome.web.diagram.controls.top.common.AbstractMenuDialog;
 import org.reactome.web.diagram.controls.top.key.DiagramKey;
@@ -28,7 +29,7 @@ import static org.reactome.web.diagram.data.content.Content.Type.SVG;
 /**
  * @author Antonio Fabregat <fabregat@ebi.ac.uk>
  */
-public class RightTopLauncherPanel extends FlowPanel implements ClickHandler, ContentLoadedHandler {
+public class RightTopLauncherPanel extends FlowPanel implements ClickHandler, ContentLoadedHandler, OptionalWidget.Handler {
 
     private EventBus eventBus;
 
@@ -47,11 +48,15 @@ public class RightTopLauncherPanel extends FlowPanel implements ClickHandler, Co
         this.keys.put(SVG, new EHLDKey(eventBus));
         this.diagramKey = keys.get(SVG);
 
-        this.exportBtn = new IconButton(RESOURCES.exportIcon(), RESOURCES.getCSS().export(), "Export diagram", this);
-        this.add(exportBtn);
+        if (OptionalWidget.EXPORT.isVisible()) {
+            this.exportBtn = new IconButton(RESOURCES.exportIcon(), RESOURCES.getCSS().export(), "Export diagram", this);
+            this.add(exportBtn);
+        }
 
-        this.diagramKeyBtn = new IconButton(RESOURCES.keyIcon(), RESOURCES.getCSS().key(), "Diagram key", this);
-        this.add(this.diagramKeyBtn);
+        if (OptionalWidget.LEGEND.isVisible()) {
+            this.diagramKeyBtn = new IconButton(RESOURCES.keyIcon(), RESOURCES.getCSS().key(), "Diagram key", this);
+            this.add(this.diagramKeyBtn);
+        }
 
         eventBus.addHandler(ContentLoadedEvent.TYPE, this);
         this.setVisible(true);
@@ -88,6 +93,7 @@ public class RightTopLauncherPanel extends FlowPanel implements ClickHandler, Co
 
 
     public static Resources RESOURCES;
+
     static {
         RESOURCES = GWT.create(Resources.class);
         RESOURCES.getCSS().ensureInjected();

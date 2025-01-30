@@ -18,7 +18,7 @@ public class NameValidator extends AbstractValidator {
     }
 
     public void addExtraNames(List<String> extraNames){
-        extraNames.addAll(extraNames);
+        existingNames.addAll(extraNames);
     }
 
     @Override

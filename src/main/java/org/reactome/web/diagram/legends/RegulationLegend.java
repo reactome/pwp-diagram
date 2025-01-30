@@ -252,7 +252,7 @@ public class RegulationLegend extends LegendPanel implements ClickHandler,
                     drawLeftPin(ctx, p, colour, colour);
                 }
                 if (hoveredValues.size() > 1) {
-                    Double median = ExpressionUtil.median(hoveredValues);
+                    double median = ExpressionUtil.median(hoveredValues);
                     double p = ColorMap.getPercentage(median, this.min, this.max);
                     colour = AnalysisColours.get().PROFILE.getExpression().getLegend().getMedian();
                     drawLeftPin(ctx, p, colour, colour);
@@ -273,7 +273,7 @@ public class RegulationLegend extends LegendPanel implements ClickHandler,
                     drawRightPin(ctx, p, colour, colour);
                 }
                 if (selectedValues.size() > 1) {
-                    Double median = ExpressionUtil.median(selectedValues);
+                    double median = ExpressionUtil.median(selectedValues);
                     double p = ColorMap.getPercentage(median, this.min, this.max);
                     colour = AnalysisColours.get().PROFILE.getExpression().getLegend().getMedian();
                     drawRightPin(ctx, p, colour, colour);

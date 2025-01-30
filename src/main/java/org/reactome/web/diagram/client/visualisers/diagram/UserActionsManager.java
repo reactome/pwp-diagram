@@ -91,7 +91,7 @@ class UserActionsManager implements MouseActionsHandlers {
         DiagramObject item = hovered != null ? hovered.getHoveredObject() : null;
         GraphObject toOpen = item != null ? item.getGraphObject() : null;
         if (toOpen instanceof GraphPathway) {
-            handler.loadDiagram(toOpen.getDbId().toString());
+            handler.loadDiagram(toOpen.getStId() != null ? toOpen.getStId() : toOpen.getDbId().toString());
         }
     }
 
@@ -195,7 +195,7 @@ class UserActionsManager implements MouseActionsHandlers {
                 doubleTapTimer.cancel();                          // Double tap
                 GraphObject toOpen = item != null ? item.getGraphObject() : null;
                 if (toOpen instanceof GraphPathway) {
-                    handler.loadDiagram(toOpen.getDbId().toString());
+                    handler.loadDiagram(toOpen.getStId() != null ? toOpen.getStId() : toOpen.getDbId().toString());
                 } else if (interactor != null) {
                     handler.setSelection(false, true);
                 }

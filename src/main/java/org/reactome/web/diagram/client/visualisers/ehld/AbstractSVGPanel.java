@@ -80,7 +80,7 @@ public abstract class AbstractSVGPanel extends AbsolutePanel {
     }
 
     public void showExportDialog(final Context context, final String selected, final String flagged) {
-        if(svg != null) {
+        if (svg != null) {
             OMSVGSVGElement auxSVG = (OMSVGSVGElement) svg.cloneNode(true);
             auxSVG.removeAttribute("viewBox");
             Image snapshot = new Image();
@@ -99,7 +99,7 @@ public abstract class AbstractSVGPanel extends AbsolutePanel {
         setWidth(width + "px");
         setHeight(height + "px");
         //Set the size of the SVG element itself
-        if(svg != null) {
+        if (svg != null) {
             svg.setWidth(Style.Unit.PX, width);
             svg.setHeight(Style.Unit.PX, height);
         }
@@ -109,31 +109,31 @@ public abstract class AbstractSVGPanel extends AbsolutePanel {
         String elementId = element.getId();
         String stId = SVGUtil.keepStableId(elementId);
         SVGEntity entity = entities.get(stId);
-        if(entity == null) {
+        if (entity == null) {
             entity = new SVGEntity(stId);
             entities.put(stId, entity);
         }
 
-        if(elementId.startsWith(REGION)) {
+        if (elementId.startsWith(REGION)) {
             entity.setRegion(element);
             //Check if there is an analysis info box and add it in the entity
             OMElement info = getAnalysisInfo(element);
-            if(info != null) {
+            if (info != null) {
                 entity.setAnalysisInfo(info);
                 entity.setAnalysisText(getAnalysisText(info));
                 info.getElement().setId(ANALYSIS_INFO + "-" + stId);
             }
-        } else if(elementId.startsWith(OVERLAY)) {
+        } else if (elementId.startsWith(OVERLAY)) {
             entity.setOverlay(element);
         }
         return entity;
     }
 
-    protected OMSVGMatrix calculateFitAll(final float frame){
+    protected OMSVGMatrix calculateFitAll(final float frame) {
         return calculateFitAll(frame, getOffsetWidth(), getOffsetHeight());
     }
 
-    protected OMSVGMatrix calculateFitAll(final float frame, final int width, final int height){
+    protected OMSVGMatrix calculateFitAll(final float frame, final int width, final int height) {
         OMSVGRect bb = svg.createSVGRect();
         // Add a frame around the image
         bb.setX(initialBB.getX() - frame);
@@ -143,34 +143,35 @@ public abstract class AbstractSVGPanel extends AbsolutePanel {
 
         float rWidth = width / bb.getWidth();
         float rHeight = height / bb.getHeight();
-        float zoom = (rWidth < rHeight) ? rWidth : rHeight;
+        float zoom = Math.min(rWidth, rHeight);
 
         float vpCX = width * 0.5f;
         float vpCY = height * 0.5f;
 
-        float newCX = bb.getX() + (bb.getWidth()  * 0.5f);
+        float newCX = bb.getX() + (bb.getWidth() * 0.5f);
         float newCY = bb.getY() + (bb.getHeight() * 0.5f);
 
-        float corX = vpCX/zoom - newCX;
-        float corY = vpCY/zoom - newCY;
+        float corX = vpCX / zoom - newCX;
+        float corY = vpCY / zoom - newCY;
         return svg.createSVGMatrix().scale(zoom).translate(corX, corY);
     }
 
     protected OMSVGPoint getCentrePoint() {
-        return getTranslatedPoint(getOffsetWidth()/2, getOffsetHeight()/2);
+        return getTranslatedPoint(getOffsetWidth() / 2, getOffsetHeight() / 2);
     }
 
     protected OMSVGMatrix getInitialCTM() {
         return svg.createSVGMatrix(1, 0, 0, 1, 0, 0);
     }
 
-    protected OMSVGPoint getTranslatedPoint(MouseEvent event) {
+    protected OMSVGPoint getTranslatedPoint(MouseEvent<?> event) {
         return getTranslatedPoint(MousePosition.getX(event), MousePosition.getY(event));
     }
 
     protected OMSVGPoint getTranslatedPoint(int x, int y) {
         OMSVGPoint p = svg.createSVGPoint();
-        p.setX(x); p.setY(y);
+        p.setX(x);
+        p.setY(y);
         return p.matrixTransform(ctm.inverse());
     }
 
@@ -179,7 +180,7 @@ public abstract class AbstractSVGPanel extends AbsolutePanel {
         List<OMSVGElement> svgLayers = new ArrayList<>();
         OMNodeList<OMNode> cNodes = svg.getChildNodes();
         for (OMNode node : cNodes) {
-            if(node instanceof OMSVGGElement) {
+            if (node instanceof OMSVGGElement) {
                 svgLayers.add((OMSVGGElement) node);
             }
         }
@@ -187,9 +188,9 @@ public abstract class AbstractSVGPanel extends AbsolutePanel {
     }
 
     protected String hex2Rgb(String colorStr, float alpha) {
-        int r = Integer.valueOf( colorStr.substring( 1, 3 ), 16 );
-        int g = Integer.valueOf( colorStr.substring( 3, 5 ), 16 );
-        int b = Integer.valueOf( colorStr.substring( 5, 7 ), 16 );
+        int r = Integer.valueOf(colorStr.substring(1, 3), 16);
+        int g = Integer.valueOf(colorStr.substring(3, 5), 16);
+        int b = Integer.valueOf(colorStr.substring(5, 7), 16);
         float a = alpha >= 0 && alpha <= 1 ? alpha : 1.0f;
         return "rgba(" + r + "," + g + "," + b + "," + NumberFormat.getFormat("#.#").format(a) + ")";
     }
@@ -213,7 +214,7 @@ public abstract class AbstractSVGPanel extends AbsolutePanel {
         Iterator<OMNode> it = root.getChildNodes().iterator();
         while (it.hasNext()) {
             OMNode c = it.next();
-            if(c instanceof OMElement) {
+            if (c instanceof OMElement) {
                 OMElement el = (OMElement) c;
                 el.removeAttribute(attribute);
                 removeAttributeFromChildren(c, attribute);
@@ -221,7 +222,7 @@ public abstract class AbstractSVGPanel extends AbsolutePanel {
         }
     }
 
-    protected List<OMElement> getAllTextElementsFrom(final OMNode root){
+    protected List<OMElement> getAllTextElementsFrom(final OMNode root) {
         List<OMElement> rtn = new LinkedList<>();
         OMElement el = (OMElement) root;
         OMNodeList<OMElement> textEl = el.getElementsByTagName(SVGConstants.SVG_TEXT_TAG);
@@ -231,12 +232,12 @@ public abstract class AbstractSVGPanel extends AbsolutePanel {
         return rtn;
     }
 
-    protected boolean removeLogoFrom(final OMNode root){
+    protected boolean removeLogoFrom(final OMNode root) {
         boolean rtn = false;
         OMElement el = (OMElement) root;
         OMNodeList<OMElement> targetEl = el.getElementsByTagName(SVGConstants.SVG_G_TAG);
         for (OMElement element : targetEl) {
-            if(element.getId().toLowerCase().startsWith("logo")) {
+            if (element.getId().toLowerCase().startsWith("logo")) {
                 element.getElement().removeFromParent();
                 rtn = true;
             }
@@ -255,10 +256,10 @@ public abstract class AbstractSVGPanel extends AbsolutePanel {
         return rtn;
     }
 
-    private OMElement getAnalysisInfo(OMElement element){
+    private OMElement getAnalysisInfo(OMElement element) {
         OMElement rtn = null;
         OMNodeList<OMElement> els = element.getElementsByTagName(SVGConstants.SVG_G_TAG);
-        if(els!=null) {
+        if (els != null) {
             for (OMElement target : els) {
                 if (target.getId().startsWith(ANALYSIS_INFO)) {
                     rtn = target;
@@ -269,10 +270,10 @@ public abstract class AbstractSVGPanel extends AbsolutePanel {
         return rtn;
     }
 
-    private OMElement getAnalysisText(OMElement element){
+    private OMElement getAnalysisText(OMElement element) {
         OMElement rtn = null;
-        List<OMElement> textElements = getAllTextElementsFrom((OMNode) element);
-        if(textElements != null && textElements.size()>0) {
+        List<OMElement> textElements = getAllTextElementsFrom(element);
+        if (textElements != null && textElements.size() > 0) {
             rtn = textElements.get(0);
         }
         return rtn;

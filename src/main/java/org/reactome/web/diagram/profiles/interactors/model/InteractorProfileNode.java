@@ -15,6 +15,8 @@ public interface InteractorProfileNode extends Serializable {
 
     String getLighterStroke();
 
+    String getDarkerStroke();
+
     String getText();
 
     String getLighterText();

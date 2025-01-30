@@ -144,7 +144,7 @@ public class Section extends Composite implements ClickHandler, ScrollHandler {
             for(int c=1; c<row.size(); c++){
                 String cell = row.get(c);
                 if(!cell.isEmpty() ){
-                    Double value = Double.parseDouble(row.get(c));
+                    double value = Double.parseDouble(row.get(c));
                     String colour = AnalysisColours.get().expressionGradient.getColor(value, min, max);
                     dataTable.getCellFormatter().getElement(r,c).getStyle().setBackgroundColor(colour);
                     dataTable.getCellFormatter().getElement(r,c).getStyle().setColor("#000000");

@@ -1,20 +1,23 @@
 package org.reactome.web.diagram.renderers.layout.abs;
 
 import com.google.gwt.canvas.dom.client.Context2d;
-import org.reactome.web.diagram.data.layout.*;
-import org.reactome.web.diagram.data.layout.impl.BoundFactory;
+import org.reactome.web.diagram.data.layout.Compartment;
+import org.reactome.web.diagram.data.layout.Coordinate;
+import org.reactome.web.diagram.data.layout.DiagramObject;
+import org.reactome.web.diagram.data.layout.NodeProperties;
 import org.reactome.web.diagram.data.layout.impl.CoordinateFactory;
 import org.reactome.web.diagram.data.layout.impl.NodePropertiesFactory;
 import org.reactome.web.diagram.profiles.diagram.DiagramColours;
 import org.reactome.web.diagram.renderers.common.ColourProfileType;
 import org.reactome.web.diagram.renderers.common.RendererProperties;
+import org.reactome.web.diagram.renderers.helper.RoundedRectangleHelper;
 import org.reactome.web.diagram.util.AdvancedContext2d;
 
 /**
  * @author Antonio Fabregat <fabregat@ebi.ac.uk>
  */
 public abstract class CompartmentAbstractRenderer extends AbstractRenderer {
-    private static final Coordinate GWU_CORRECTION = CoordinateFactory.get(14,18);
+    private static final Coordinate GWU_CORRECTION = CoordinateFactory.get(14, 18);
 
     @Override
     public void drawText(AdvancedContext2d ctx, DiagramObject item, Double factor, Coordinate offset) {
@@ -26,19 +29,24 @@ public abstract class CompartmentAbstractRenderer extends AbstractRenderer {
 
     @Override
     public void draw(AdvancedContext2d ctx, DiagramObject item, Double factor, Coordinate offset) {
-        if(!isVisible(item)) return;
+        if (!isVisible(item)) return;
+
 
         Compartment compartment = (Compartment) item;
         NodeProperties prop = NodePropertiesFactory.transform(compartment.getProp(), factor, offset);
-        ctx.beginPath();
-        ctx.roundedRectangle(prop.getX(), prop.getY(), prop.getWidth(), prop.getHeight(), RendererProperties.ROUND_RECT_ARC_WIDTH);
+
+        RoundedRectangleHelper helper = new RoundedRectangleHelper(prop).setArc(3 * RendererProperties.ROUND_RECT_ARC_WIDTH);
+        helper.trace(ctx);
         ctx.stroke();
         ctx.fill();
 
         if (isInsetsNeeded(compartment)) {
-            Bound insets = BoundFactory.transform(compartment.getInsets(), factor, offset);
+            NodeProperties insets = new NodeProperties.Builder()
+                    .copy(compartment.getInsets())
+                    .transform(factor, offset).build();
+
             ctx.beginPath();
-            ctx.roundedRectangle(insets.getX(), insets.getY(), insets.getWidth(), insets.getHeight(), RendererProperties.ROUND_RECT_ARC_WIDTH);
+            new RoundedRectangleHelper(insets, 0d, 3 * RendererProperties.ROUND_RECT_ARC_WIDTH - (insets.getX() - prop.getX())).trace(ctx);
             ctx.stroke();
             ctx.fill();
         }
@@ -65,7 +73,7 @@ public abstract class CompartmentAbstractRenderer extends AbstractRenderer {
     }
 
     @Override
-    public void setTextProperties(AdvancedContext2d ctx, ColourProfileType type){
+    public void setTextProperties(AdvancedContext2d ctx, ColourProfileType type) {
         ctx.setFont(RendererProperties.getFont(RendererProperties.WIDGET_FONT_SIZE));
         ctx.setTextAlign(Context2d.TextAlign.LEFT);
         ctx.setTextBaseline(Context2d.TextBaseline.TOP);

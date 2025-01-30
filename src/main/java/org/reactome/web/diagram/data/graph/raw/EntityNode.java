@@ -16,4 +16,6 @@ public interface EntityNode extends GraphNode {
     List<String> getGeneNames();
 
     List<Long> getDiagramIds();
+
+    String getReferenceType();
 }

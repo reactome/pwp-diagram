@@ -14,12 +14,13 @@ import org.reactome.web.diagram.search.results.ResultsPanel;
  * @author Antonio Fabregat <fabregat@ebi.ac.uk>
  */
 public class SearchPanel extends FlowPanel {
+    public final SearchLauncher launcher;
 
     public SearchPanel(EventBus eventBus) {
         //Setting the legend style
         setStyleName(RESOURCES.getCSS().searchPanel());
 
-        final SearchLauncher launcher = new SearchLauncher(eventBus);
+        this.launcher = new SearchLauncher(eventBus);
         this.add(launcher);
 
         AutoCompletePanel autoCompletePanel = new AutoCompletePanel();
@@ -54,6 +55,7 @@ public class SearchPanel extends FlowPanel {
 
 
     public static SearchPanelResources RESOURCES;
+
     static {
         RESOURCES = GWT.create(SearchPanelResources.class);
         RESOURCES.getCSS().ensureInjected();

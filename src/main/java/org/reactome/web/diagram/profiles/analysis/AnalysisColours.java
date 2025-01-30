@@ -78,7 +78,7 @@ public class AnalysisColours implements AnalysisProfileChangedHandler {
             Cookies.removeCookie(PROFILE_COOKIE);
         } else {
             Date expires = new Date();
-            Long nowLong = expires.getTime();
+            long nowLong = expires.getTime();
             nowLong = nowLong + (1000 * 60 * 60 * 24 * 365L); //One year time
             expires.setTime(nowLong);
             Cookies.setCookie(PROFILE_COOKIE, analysisProfile.getName(), expires);

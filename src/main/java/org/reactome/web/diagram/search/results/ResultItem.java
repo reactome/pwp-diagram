@@ -50,7 +50,7 @@ public class ResultItem implements SearchResultObject, Entry {
         databaseName = entry.getDatabaseName();
         referenceURL = entry.getReferenceURL();
 
-        // Note: All interactors coming from the server are from IntAct/Static
+        // Note: All interactors coming from the server are from IntAct
         if (exactType.equalsIgnoreCase("Interactor")) {
             resource = DiagramFactory.INTERACTORS_INITIAL_RESOURCE_NAME;
         }

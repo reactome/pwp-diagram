@@ -35,9 +35,16 @@ import org.reactome.web.diagram.legends.*;
 import org.reactome.web.diagram.messages.AnalysisMessage;
 import org.reactome.web.diagram.messages.ErrorMessage;
 import org.reactome.web.diagram.messages.LoadingMessage;
+import org.reactome.web.pwp.model.client.classes.DatabaseIdentifier;
+import org.reactome.web.pwp.model.client.classes.DatabaseObject;
+import org.reactome.web.pwp.model.client.classes.Pathway;
+import org.reactome.web.pwp.model.client.common.ContentClientHandler;
+import org.reactome.web.pwp.model.client.content.ContentClient;
+import org.reactome.web.pwp.model.client.content.ContentClientError;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static org.reactome.web.diagram.data.content.Content.Type.DIAGRAM;
 import static org.reactome.web.diagram.data.content.Content.Type.SVG;
@@ -48,12 +55,12 @@ import static org.reactome.web.diagram.data.content.Content.Type.SVG;
 public class ViewerContainer extends AbsolutePanel implements RequiresResize,
         CanvasExportRequestedHandler, ControlActionHandler,
         DiagramObjectsFlaggedHandler, DiagramObjectsFlagResetHandler, DiagramObjectsFlagRequestHandler,
-        GraphObjectSelectedHandler {
+        GraphObjectSelectedHandler, OptionalWidget.Handler {
 
     protected EventBus eventBus;
     protected Context context;
 
-	protected Map<Content.Type, Visualiser> visualisers;
+    protected Map<Content.Type, Visualiser> visualisers;
     protected Visualiser activeVisualiser;
 
     protected LeftTopLauncherPanel leftTopLauncher;
@@ -62,6 +69,7 @@ public class ViewerContainer extends AbsolutePanel implements RequiresResize,
     protected InteractorsControl interactorsControl;
     protected HideableContainerPanel hideableContainerPanel;
     private Anchor watermark;
+    private Anchor pharmGKB;
 
     public static Timer windowScrolling = new Timer() {
         @Override
@@ -70,6 +78,7 @@ public class ViewerContainer extends AbsolutePanel implements RequiresResize,
 
     protected LeftTopLauncherPanel leftTopLauncherPanel;
     protected RightTopLauncherPanel rightTopLauncherPanel;
+    protected NavigationControlPanel navigationPanel;
 
     public ViewerContainer(EventBus eventBus) {
         this.getElement().setClassName("pwp-ViewerContainer");
@@ -91,7 +100,7 @@ public class ViewerContainer extends AbsolutePanel implements RequiresResize,
         visualisers.put(DIAGRAM, new DiagramVisualiser(eventBus));
         visualisers.put(SVG, new SVGVisualiser(eventBus));
 
-        for (Visualiser vis: visualisers.values()) {
+        for (Visualiser vis : visualisers.values()) {
             this.add(vis);
         }
 
@@ -108,18 +117,26 @@ public class ViewerContainer extends AbsolutePanel implements RequiresResize,
         //Watermark
         this.addWatermark();
 
+        //collaborative PharmGKB
+        this.addPharmGKBLogo();
+
         //Right container
         this.add(rightContainerPanel);
 
         //Control panel
-        this.add(new NavigationControlPanel(eventBus));
+        if (OptionalWidget.NAVIGATION.isVisible()) {
+            navigationPanel = new NavigationControlPanel(eventBus);
+            this.add(navigationPanel);
+        }
 
         //Top Controls container
         TopContainerPanel topContainerPanel = new TopContainerPanel();
         this.add(topContainerPanel);
 
         //Bottom Controls container
-        this.add(bottomContainerPanel);
+        if (OptionalWidget.BOTTOM_POP_UP.isVisible()) {
+            this.add(bottomContainerPanel);
+        }
 
         //Panel notifying that a filter is present and has affected the display;
         topContainerPanel.add(new FilterAlertControl(eventBus));
@@ -142,7 +159,7 @@ public class ViewerContainer extends AbsolutePanel implements RequiresResize,
         bottomContainerPanel.add(interactorsControl = new InteractorsControl(eventBus));
 
         //Info panel
-        if (DiagramFactory.SHOW_INFO) {
+        if (OptionalWidget.INFO.isVisible()) {
             this.add(new DiagramInfo(eventBus));
         }
 
@@ -154,14 +171,16 @@ public class ViewerContainer extends AbsolutePanel implements RequiresResize,
         this.add(new RightTopLauncherPanel(eventBus));
 
         //Settings panel
-        rightContainerPanel.add(hideableContainerPanel = new HideableContainerPanel(eventBus));
+        if (OptionalWidget.COLLAPSABLE_MENU.isVisible()) {
+            rightContainerPanel.add(hideableContainerPanel = new HideableContainerPanel(eventBus));
+        }
 
     }
 
     protected void addExternalVisualisers() {/* Nothing here */}
 
 
-	public boolean highlightGraphObject(GraphObject graphObject, boolean notify) {
+    public boolean highlightGraphObject(GraphObject graphObject, boolean notify) {
         return activeVisualiser.highlightGraphObject(graphObject, notify);
     }
 
@@ -171,6 +190,7 @@ public class ViewerContainer extends AbsolutePanel implements RequiresResize,
 
     public void contentLoaded(final Context context) {
         this.context = context;
+        setPharmGKBLogo(context);
         setWatermarkVisible(true);
         setWatermarkURL(context, null);
         setActiveVisualiser(context);
@@ -182,6 +202,7 @@ public class ViewerContainer extends AbsolutePanel implements RequiresResize,
         activeVisualiser.resetHighlight(false);
         activeVisualiser.contentRequested();
         setWatermarkVisible(false);
+        setPharmGKBVisible(false);
         context = null;
     }
 
@@ -197,11 +218,11 @@ public class ViewerContainer extends AbsolutePanel implements RequiresResize,
         activeVisualiser.interactorsFiltered();
     }
 
-    public void interactorsLayoutUpdated(){
+    public void interactorsLayoutUpdated() {
         activeVisualiser.interactorsLayoutUpdated();
     }
 
-    public void interactorsLoaded(){
+    public void interactorsLoaded() {
         activeVisualiser.interactorsLoaded();
     }
 
@@ -238,14 +259,30 @@ public class ViewerContainer extends AbsolutePanel implements RequiresResize,
     @Override
     public void onControlAction(ControlActionEvent event) {
         switch (event.getAction()) {
-            case FIT_ALL:       activeVisualiser.fitDiagram(true);  break;
-            case ZOOM_IN:       activeVisualiser.zoomIn();                    break;
-            case ZOOM_OUT:      activeVisualiser.zoomOut();                   break;
-            case UP:            activeVisualiser.padding(0, 10);     break;
-            case RIGHT:         activeVisualiser.padding(-10, 0);    break;
-            case DOWN:          activeVisualiser.padding(0, -10);    break;
-            case LEFT:          activeVisualiser.padding(10, 0);     break;
-            case FIREWORKS:     overview();                                   break;
+            case FIT_ALL:
+                activeVisualiser.fitDiagram(true);
+                break;
+            case ZOOM_IN:
+                activeVisualiser.zoomIn();
+                break;
+            case ZOOM_OUT:
+                activeVisualiser.zoomOut();
+                break;
+            case UP:
+                activeVisualiser.padding(0, 10);
+                break;
+            case RIGHT:
+                activeVisualiser.padding(-10, 0);
+                break;
+            case DOWN:
+                activeVisualiser.padding(0, -10);
+                break;
+            case LEFT:
+                activeVisualiser.padding(10, 0);
+                break;
+            case FIREWORKS:
+                overview();
+                break;
         }
     }
 
@@ -263,7 +300,7 @@ public class ViewerContainer extends AbsolutePanel implements RequiresResize,
         //Deffer the resizing of the rest
         Scheduler.get().scheduleDeferred(() -> {
             visualisers.values().stream()
-                    .filter(v -> v!=activeVisualiser)
+                    .filter(v -> v != activeVisualiser)
                     .forEach(v -> v.setSize(width, height));
         });
     }
@@ -304,7 +341,7 @@ public class ViewerContainer extends AbsolutePanel implements RequiresResize,
     }
 
     private void setWatermarkURL(Context context, GraphObject selection) {
-        if(watermark!=null) {
+        if (watermark != null) {
             StringBuilder href = new StringBuilder(DiagramFactory.WATERMARK_BASE_URL);
             String pathwayStId = context == null ? null : context.getContent().getStableId();
             if (pathwayStId != null && !pathwayStId.isEmpty()) {
@@ -326,14 +363,26 @@ public class ViewerContainer extends AbsolutePanel implements RequiresResize,
         }
     }
 
-    private void setWatermarkVisible(boolean visible){
-        if(watermark!=null) {
+    private void setWatermarkVisible(boolean visible) {
+        if (watermark != null) {
             watermark.setVisible(visible);
         }
     }
 
-    private void addWatermark(){
-        if(DiagramFactory.WATERMARK) {
+    private void setPharmGKBVisible(boolean visible) {
+        if (pharmGKB != null) {
+            pharmGKB.setVisible(visible);
+        }
+    }
+
+    private void adjustPharmGKBPosition() {
+        if (pharmGKB != null) {
+            pharmGKB.setStyleName(RESOURCES.getCSS().pharmGKBAdjustPosition());
+        }
+    }
+
+    private void addWatermark() {
+        if (DiagramFactory.WATERMARK) {
             Image img = new Image(RESOURCES.logo());
             SafeHtml image = SafeHtmlUtils.fromSafeConstant(img.toString());
             watermark = new Anchor(image, DiagramFactory.WATERMARK_BASE_URL, "_blank");
@@ -344,9 +393,21 @@ public class ViewerContainer extends AbsolutePanel implements RequiresResize,
         }
     }
 
+    private void addPharmGKBLogo() {
+        if (DiagramFactory.PHARMGKB) {
+            Image img = new Image(RESOURCES.pharmGKB_logo());
+            SafeHtml image = SafeHtmlUtils.fromSafeConstant(img.toString());
+            pharmGKB = new Anchor(image, DiagramFactory.PHARMGKB_BASE_URL, "_blank");
+            pharmGKB.getElement().setId("pharmGKB");
+            pharmGKB.setStyleName(RESOURCES.getCSS().pharmGKB());
+            pharmGKB.setVisible(false);
+            add(pharmGKB);
+        }
+    }
+
     private void initHandlers() {
         //Only add the window scroll handler if it makes sense
-        if(DiagramFactory.SCROLL_SENSITIVITY > 0) {
+        if (DiagramFactory.SCROLL_SENSITIVITY > 0) {
             Window.addWindowScrollHandler(event -> windowScrolling.schedule(DiagramFactory.SCROLL_SENSITIVITY));
         }
 
@@ -361,16 +422,16 @@ public class ViewerContainer extends AbsolutePanel implements RequiresResize,
         eventBus.addHandler(ControlActionEvent.TYPE, this);
     }
 
-    private void overview(){
+    private void overview() {
         eventBus.fireEventFromSource(new FireworksOpenedEvent(context.getContent().getDbId()), this);
     }
 
-    protected void setActiveVisualiser(Context context){
-        if(context != null) {
+    protected void setActiveVisualiser(Context context) {
+        if (context != null) {
             Visualiser visualiser = visualisers.get(context.getContent().getType());
             if (visualiser != null && activeVisualiser != visualiser) {
                 for (Visualiser vis : visualisers.values()) {
-                    if(vis == visualiser) {
+                    if (vis == visualiser) {
                         vis.asWidget().setVisible(true);
                     } else {
                         vis.asWidget().setVisible(false);
@@ -381,9 +442,42 @@ public class ViewerContainer extends AbsolutePanel implements RequiresResize,
         }
     }
 
-    public Context getContext() {
-    	return this.context;
+    public void setPharmGKBLogo(Context context) {
+        if (pharmGKB != null) {
+            String stId = context == null ? null : context.getContent().getStableId();
+            ContentClient.query(stId, new ContentClientHandler.ObjectLoaded<DatabaseObject>() {
+                @Override
+                public void onObjectLoaded(DatabaseObject databaseObject) {
+                    if (databaseObject instanceof Pathway) {
+                        Pathway pathway = (Pathway) databaseObject;
+                        if(!pathway.getCrossReference().isEmpty()){
+                            setPharmGKBVisible(pathway.getCrossReference().stream().filter(Objects::nonNull).anyMatch(id -> id.getDatabaseName().contains(DiagramFactory.PHARMGKB_RESOURCE)));
+                            for(DatabaseIdentifier databaseIdentifier: pathway.getCrossReference()){
+                                if(databaseIdentifier.getDatabaseName().equalsIgnoreCase(DiagramFactory.PHARMGKB_RESOURCE)){
+                                    pharmGKB.setHref(databaseIdentifier.getUrl());
+                                }
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onContentClientException(Type type, String s) {
+                    // nothing here
+                }
+
+                @Override
+                public void onContentClientError(ContentClientError contentClientError) {
+                    //nothing here
+                }
+            });
+        }
     }
+
+    public Context getContext() {
+        return this.context;
+    }
+
 
     public static Resources RESOURCES;
 
@@ -398,6 +492,9 @@ public class ViewerContainer extends AbsolutePanel implements RequiresResize,
 
         @Source("images/watermark.png")
         ImageResource logo();
+
+        @Source("images/pharmGKB.png")
+        ImageResource pharmGKB_logo();
     }
 
     @CssResource.ImportedWithPrefix("diagram-ViewerContainer")
@@ -406,5 +503,8 @@ public class ViewerContainer extends AbsolutePanel implements RequiresResize,
 
         String watermark();
 
+        String pharmGKB();
+
+        String pharmGKBAdjustPosition();
     }
 }

@@ -5,6 +5,7 @@ import org.reactome.web.diagram.client.DiagramFactory;
 import org.reactome.web.diagram.data.layout.Diagram;
 import org.reactome.web.diagram.data.layout.factory.DiagramObjectException;
 import org.reactome.web.diagram.data.layout.factory.DiagramObjectsFactory;
+import org.reactome.web.pwp.model.client.util.ResponseUtils;
 
 /**
  * @author Antonio Fabregat <fabregat@ebi.ac.uk>
@@ -45,20 +46,18 @@ public class LayoutLoader implements RequestCallback {
 
     @Override
     public void onResponseReceived(Request request, Response response) {
-        switch (response.getStatusCode()) {
-            case Response.SC_OK:
-                try {
-                    long start = System.currentTimeMillis();
-                    //Creates the rawmodel
-                    Diagram diagram = DiagramObjectsFactory.getModelObject(Diagram.class, response.getText());
-                    long time = System.currentTimeMillis() - start;
-                    this.handler.layoutLoaded(diagram, time);
-                } catch (DiagramObjectException e) {
-                    this.handler.onLayoutLoaderError(e);
-                }
-                break;
-            default:
-                this.handler.onLayoutLoaderError(new Exception(response.getStatusText()));
+        if (response.getStatusCode() == Response.SC_OK) {
+            try {
+                long start = System.currentTimeMillis();
+                //Creates the rawmodel
+                Diagram diagram = DiagramObjectsFactory.getModelObject(Diagram.class, response.getText());
+                long time = System.currentTimeMillis() - start;
+                this.handler.layoutLoaded(diagram, time);
+            } catch (DiagramObjectException e) {
+                this.handler.onLayoutLoaderError(e);
+            }
+        } else {
+            this.handler.onLayoutLoaderError(new Exception(ResponseUtils.getStatusText(response.getStatusCode())));
         }
     }
 

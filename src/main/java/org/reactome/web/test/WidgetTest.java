@@ -5,14 +5,12 @@ import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.*;
 import org.reactome.web.analysis.client.filter.ResultFilter;
 import org.reactome.web.diagram.client.DiagramFactory;
 import org.reactome.web.diagram.client.DiagramViewer;
-import org.reactome.web.diagram.events.ContentLoadedEvent;
-import org.reactome.web.diagram.handlers.ContentLoadedHandler;
 import org.reactome.web.diagram.util.Console;
 
 /**
@@ -21,15 +19,17 @@ import org.reactome.web.diagram.util.Console;
 public class WidgetTest implements EntryPoint {
 
     private final DiagramViewer diagram;
-    private static String currentPathway = "R-HSA-8878159";//R-HSA-109582";
-//    private static String currentPathway = "R-HSA-5693567"; //Big one with plenty of overlap
-    private static String currentAnalysis = "MjAxNjA5MzAwNTU3MjdfMg%3D%3D";
+    //    private static String currentPathway = "R-HSA-8878159";//R-HSA-109582";
+    //    private static String currentPathway = "R-HSA-5693567"; //Big one with plenty of overlap
+    //    private static String currentPathway = "R-HSA-9006115"; //Complex interactors
+    private static String currentPathway = "R-HSA-9725554"; //Cell
+    private static String currentAnalysis = "MjAyMzA2MTIxMzE4NDRfNA%3D%3D"; // Cell expression
 
     private TextBox pathwayTB;
     private TextBox analysisTokenTB;
 
-    private static ResultFilter filterTotal = new ResultFilter("TOTAL", null, true, null, null, null );
-    private static ResultFilter filter = new ResultFilter("TOTAL", null, true, 1, 10, null );
+    private static final ResultFilter filterTotal = new ResultFilter("TOTAL", null, true, null, null, null);
+    private static final ResultFilter filter = new ResultFilter("TOTAL", null, true, 1, 10, null);
 
 
     public WidgetTest() {
@@ -42,29 +42,20 @@ public class WidgetTest implements EntryPoint {
 
     @Override
     public void onModuleLoad() {
-        Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
-            @Override
-            public void execute() {
-                initialise();                 // For normal testing
+        Scheduler.get().scheduleDeferred(() -> {
+            initialise();                 // For normal testing
 //                initialiseInScrollablePage();   // For testing in a long page
-                Console.info("");
-                Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
-                    @Override
-                    public void execute() {
-                        diagram.loadDiagram(currentPathway);
-                        if (pathwayTB!=null) {
-                            pathwayTB.setValue(currentPathway);
-                        }
-                    }
-                });
-                diagram.addDiagramLoadedHandler(new ContentLoadedHandler() {
-                    @Override
-                    public void onContentLoaded(ContentLoadedEvent event) {
-                        diagram.selectItem("8951430");
+            Console.info("");
+            Scheduler.get().scheduleDeferred(() -> {
+                diagram.loadDiagram(currentPathway);
+                if (pathwayTB != null) {
+                    pathwayTB.setValue(currentPathway);
+                }
+            });
+            diagram.addDiagramLoadedHandler(event -> {
+                diagram.selectItem("8951430");
 //                        diagram.flagItems("R-HSA-179837", true);
-                    }
-                });
-            }
+            });
         });
     }
 
@@ -72,6 +63,7 @@ public class WidgetTest implements EntryPoint {
         SplitLayoutPanel slp = new SplitLayoutPanel(10);
         slp.addEast(getDemoLeftPanel(), 83);
         slp.addNorth(getDemoTopPanel(), 25);
+//        slp.addNorth(getTourPanel(), 25);
 //        slp.addNorth(getDiseasePanel(), 50);
         slp.add(diagram);
         RootLayoutPanel.get().add(slp);
@@ -89,36 +81,21 @@ public class WidgetTest implements EntryPoint {
         container.add(diagramContainer);
     }
 
-    Button getSelectionButton(final String stId, String title){
-        Button button = new Button(stId,  new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.selectItem(stId);
-            }
-        });
-        button.addMouseOverHandler(new MouseOverHandler() {
-            @Override
-            public void onMouseOver(MouseOverEvent event) {
-                diagram.highlightItem(stId);
-            }
-        });
-        button.addMouseOutHandler(new MouseOutHandler() {
-            @Override
-            public void onMouseOut(MouseOutEvent event) {
-                diagram.resetHighlight();
-            }
-        });
+    Button getSelectionButton(final String stId, String title) {
+        Button button = new Button(stId, (ClickHandler) event -> diagram.selectItem(stId));
+        button.addMouseOverHandler(event -> diagram.highlightItem(stId));
+        button.addMouseOutHandler(event -> diagram.resetHighlight());
         button.setTitle(title);
         return button;
     }
 
-    private Widget getDemoLeftPanel(){
+    private Widget getDemoLeftPanel() {
         FlowPanel fp = new FlowPanel();
 
         fp.add(new Label("R-HSA-1181150"));
         fp.add(new Label("Reactions"));
-        fp.add(getSelectionButton("R-HSA-75153", "Cleavage of NODAL proprotein"));
-        fp.add(getSelectionButton("R-HSA-5357769", "Phospho R-SMAD(SMAD2/3):CO-SMAD(SMAD4):FOXO3 binds FoxO3a-binding elements"));
+        fp.add(getSelectionButton("R-HSA-1181152", "Cleavage of NODAL proprotein"));
+        fp.add(getSelectionButton("R-HSA-1535903", "Phospho R-SMAD(SMAD2/3):CO-SMAD(SMAD4):FOXO3 binds FoxO3a-binding elements"));
 
         fp.add(new Label("--"));
         fp.add(new Label("Sets"));
@@ -146,21 +123,15 @@ public class WidgetTest implements EntryPoint {
         fp.add(new Label(""));
         fp.add(new Label("--"));
         fp.add(new Label("ORA"));
-        fp.add(new Button("ORA 1", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
+        fp.add(new Button("ORA 1", (ClickHandler) event -> {
 //                No interactors: MjAxNzAxMzEwNTEyMDJfMg==
 //                Interactors: MjAxNzAyMDcwOTMwMDVfMw==
-                diagram.setAnalysisToken("MjAxOTAzMjcxMDMxNTZfOA%253D%253D", filterTotal);
-            }
+            diagram.setAnalysisToken("MjAxOTAzMjcxMDMxNTZfOA%253D%253D", filterTotal);
         }));
-        fp.add(new Button("ORA 2", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
+        fp.add(new Button("ORA 2", (ClickHandler) event -> {
 //                No interactors: MjAxNzAxMzEwNTEyMDJfMg==
 //                Interactors: MjAxNzAyMDcwOTMwMDVfMw==
-                diagram.setAnalysisToken("MjAxOTAzMjcxMDMxNTZfOA%253D%253D", filter);
-            }
+            diagram.setAnalysisToken("MjAxOTAzMjcxMDMxNTZfOA%253D%253D", filter);
         }));
 
 
@@ -168,40 +139,27 @@ public class WidgetTest implements EntryPoint {
         fp.add(new Label(""));
         fp.add(new Label("--"));
         fp.add(new Label("Expression"));
-        fp.add(new Button("Exp 1", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.setAnalysisToken("MjAxOTA0MDExMjUxMzhfMTI%253D", filterTotal);
-            }
-        }));
+        fp.add(new Button("Exp 1", (ClickHandler) event -> diagram.setAnalysisToken("MjAxOTA0MDExMjUxMzhfMTI%253D", filterTotal)));
 
-        fp.add(new Button("Exp 2", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.setAnalysisToken("MjAxOTA0MDExMjUxMzhfMTI%253D", filter);
-            }
-        }));
+        fp.add(new Button("Exp 2", (ClickHandler) event -> diagram.setAnalysisToken("MjAxOTA0MDExMjUxMzhfMTI%253D", filter)));
 
         fp.add(getSelectionButton("R-HSA-111465", ""));
 
         return fp;
     }
 
-    Button getLoadButton(final String stId, String title){
+    Button getLoadButton(final String stId, String title) {
         Button button;
-        button = new Button(stId, new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                currentPathway = stId;
-                diagram.loadDiagram(currentPathway);
-                pathwayTB.setValue(currentPathway);
-            }
+        button = new Button(stId, (ClickHandler) event -> {
+            currentPathway = stId;
+            diagram.loadDiagram(currentPathway);
+            pathwayTB.setValue(currentPathway);
         });
         button.setTitle(title);
         return button;
     }
 
-    private Widget getDemoTopPanel(){
+    private Widget getDemoTopPanel() {
         FlowPanel fp = new FlowPanel();
         fp.add(getPathwaySelectionPanel());
         fp.add(getAnalysisSelectionPanel());
@@ -241,12 +199,9 @@ public class WidgetTest implements EntryPoint {
         pathwayTB = new TextBox();
         fp.add(new InlineLabel("Enter a pathway: "));
         fp.add(pathwayTB);
-        fp.add(new Button("GO", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                currentPathway = pathwayTB.getValue();
-                diagram.loadDiagram(currentPathway);
-            }
+        fp.add(new Button("GO", (ClickHandler) event -> {
+            currentPathway = pathwayTB.getValue();
+            diagram.loadDiagram(currentPathway);
         }));
         return fp;
     }
@@ -258,121 +213,33 @@ public class WidgetTest implements EntryPoint {
         analysisTokenTB.setWidth("200px");
         fp.add(new InlineLabel(" Overlay analysis token: "));
         fp.add(analysisTokenTB);
-        fp.add(new Button("GO", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                currentAnalysis = analysisTokenTB.getValue();
-                diagram.setAnalysisToken(currentAnalysis, filterTotal);
-            }
+        fp.add(new Button("GO", (ClickHandler) event -> {
+            currentAnalysis = analysisTokenTB.getValue();
+            diagram.setAnalysisToken(currentAnalysis, filterTotal);
         }));
         return fp;
     }
 
     private Widget getTestPanel() {
         FlowPanel fp = new FlowPanel();
-        fp.add(new Button("R-HSA-1181150", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.loadDiagram("R-HSA-1181150");
-            }
-        }));
-        fp.add(new Button("Apoptosis", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.loadDiagram("R-HSA-109581");
-            }
-        }));
-        fp.add(new Button("R-HSA-71291", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.loadDiagram("R-HSA-71291");
-            }
-        }));
-        fp.add(new Button("Raf/Map", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.loadDiagram("R-HSA-5673001");
-            }
-        }));
-        fp.add(new Button("R-HSA-5637815", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.loadDiagram("R-HSA-5637815");
-            }
-        }));
-        fp.add(new Button("R-HSA-2219530", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.loadDiagram("R-HSA-2219530");
-            }
-        }));
-        fp.add(new Button("R-HSA-1650814", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.loadDiagram("R-HSA-1650814");
-            }
-        }));
-        fp.add(new Button("R-HSA-170834", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.loadDiagram("R-HSA-170834");
-            }
-        }));
-        fp.add(new Button("R-HSA-400253", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.loadDiagram("R-HSA-400253");
-            }
-        }));
-        fp.add(new Button("R-HSA-157579", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.loadDiagram("R-HSA-157579");
-            }
-        }));
-        fp.add(new Button("R-HSA-1474244", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.loadDiagram("R-HSA-1474244");
-            }
-        }));
+        fp.add(new Button("R-HSA-1181150", (ClickHandler) event -> diagram.loadDiagram("R-HSA-1181150")));
+        fp.add(new Button("Apoptosis", (ClickHandler) event -> diagram.loadDiagram("R-HSA-109581")));
+        fp.add(new Button("R-HSA-71291", (ClickHandler) event -> diagram.loadDiagram("R-HSA-71291")));
+        fp.add(new Button("Raf/Map", (ClickHandler) event -> diagram.loadDiagram("R-HSA-5673001")));
+        fp.add(new Button("R-HSA-5637815", (ClickHandler) event -> diagram.loadDiagram("R-HSA-5637815")));
+        fp.add(new Button("R-HSA-2219530", (ClickHandler) event -> diagram.loadDiagram("R-HSA-2219530")));
+        fp.add(new Button("R-HSA-1650814", (ClickHandler) event -> diagram.loadDiagram("R-HSA-1650814")));
+        fp.add(new Button("R-HSA-170834", (ClickHandler) event -> diagram.loadDiagram("R-HSA-170834")));
+        fp.add(new Button("R-HSA-400253", (ClickHandler) event -> diagram.loadDiagram("R-HSA-400253")));
+        fp.add(new Button("R-HSA-157579", (ClickHandler) event -> diagram.loadDiagram("R-HSA-157579")));
+        fp.add(new Button("R-HSA-1474244", (ClickHandler) event -> diagram.loadDiagram("R-HSA-1474244")));
         fp.add(new InlineLabel("      "));
-        fp.add(new Button("R-HSA-162909", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.loadDiagram("R-HSA-162909");
-            }
-        }));
-        fp.add(new Button("R-HSA-5603041", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.loadDiagram("R-HSA-5603041");
-            }
-        }));
-        fp.add(new Button("R-HSA-3642279", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.loadDiagram("R-HSA-3642279");
-            }
-        }));
-        fp.add(new Button("R-HSA-3645790", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.loadDiagram("R-HSA-3645790");
-            }
-        }));
-        fp.add(new Button("R-HSA-73885", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.loadDiagram("R-HSA-73885");
-            }
-        }));
-        fp.add(new Button("R-HSA-1169408", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.loadDiagram("R-HSA-1169408");
-            }
-        }));
+        fp.add(new Button("R-HSA-162909", (ClickHandler) event -> diagram.loadDiagram("R-HSA-162909")));
+        fp.add(new Button("R-HSA-5603041", (ClickHandler) event -> diagram.loadDiagram("R-HSA-5603041")));
+        fp.add(new Button("R-HSA-3642279", (ClickHandler) event -> diagram.loadDiagram("R-HSA-3642279")));
+        fp.add(new Button("R-HSA-3645790", (ClickHandler) event -> diagram.loadDiagram("R-HSA-3645790")));
+        fp.add(new Button("R-HSA-73885", (ClickHandler) event -> diagram.loadDiagram("R-HSA-73885")));
+        fp.add(new Button("R-HSA-1169408", (ClickHandler) event -> diagram.loadDiagram("R-HSA-1169408")));
         return fp;
     }
 
@@ -422,163 +289,48 @@ public class WidgetTest implements EntryPoint {
         return fp;
     }
 
-    private Widget getTourPanel(){
+    private Widget getTourPanel() {
         FlowPanel fp = new FlowPanel();
-        fp.add(new Button("R_111057", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                R_HSA_1181150_tour();
-            }
-        }));
-        fp.add(new Button("R_13", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                R_HSA_71921_tour();
-            }
-        }));
-        fp.add(new Button("A Test 1", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.setAnalysisToken("MjAxNTA1MjgwNTQyNTNfODgz", filterTotal);
-            }
-        }));
-        fp.add(new Button("A Test 2", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.setAnalysisToken("MjAxNTA1MjgwODM1NTRfOTE3", filterTotal);
-            }
-        }));
-        fp.add(new Button("A Test 3", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.setAnalysisToken("MjAxNTA2MDEwOTU4MzdfNTQ0", filterTotal);
-            }
-        }));
-        fp.add(new Button("A Test 4", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.setAnalysisToken("MjAxNTA2MDUwMzM5MzhfOA==", filterTotal);
-            }
-        }));
-        fp.add(new Button("A Test 5", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.setAnalysisToken("MjAxNTA2MDgxMzUxNTZfMzQ2", filterTotal);
-            }
-        }));
-        fp.add(new Button("A Test 6", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.setAnalysisToken("MjAxNTA2MDgxNDA2MjNfMzQ4", filterTotal);
-            }
-        }));
-        fp.add(new Button("A Test 7", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.setAnalysisToken("MjAxNTA2MTExMjUyNTBfMTA5OQ==", filterTotal);
-            }
-        }));
-        fp.add(new Button("A Test 8", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.setAnalysisToken("MjAxNTA2MTExMzM3MDFfMTEzMw==", filterTotal);
-            }
-        }));
-        fp.add(new Button("A Test 9", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.setAnalysisToken("MjAxNTA2MTExNDA2MDVfMTE0Mg==", filterTotal);
-            }
-        }));
-        fp.add(new Button("Exp 1", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.setAnalysisToken("MjAxNjAxMDQwOTM5NDBfMg==", filterTotal);
-            }
-        }));
-        fp.add(new Button("Exp 2", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.setAnalysisToken("MjAxNTA2MDUwNzI1NTZfMzI=", filterTotal);
-            }
-        }));
-        fp.add(new Button("Exp 3", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                diagram.setAnalysisToken("MjAxNTA2MTAxNDQ4MTJfNzk4", filterTotal);
-            }
-        }));
+        fp.add(new Button("R_111057", (ClickHandler) event -> R_HSA_1181150_tour()));
+        fp.add(new Button("R_13", (ClickHandler) event -> R_HSA_71921_tour()));
+        fp.add(new Button("A Test 1", (ClickHandler) event -> diagram.setAnalysisToken("MjAxNTA1MjgwNTQyNTNfODgz", filterTotal)));
+        fp.add(new Button("A Test 2", (ClickHandler) event -> diagram.setAnalysisToken("MjAxNTA1MjgwODM1NTRfOTE3", filterTotal)));
+        fp.add(new Button("A Test 3", (ClickHandler) event -> diagram.setAnalysisToken("MjAxNTA2MDEwOTU4MzdfNTQ0", filterTotal)));
+        fp.add(new Button("A Test 4", (ClickHandler) event -> diagram.setAnalysisToken("MjAxNTA2MDUwMzM5MzhfOA==", filterTotal)));
+        fp.add(new Button("A Test 5", (ClickHandler) event -> diagram.setAnalysisToken("MjAxNTA2MDgxMzUxNTZfMzQ2", filterTotal)));
+        fp.add(new Button("A Test 6", (ClickHandler) event -> diagram.setAnalysisToken("MjAxNTA2MDgxNDA2MjNfMzQ4", filterTotal)));
+        fp.add(new Button("A Test 7", (ClickHandler) event -> diagram.setAnalysisToken("MjAxNTA2MTExMjUyNTBfMTA5OQ==", filterTotal)));
+        fp.add(new Button("A Test 8", (ClickHandler) event -> diagram.setAnalysisToken("MjAxNTA2MTExMzM3MDFfMTEzMw==", filterTotal)));
+        fp.add(new Button("A Test 9", (ClickHandler) event -> diagram.setAnalysisToken("MjAxNTA2MTExNDA2MDVfMTE0Mg==", filterTotal)));
+        fp.add(new Button("Exp 1", (ClickHandler) event -> diagram.setAnalysisToken("MjAxNjAxMDQwOTM5NDBfMg==", filterTotal)));
+        fp.add(new Button("Exp 2", (ClickHandler) event -> diagram.setAnalysisToken("MjAxNTA2MDUwNzI1NTZfMzI=", filterTotal)));
+        fp.add(new Button("Exp 3", (ClickHandler) event -> diagram.setAnalysisToken("MjAxNTA2MTAxNDQ4MTJfNzk4", filterTotal)));
         return fp;
     }
 
-    private void R_HSA_1181150_tour(){
-        diagram.selectItem(1181156L);
-
+    private void schedule(Runnable runnable, int millis) {
         (new Timer() {
             @Override
             public void run() {
-                diagram.selectItem(1181355L);
+                runnable.run();
             }
-        }).schedule(4000);
-
-        (new Timer() {
-            @Override
-            public void run() {
-                diagram.selectItem(1225914L);
-            }
-        }).schedule(8000);
-
-        (new Timer() {
-            @Override
-            public void run() {
-                diagram.selectItem(1181156L);
-            }
-        }).schedule(12000);
-
-        (new Timer() {
-            @Override
-            public void run() {
-                diagram.selectItem(173511L);
-            }
-        }).schedule(16000);
-
-        (new Timer() {
-            @Override
-            public void run() {
-                diagram.selectItem(171182L);
-            }
-        }).schedule(20000);
+        }).schedule(millis);
     }
 
-    private void R_HSA_71921_tour(){
+    private void R_HSA_1181150_tour() {
+        diagram.selectItem(1181156L);
+        schedule(() -> diagram.selectItem(1181355L), 4000);
+        schedule(() -> diagram.selectItem(1225914L), 8000);
+        schedule(() -> diagram.selectItem(1181156L), 12000);
+        schedule(() -> diagram.selectItem(173511L), 16000);
+        schedule(() -> diagram.selectItem(171182L), 20000);
+    }
+
+    private void R_HSA_71921_tour() {
         diagram.selectItem(209772L);
-
-        (new Timer() {
-            @Override
-            public void run() {
-                diagram.selectItem(174391L);
-            }
-        }).schedule(4000);
-
-        (new Timer() {
-            @Override
-            public void run() {
-                diagram.selectItem(372480L);
-            }
-        }).schedule(8000);
-
-        (new Timer() {
-            @Override
-            public void run() {
-                diagram.selectItem(209772L);
-            }
-        }).schedule(12000);
-
-        (new Timer() {
-            @Override
-            public void run() {
-                diagram.selectItem(353555L);
-            }
-        }).schedule(16000);
+        schedule(() -> diagram.selectItem(174391L), 4000);
+        schedule(() -> diagram.selectItem(372480L), 8000);
+        schedule(() -> diagram.selectItem(209772L), 12000);
+        schedule(() -> diagram.selectItem(353555L), 16000);
     }
 }

@@ -24,6 +24,7 @@ public class GraphObjectInfoPanel extends Composite {
     FlowPanel mainPanel;
 
     public static final ObjectInfoResources OBJECT_INFO_RESOURCES;
+
     static {
         OBJECT_INFO_RESOURCES = GWT.create(ObjectInfoResources.class);
         OBJECT_INFO_RESOURCES.getCSS().ensureInjected();
@@ -49,7 +50,7 @@ public class GraphObjectInfoPanel extends Composite {
         GeneNameListPanel geneNameListPanel = null;
         if (graphObject instanceof GraphPhysicalEntity) {
             GraphPhysicalEntity pe = (GraphPhysicalEntity) graphObject;
-            if(pe.getIdentifier()!=null) { //Always try to put other resources identifiers in front of ours
+            if (pe.getIdentifier() != null) { //Always try to put other resources identifiers in front of ours
                 identifier = pe.getIdentifier() + " [" + identifier + "]";
             }
             if (pe.getGeneNames() != null && !pe.getGeneNames().isEmpty()) {
@@ -59,18 +60,18 @@ public class GraphObjectInfoPanel extends Composite {
 
         //Order matters
         this.add(new Label("Identifier: " + identifier.trim()));
-        if(geneNameListPanel!=null) {
+        if (geneNameListPanel != null) {
             this.add(geneNameListPanel);
         }
 
         Collection<GraphReactionLikeEvent> participatesIn = new HashSet<>();
-        if(!graphObject.getDiagramObjects().isEmpty()){
+        if (!graphObject.getDiagramObjects().isEmpty()) {
             String title = "Directly in the diagram:";
             this.add(new DatabaseObjectListPanel(title, Collections.singletonList(graphObject), eventBus));
 
-            if(graphObject instanceof GraphPhysicalEntity) {
+            if (graphObject instanceof GraphPhysicalEntity) {
                 participatesIn = ((GraphPhysicalEntity) graphObject).participatesIn();
-            }else if(graphObject instanceof GraphReactionLikeEvent){
+            } else if (graphObject instanceof GraphReactionLikeEvent) {
                 //TODO encapsulate it into a method in ReactionLikeEvent
                 Collection<GraphPhysicalEntity> rleParticipants = new HashSet<>();
                 GraphReactionLikeEvent rle = (GraphReactionLikeEvent) graphObject;
@@ -82,23 +83,29 @@ public class GraphObjectInfoPanel extends Composite {
                 rleParticipants.addAll(rle.getRequirements());
                 if (!rleParticipants.isEmpty()) {
                     int size = rleParticipants.size();
-                    title = "Participant" + (size>1?"s(":"(") + size + "):";
+                    title = "Participant" + (size > 1 ? "s(" : "(") + size + "):";
                     this.add(new DatabaseObjectListPanel(title, rleParticipants, eventBus));
                 }
             }
 
         }
 
-        if(graphObject instanceof GraphPhysicalEntity) {
+        if (graphObject instanceof GraphPhysicalEntity) {
             GraphPhysicalEntity pe = (GraphPhysicalEntity) graphObject;
             Set<GraphPhysicalEntity> parentLocations = pe.getParentLocations();
             if (!parentLocations.isEmpty()) {
                 Set<GraphComplex> complexes = new HashSet<>();
                 Set<GraphEntitySet> sets = new HashSet<>();
+                Set<GraphCell> cells = new HashSet<>();
                 for (GraphPhysicalEntity parentLocation : parentLocations) {
                     participatesIn.addAll(parentLocation.participatesIn());
-                    if (parentLocation instanceof GraphComplex) complexes.add((GraphComplex) parentLocation);
-                    else if (parentLocation instanceof GraphEntitySet) sets.add((GraphEntitySet) parentLocation);
+                    if (parentLocation instanceof GraphCompositeEntity) {
+                        complexes.add((GraphComplex) parentLocation);
+                    } else if (parentLocation instanceof GraphEntitySet) {
+                        sets.add((GraphEntitySet) parentLocation);
+                    } else if (parentLocation instanceof GraphCell) {
+                        cells.add((GraphCell) parentLocation);
+                    }
                 }
 
                 if (!complexes.isEmpty()) {
@@ -112,17 +119,24 @@ public class GraphObjectInfoPanel extends Composite {
                     String title = "Part of " + size + " set" + (size > 1 ? "s:" : ":");
                     this.add(new DatabaseObjectListPanel(title, sets, eventBus));
                 }
+
+                if (!cells.isEmpty()) {
+                    int size = cells.size();
+                    String title = "Marker of " + size + " cell" + (size > 1 ? "s:" : ":");
+                    this.add(new DatabaseObjectListPanel(title, cells, eventBus));
+                }
+
             }
         }
 
-        if(!participatesIn.isEmpty()){
+        if (!participatesIn.isEmpty()) {
             int size = participatesIn.size();
-            String title = "Participates in " + size + " reaction" + (size>1?"s:":":");
+            String title = "Participates in " + size + " reaction" + (size > 1 ? "s:" : ":");
             this.add(new DatabaseObjectListPanel(title, participatesIn, eventBus));
         }
 
         // Include information about the interactors of this entity
-        if(context!=null && (graphObject instanceof GraphEntityWithAccessionedSequence || graphObject instanceof GraphSimpleEntity) ){
+        if (context != null && (graphObject instanceof GraphEntityWithAccessionedSequence || graphObject instanceof GraphSimpleEntity)) {
             String resource = LoaderManager.INTERACTORS_RESOURCE.getName();
             this.add(new InteractorsListPanel("According to " + resource + ", it interacts with:", context, (GraphPhysicalEntity) graphObject, eventBus));
         }
@@ -137,7 +151,7 @@ public class GraphObjectInfoPanel extends Composite {
      *     </div>
      * </div>
      */
-    private void init(SuggestionPanelCSS css){
+    private void init(SuggestionPanelCSS css) {
         SimplePanel sp = new SimplePanel();
         sp.setStyleName(css.objectInfoPanel());
         this.mainPanel.setStyleName(css.objectInfoContent());
@@ -145,7 +159,7 @@ public class GraphObjectInfoPanel extends Composite {
         initWidget(sp);
     }
 
-    public void add(IsWidget widget){
+    public void add(IsWidget widget) {
         this.mainPanel.add(widget);
     }
 

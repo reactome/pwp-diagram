@@ -5,6 +5,7 @@ import org.reactome.web.diagram.client.DiagramFactory;
 import org.reactome.web.diagram.data.graph.raw.Graph;
 import org.reactome.web.diagram.data.graph.raw.factory.GraphFactory;
 import org.reactome.web.diagram.data.layout.factory.DiagramObjectException;
+import org.reactome.web.pwp.model.client.util.ResponseUtils;
 
 /**
  * @author Antonio Fabregat <fabregat@ebi.ac.uk>
@@ -58,7 +59,7 @@ public class GraphLoader implements RequestCallback {
                 this.handler.graphLoaded(graph, System.currentTimeMillis() - start);
                 break;
             default:
-                this.handler.onGraphLoaderError(new Exception(response.getStatusText()));
+                this.handler.onGraphLoaderError(new Exception(ResponseUtils.getStatusText(response.getStatusCode())));
         }
     }
 

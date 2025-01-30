@@ -23,7 +23,7 @@ public abstract class AbstractDiagramViewer extends ResizeComposite implements D
         this.eventBus = new DiagramEventBus();
     }
 
-    protected void initialise(){
+    protected void initialise() {
         this.initialised = true;
         this.viewportWidth = getOffsetWidth();
         this.viewportHeight = getOffsetHeight();
@@ -65,7 +65,7 @@ public abstract class AbstractDiagramViewer extends ResizeComposite implements D
     }
 
     @Override
-    public HandlerRegistration addInteractorHoveredHandler(InteractorHoveredHandler handler){
+    public HandlerRegistration addInteractorHoveredHandler(InteractorHoveredHandler handler) {
         return this.addHandler(handler, InteractorHoveredEvent.TYPE);
     }
 

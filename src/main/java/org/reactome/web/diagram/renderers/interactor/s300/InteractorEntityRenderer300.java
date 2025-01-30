@@ -24,14 +24,29 @@ public class InteractorEntityRenderer300 extends InteractorEntityAbstractRendere
         if (!isVisible(item)) return;
 
         InteractorEntity node = (InteractorEntity) item;
-        if(node.isChemical()){
+        if (node.isChemical()) {
             drawChemicalDetails(ctx, node, factor, offset);
+        } else if (node.isDisease()) {
+            drawDiseaseDetails(ctx, node, factor, offset);
         } else {
             drawProteinDetails(ctx, node, factor, offset);
         }
     }
 
-    private void drawProteinDetails(AdvancedContext2d ctx, InteractorEntity node, Double factor, Coordinate offset){
+    private void drawDiseaseDetails(AdvancedContext2d ctx, InteractorEntity node, Double factor, Coordinate offset) {
+        ctx.save();
+
+        String displayName = node.getDisplayName();
+        String details = node.getDetails();
+
+        DiagramBox box = node.transform(factor, offset);  //The image size is supposed to fit the height of the box (and it is a SQUARE)
+
+        drawDiseaseOrProteinDetails(details, node, ctx, box, displayName, factor);
+
+        ctx.restore();
+    }
+
+    private void drawProteinDetails(AdvancedContext2d ctx, InteractorEntity node, Double factor, Coordinate offset) {
         ctx.save();
         if (node.getImage() != null) {
             Coordinate pos = CoordinateFactory.get(node.getMinX(), node.getMinY()).transform(factor, offset);
@@ -45,9 +60,15 @@ public class InteractorEntityRenderer300 extends InteractorEntityAbstractRendere
         DiagramBox box = node.transform(factor, offset);  //The image size is supposed to fit the height of the box (and it is a SQUARE)
         box = box.splitHorizontally(box.getHeight()).get(1); //box is now the remaining of item box removing the image
 
+        drawDiseaseOrProteinDetails(details, node, ctx, box, displayName, factor);
+        ctx.restore();
+    }
+
+    private void drawDiseaseOrProteinDetails(String details, InteractorEntity node, AdvancedContext2d ctx, DiagramBox box, String displayName, Double factor) {
         TextRenderer textRenderer = new TextRenderer(RendererProperties.INTERACTOR_FONT_SIZE, RendererProperties.NODE_TEXT_PADDING);
+
         if (details == null) {
-            if(node.getAlias() == null){
+            if (node.getAlias() == null) {
                 textRenderer.drawTextMultiLine(ctx, node.getAccession(), NodePropertiesFactory.get(box));
             } else if (Objects.equals(node.getAlias(), node.getAccession())) {
                 textRenderer.drawTextMultiLine(ctx, node.getAlias(), NodePropertiesFactory.get(box));
@@ -74,21 +95,20 @@ public class InteractorEntityRenderer300 extends InteractorEntityAbstractRendere
             textRenderer.drawPreformattedText(ctx, details, NodePropertiesFactory.get(detailsBox), true);
 
         }
-        ctx.restore();
     }
 
-    private void drawChemicalDetails(AdvancedContext2d ctx, InteractorEntity node, Double factor, Coordinate offset){
+    private void drawChemicalDetails(AdvancedContext2d ctx, InteractorEntity node, Double factor, Coordinate offset) {
         ctx.save();
         DiagramBox box = node.transform(factor, offset);
         if (node.getImage() != null) {
             double delta = box.getHeight() * 0.8; // Shrink the image in order to make it fit into the bubble
             Coordinate centre = box.getCentre();
             // Center the image vertically but keep it more to the left half of the bubble
-            ctx.drawImage(node.getImage(), centre.getX() - delta , centre.getY() - delta/2, delta, delta);
+            ctx.drawImage(node.getImage(), centre.getX() - delta, centre.getY() - delta / 2, delta, delta);
         }
-        DiagramBox textBox = box.splitHorizontally( box.getWidth() * 0.5 ).get(1); //box is now the remaining of item box removing the image
+        DiagramBox textBox = box.splitHorizontally(box.getWidth() * 0.5).get(1); //box is now the remaining of item box removing the image
         TextRenderer textRenderer = new TextRenderer(RendererProperties.INTERACTOR_FONT_SIZE, RendererProperties.NODE_TEXT_PADDING);
-        if(node.getAlias() == null || node.getAccession().length()<30) {
+        if (node.getAlias() == null || node.getAccession().length() < 30) {
             textRenderer.drawTextMultiLine(ctx, node.getAccession(), NodePropertiesFactory.get(textBox));
         } else {
             List<DiagramBox> vBoxes = textBox.splitVertically(box.getHeight() * 0.6);

@@ -1,11 +1,17 @@
 package org.reactome.web.diagram.client.visualisers.diagram;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
+import com.google.gwt.canvas.client.Canvas;
+import com.google.gwt.canvas.dom.client.Context2d;
+import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.ContextMenuEvent;
+import com.google.gwt.event.dom.client.ContextMenuHandler;
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Image;
 import org.reactome.web.analysis.client.model.AnalysisType;
+import org.reactome.web.diagram.client.OptionalWidget;
 import org.reactome.web.diagram.context.popups.export.ExportDialog;
 import org.reactome.web.diagram.data.AnalysisStatus;
 import org.reactome.web.diagram.data.Context;
@@ -13,12 +19,7 @@ import org.reactome.web.diagram.data.DiagramStatus;
 import org.reactome.web.diagram.data.graph.model.GraphObject;
 import org.reactome.web.diagram.data.interactors.model.DiagramInteractor;
 import org.reactome.web.diagram.data.interactors.model.InteractorEntity;
-import org.reactome.web.diagram.data.layout.Coordinate;
-import org.reactome.web.diagram.data.layout.DiagramObject;
-import org.reactome.web.diagram.data.layout.Edge;
-import org.reactome.web.diagram.data.layout.Node;
-import org.reactome.web.diagram.data.layout.NodeAttachment;
-import org.reactome.web.diagram.data.layout.SummaryItem;
+import org.reactome.web.diagram.data.layout.*;
 import org.reactome.web.diagram.events.ExpressionColumnChangedEvent;
 import org.reactome.web.diagram.events.ExpressionValueHoveredEvent;
 import org.reactome.web.diagram.events.RenderOtherDataEvent;
@@ -27,8 +28,6 @@ import org.reactome.web.diagram.profiles.analysis.AnalysisColours;
 import org.reactome.web.diagram.profiles.diagram.DiagramColours;
 import org.reactome.web.diagram.profiles.diagram.model.DiagramProfileProperties;
 import org.reactome.web.diagram.profiles.interactors.InteractorColours;
-import org.reactome.web.diagram.profiles.interactors.model.InteractorProfile;
-import org.reactome.web.diagram.profiles.interactors.model.InteractorProfileNode;
 import org.reactome.web.diagram.renderers.common.ColourProfileType;
 import org.reactome.web.diagram.renderers.common.HoveredItem;
 import org.reactome.web.diagram.renderers.common.OverlayContext;
@@ -43,6 +42,7 @@ import org.reactome.web.diagram.renderers.layout.RendererManager;
 import org.reactome.web.diagram.renderers.layout.abs.AttachmentAbstractRenderer;
 import org.reactome.web.diagram.renderers.layout.abs.ProteinAbstractRenderer;
 import org.reactome.web.diagram.renderers.layout.abs.SummaryItemAbstractRenderer;
+import org.reactome.web.diagram.thumbnail.NullThumbnail;
 import org.reactome.web.diagram.thumbnail.Thumbnail;
 import org.reactome.web.diagram.thumbnail.diagram.DiagramThumbnail;
 import org.reactome.web.diagram.thumbnail.diagram.StaticIllustrationThumbnail;
@@ -53,16 +53,10 @@ import org.reactome.web.diagram.util.MapSet;
 import org.reactome.web.diagram.util.actions.MouseActionsHandlers;
 import org.reactome.web.diagram.util.actions.UserActionsInstaller;
 
-import com.google.gwt.canvas.client.Canvas;
-import com.google.gwt.canvas.dom.client.Context2d;
-import com.google.gwt.dom.client.Style;
-import com.google.gwt.event.dom.client.ContextMenuEvent;
-import com.google.gwt.event.dom.client.ContextMenuHandler;
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Image;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * This is where the drawing of the classic diagrams takes place.
@@ -71,11 +65,11 @@ import com.google.gwt.user.client.ui.Image;
  * @author Antonio Fabregat <fabregat@ebi.ac.uk>
  * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
  */
-class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHandler {
+public class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHandler, OptionalWidget.Handler {
 
     private final RendererManager rendererManager;
     private final InteractorRendererManager interactorRendererManager;
-    private EventBus eventBus;
+    private final EventBus eventBus;
 
     private AdvancedContext2d compartments;
     private AdvancedContext2d shadows;
@@ -108,13 +102,13 @@ class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHand
     private AdvancedContext2d buffer;
 
     private TooltipContainer tooltipContainer;
-    private Thumbnail thumbnail;
-    private List<Canvas> canvases = new LinkedList<>();
+    private final Thumbnail thumbnail;
+    private final List<Canvas> canvases = new LinkedList<>();
 
     private int column = 0;
     private Double hoveredExpression = null;
 
-    private StaticIllustrationThumbnail staticIllustrationThumbnail;
+    private final StaticIllustrationThumbnail staticIllustrationThumbnail;
 
     public DiagramCanvas(EventBus eventBus) {
         this.getElement().addClassName("pwp-DiagramCanvas");
@@ -131,7 +125,7 @@ class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHand
         AnalysisColours.initialise(eventBus);
         InteractorColours.initialise(eventBus);
 
-        this.thumbnail = new DiagramThumbnail(eventBus);
+        thumbnail = OptionalWidget.THUMBNAIL.isVisible() ? new DiagramThumbnail(eventBus) : new NullThumbnail();
 
         this.staticIllustrationThumbnail = new StaticIllustrationThumbnail(eventBus);
 
@@ -166,7 +160,7 @@ class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHand
         highlight(items, context, this.halo);
     }
 
-    private void highlight(Collection<DiagramObject> items, Context context, AdvancedContext2d ctx){
+    private void highlight(Collection<DiagramObject> items, Context context, AdvancedContext2d ctx) {
         cleanCanvas(ctx);
         if (items == null || items.isEmpty()) return;
 
@@ -185,7 +179,7 @@ class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHand
     public void highlight(HoveredItem hoveredItem, Context context) {
         cleanCanvas(this.entitiesHighlight);
         cleanCanvas(this.reactionsHighlight);
-        if(hoveredItem==null) return;
+        if (hoveredItem == null) return;
         DiagramStatus status = context.getDiagramStatus();
         for (DiagramObject item : hoveredItem.getDiagramObjects()) {
             if (item.getIsFadeOut() != null) continue;
@@ -199,12 +193,12 @@ class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHand
         }
     }
 
-    public void highlightInteractor(DiagramInteractor item, Context context){
+    public void highlightInteractor(DiagramInteractor item, Context context) {
         cleanCanvas(this.interactorsHighlight);
         if (item == null) return;
         DiagramStatus status = context.getDiagramStatus();
         InteractorRenderer renderer = interactorRendererManager.getRenderer(item);
-        if(renderer!=null) renderer.highlight(interactorsHighlight, item, status.getFactor(), status.getOffset());
+        if (renderer != null) renderer.highlight(interactorsHighlight, item, status.getFactor(), status.getOffset());
     }
 
     public void decorators(HoveredItem hoveredItem, Context context) {
@@ -214,15 +208,15 @@ class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHand
         DiagramStatus status = context.getDiagramStatus();
 
         NodeAttachment attachment = hoveredItem.getAttachment();
-        if(attachment!=null){
-            ProteinAbstractRenderer proteinRenderer = (ProteinAbstractRenderer)rendererManager.getRenderer("Protein");
-            if(proteinRenderer.nodeAttachmentsVisible()) {
+        if (attachment != null) {
+            ProteinAbstractRenderer proteinRenderer = (ProteinAbstractRenderer) rendererManager.getRenderer("Protein");
+            if (proteinRenderer.nodeAttachmentsVisible()) {
                 AttachmentAbstractRenderer.draw(entitiesDecorators, attachment, status.getFactor(), status.getOffset(), true);
             }
         }
 
         SummaryItem summaryItem = hoveredItem.getSummaryItem();
-        if(summaryItem!=null){
+        if (summaryItem != null) {
             SummaryItemAbstractRenderer.draw(entitiesDecorators, summaryItem, status.getFactor(), status.getOffset(), true);
         }
 
@@ -263,14 +257,14 @@ class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHand
         this.buffer.getCanvas().getStyle().setCursor(cursor);
     }
 
-    public void setSize(int width, int height){
-        this.setWidth(width+"px");
-        this.setHeight(height+"px");
+    public void setSize(int width, int height) {
+        this.setWidth(width + "px");
+        this.setHeight(height + "px");
 
         for (Canvas canvas : canvases) {
             setCanvasProperties(canvas, width, height);
         }
-        if(tooltipContainer!=null) {
+        if (tooltipContainer != null) {
             tooltipContainer.setWidth(width);
             tooltipContainer.setHeight(height);
         }
@@ -343,11 +337,12 @@ class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHand
         this.column = e.getColumn();
     }
 
-    public void renderInteractors(Collection<DiagramInteractor> items, Context context){
+    public void renderInteractors(Collection<DiagramInteractor> items, Context context) {
         cleanCanvas(interactors);
 
         AnalysisStatus analysisStatus = context.getAnalysisStatus();
-        Double minExp = 0.0; Double maxExp = 0.0;
+        Double minExp = 0.0;
+        Double maxExp = 0.0;
         AnalysisType analysisType = AnalysisType.NONE;
         if (analysisStatus != null) {
             analysisType = AnalysisType.getType(analysisStatus.getAnalysisSummary().getType());
@@ -357,9 +352,6 @@ class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHand
             }
         }
 
-        //By default we use the protein colour profile (NOTE: renderers will change it for chemicals and leave it for proteins save/restore)
-        interactors.setFillStyle(InteractorColours.get().PROFILE.getProtein().getFill());
-        interactors.setStrokeStyle(InteractorColours.get().PROFILE.getProtein().getStroke());
         Double factor = context.getDiagramStatus().getFactor();
         Coordinate offset = context.getDiagramStatus().getOffset();
         List<InteractorEntity> entities = new LinkedList<>();
@@ -377,7 +369,7 @@ class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHand
         if (renderer != null) {
             interactors.setFont(RendererProperties.getFont(RendererProperties.WIDGET_FONT_SIZE));
             for (InteractorEntity entity : entities) {
-                switch (analysisType){
+                switch (analysisType) {
                     case NONE:
                     case SPECIES_COMPARISON:
                         renderer.draw(interactors, entity, factor, offset);
@@ -395,9 +387,7 @@ class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHand
                         break;
                 }
                 interactors.save();
-                InteractorProfile profile = InteractorColours.get().PROFILE;
-                InteractorProfileNode node = entity.isChemical() ? profile.getChemical() : profile.getProtein();
-                interactors.setFillStyle(node.getText());
+                interactors.setFillStyle(entity.getProfile().getText());
                 renderer.drawText(interactors, entity, factor, offset);
                 interactors.restore();
             }
@@ -407,11 +397,12 @@ class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHand
     public void render(Collection<DiagramObject> items, Context context) {
         ColourProfileType colourProfileType = context.getColourProfileType();
         AnalysisStatus analysisStatus = context.getAnalysisStatus();
-        Double factor = context.getDiagramStatus().getFactor();
+        double factor = context.getDiagramStatus().getFactor();
         Coordinate offset = context.getDiagramStatus().getOffset();
         setCanvasesProperties(factor);
 
-        Double minExp = 0.0; Double maxExp = 0.0;
+        Double minExp = 0.0;
+        Double maxExp = 0.0;
         AnalysisType analysisType = AnalysisType.NONE;
         if (analysisStatus != null) {
             analysisType = AnalysisType.getType(analysisStatus.getAnalysisSummary().getType());
@@ -423,8 +414,10 @@ class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHand
 
         ItemsDistribution itemsDistribution = new ItemsDistribution(items, analysisType);
         for (String renderableClass : itemsDistribution.keySet()) {
-            if (renderableClass.equals("Reaction")) continue; //Reactions are drawn at the end (they follow slightly different approach)
-            if (renderableClass.equals("Shadow")) continue; //Shadows will be rendered at the end because their text has to be on top of everything
+            if (renderableClass.equals("Reaction"))
+                continue; //Reactions are drawn at the end (they follow slightly different approach)
+            if (renderableClass.equals("Shadow"))
+                continue; //Shadows will be rendered at the end because their text has to be on top of everything
 
             final Renderer renderer = rendererManager.getRenderer(renderableClass);
             if (renderer == null) continue;
@@ -498,7 +491,7 @@ class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHand
                     }
                 }
                 Set<DiagramObject> hitInteractors = target.getElements(RenderType.HIT_INTERACTORS);
-                if(hitInteractors != null) {
+                if (hitInteractors != null) {
                     ctx.setStrokeStyle(AnalysisColours.get().PROFILE.getRibbon());
                     ctx.setLineWidth(16 * factor);
                     renderHitInteractors(renderer, ctx, hitInteractors, factor, offset);
@@ -506,10 +499,12 @@ class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHand
             }
         }
 
-        eventBus.fireEventFromSource(new RenderOtherDataEvent(rendererManager,
-        													  items,
-        													  entities,
-        													  new OverlayContext(this.overlay, this.buffer)), this);
+        eventBus.fireEventFromSource(
+                new RenderOtherDataEvent(rendererManager,
+                        items,
+                        entities,
+                        new OverlayContext(this.overlay, this.buffer)
+                ), this);
 
         cleanCanvas(this.buffer); //It could have been used for the expression overlay (it is fastest cleaning it once)
 
@@ -591,7 +586,7 @@ class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHand
         for (DiagramObject item : objects) {
             try {
                 renderer.drawExpression(ctx, overlay, item, c, min, max, factor, offset);
-            }catch (Exception e){
+            } catch (Exception e) {
                 Console.error(e.getMessage(), this);
             }
             renderer.drawText(this.text, item, factor, offset);
@@ -608,7 +603,7 @@ class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHand
         for (DiagramObject item : objects) {
             try {
                 renderer.drawRegulation(ctx, overlay, item, c, min, max, factor, offset);
-            }catch (Exception e){
+            } catch (Exception e) {
                 Console.error(e.getMessage(), this);
             }
             renderer.drawText(this.text, item, factor, offset);
@@ -619,7 +614,7 @@ class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHand
         }
     }
 
-    private void renderHitInteractors(Renderer renderer, AdvancedContext2d ctx, Set<DiagramObject> objects, double factor, Coordinate offset){
+    private void renderHitInteractors(Renderer renderer, AdvancedContext2d ctx, Set<DiagramObject> objects, double factor, Coordinate offset) {
         for (DiagramObject object : objects) {
             renderer.drawHitInteractors(ctx, object, factor, offset);
         }
@@ -672,7 +667,7 @@ class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHand
 
     public void initialise() {
         //The widget can only be initialised ONCE
-        if(this.getWidgetCount() > 0) return;
+        if (this.getWidgetCount() > 0) return;
 
         int width = getParent().getOffsetWidth();
         int height = getParent().getOffsetHeight();
@@ -745,7 +740,8 @@ class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHand
         canvas.addDomHandler(new ContextMenuHandler() {
             @Override
             public void onContextMenu(ContextMenuEvent event) {
-                event.preventDefault(); event.stopPropagation();
+                event.preventDefault();
+                event.stopPropagation();
             }
         }, ContextMenuEvent.getType());
         //Not used in this implementation but useful to apply styles from the outside
@@ -772,30 +768,43 @@ class DiagramCanvas extends AbsolutePanel implements ExpressionColumnChangedHand
     private AdvancedContext2d getContext2d(String renderableClass) {
         AdvancedContext2d rtn = null;
         switch (renderableClass) {
-            case "Note":                rtn = this.notes;               break;
-            case "Compartment":         rtn = this.compartments;        break;
-            case "Protein":             rtn = this.entities;            break;
-            case "Chemical":            rtn = this.entities;            break;
-            case "ChemicalDrug":        rtn = this.entities;            break;
-            case "ProteinDrug":         rtn = this.entities;            break;
-            case "RNADrug":             rtn = this.entities;            break;
-            case "Reaction":            rtn = this.reactions;           break;
-            case "Complex":             rtn = this.entities;            break;
-            case "ComplexDrug":         rtn = this.entities;            break;
-            case "Entity":              rtn = this.entities;            break;
-            case "EntitySet":           rtn = this.entities;            break;
-            case "EntitySetDrug":       rtn = this.entities;            break;
-            case "ProcessNode":         rtn = this.entities;            break;
-            case "EncapsulatedNode":    rtn = this.entities;            break;
-            case "FlowLine":            rtn = this.entities;            break;
-            case "Interaction":         rtn = this.entities;            break;
-            case "RNA":                 rtn = this.entities;            break;
-            case "Gene":                rtn = this.entities;            break;
-            case "Shadow":              rtn = this.shadows;             break;
+            case "Note":
+                rtn = this.notes;
+                break;
+            case "Compartment":
+                rtn = this.compartments;
+                break;
+            case "Protein":
+            case "Cell":
+            case "Chemical":
+            case "ChemicalDrug":
+            case "ProteinDrug":
+            case "RNADrug":
+            case "Complex":
+            case "ComplexDrug":
+            case "Entity":
+            case "EntitySet":
+            case "EntitySetDrug":
+            case "ProcessNode":
+            case "EncapsulatedNode":
+            case "FlowLine":
+            case "Interaction":
+            case "RNA":
+            case "Gene":
+                rtn = this.entities;
+                break;
+            case "Reaction":
+                rtn = this.reactions;
+                break;
+            case "Shadow":
+                rtn = this.shadows;
+                break;
             case "EntitySetAndMemberLink":
             case "EntitySetAndEntitySetLink":
                 rtn = this.links;
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + renderableClass);
         }
         return rtn;
     }

@@ -73,7 +73,7 @@ public abstract class SetDrugAbstractRenderer extends NodeAbstractRenderer {
         double rxY = prop.getY() + prop.getHeight() - 3.5 * RendererProperties.NODE_LINE_WIDTH;
 
         TextRenderer textRenderer = new TextRenderer(SET_DRUG_RX_FONT * factor, 0);
-        Coordinate c = CoordinateFactory.get(rxX , rxY);
+        Coordinate c = CoordinateFactory.get(rxX, rxY);
 
         ctx.save();
         ctx.setTextAlign(Context2d.TextAlign.RIGHT);
@@ -101,7 +101,7 @@ public abstract class SetDrugAbstractRenderer extends NodeAbstractRenderer {
                     prop.getY() + RendererProperties.SEPARATION,
                     prop.getWidth() - RendererProperties.SEPARATION * 2,
                     prop.getHeight() - RendererProperties.SEPARATION * 2,
-                    RendererProperties.ROUND_RECT_ARC_WIDTH,
+                    RendererProperties.ROUND_RECT_ARC_WIDTH - RendererProperties.SEPARATION,
                     RendererProperties.DASHED_LINE_PATTERN);
         } else {
             ctx.roundedRectangle(
@@ -109,7 +109,7 @@ public abstract class SetDrugAbstractRenderer extends NodeAbstractRenderer {
                     prop.getY() + RendererProperties.SEPARATION,
                     prop.getWidth() - RendererProperties.SEPARATION * 2,
                     prop.getHeight() - RendererProperties.SEPARATION * 2,
-                    RendererProperties.ROUND_RECT_ARC_WIDTH
+                    RendererProperties.ROUND_RECT_ARC_WIDTH - RendererProperties.SEPARATION
             );
         }
     }

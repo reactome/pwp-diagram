@@ -9,7 +9,7 @@ import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
-import org.reactome.web.diagram.client.DiagramFactory;
+import org.reactome.web.diagram.client.OptionalWidget;
 import org.reactome.web.diagram.common.IconButton;
 import org.reactome.web.diagram.events.ControlActionEvent;
 
@@ -17,7 +17,7 @@ import org.reactome.web.diagram.events.ControlActionEvent;
  * @author Antonio Fabregat <fabregat@ebi.ac.uk>
  * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
  */
-public class MainControlPanel extends FlowPanel implements ClickHandler {
+public class MainControlPanel extends FlowPanel implements ClickHandler, OptionalWidget.Handler {
 
     private EventBus eventBus;
     private IconButton fitAll;
@@ -28,11 +28,13 @@ public class MainControlPanel extends FlowPanel implements ClickHandler {
 
         this.addStyleName(RESOURCES.getCSS().mainControlPanel());
 
-        this.fitAll = new IconButton(RESOURCES.fitallIcon(), RESOURCES.getCSS().fitall(), "Show all", this);
-        this.add(this.fitAll);
+        if (OptionalWidget.SHOW_ALL.isVisible()) {
+            this.fitAll = new IconButton(RESOURCES.fitallIcon(), RESOURCES.getCSS().fitall(), "Show all", this);
+            this.add(this.fitAll);
+        }
 
-        if(DiagramFactory.SHOW_FIREWORKS_BTN) {
-            this.fireworks = new IconButton( RESOURCES.fireworksIcon(), RESOURCES.getCSS().fireworks(),"Pathway overview", this);
+        if (OptionalWidget.FIREWORKS.isVisible()) {
+            this.fireworks = new IconButton(RESOURCES.fireworksIcon(), RESOURCES.getCSS().fireworks(), "Pathway overview", this);
             this.add(this.fireworks);
         }
     }
@@ -42,13 +44,14 @@ public class MainControlPanel extends FlowPanel implements ClickHandler {
         Button btn = (Button) event.getSource();
         if (btn.equals(this.fitAll)) {
             this.eventBus.fireEventFromSource(new ControlActionEvent(ControlAction.FIT_ALL), this);
-        } else if(btn.equals(this.fireworks)) {
+        } else if (btn.equals(this.fireworks)) {
             this.eventBus.fireEventFromSource(new ControlActionEvent(ControlAction.FIREWORKS), this);
         }
     }
 
 
     public static Resources RESOURCES;
+
     static {
         RESOURCES = GWT.create(Resources.class);
         RESOURCES.getCSS().ensureInjected();

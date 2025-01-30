@@ -34,7 +34,7 @@ public class SetRenderer100 extends SetAbstractRenderer {
         List<Participant> participantsWithExpression = Participant.asSortedList(set.getParticipantsExpression(t));
         if (participantsWithExpression.isEmpty()) return null;
 
-        Double delta = prop.getWidth() / set.getParticipants().size();
+        double delta = prop.getWidth() / set.getParticipants().size();
         double minX = prop.getX();
         for (Participant participant : participantsWithExpression) {
             Double value = participant.getExpression();
@@ -90,7 +90,7 @@ public class SetRenderer100 extends SetAbstractRenderer {
 
         GraphEntitySet set = item.getGraphObject();
         NodeProperties prop = NodePropertiesFactory.transform(node.getProp(), factor, offset);
-        Double delta = prop.getWidth() / set.getParticipants().size();
+        double delta = prop.getWidth() / set.getParticipants().size();
         double x = prop.getX();
 
         AdvancedContext2d buffer = overlay.getBuffer();
@@ -146,7 +146,7 @@ public class SetRenderer100 extends SetAbstractRenderer {
 
         GraphEntitySet set = item.getGraphObject();
         NodeProperties prop = NodePropertiesFactory.transform(node.getProp(), factor, offset);
-        Double delta = prop.getWidth() / set.getParticipants().size();
+        double delta = prop.getWidth() / set.getParticipants().size();
         double x = prop.getX();
 
         AdvancedContext2d buffer = overlay.getBuffer();

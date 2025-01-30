@@ -44,7 +44,7 @@ public class ExpressionCell extends TextCell {
         if (value != null) {
             SafeHtml safeValue = SafeHtmlUtils.fromString(value);
             try {
-                Double exp = NumberFormat.getFormat("#.##E0").parse(value);
+                double exp = NumberFormat.getFormat("#.##E0").parse(value);
                 String colour = AnalysisColours.get().expressionGradient.getColor(exp, min, max);
                 sb.append(template.exp(SafeStylesUtils.forTrustedBackgroundColor(colour), safeValue));
             }catch (NumberFormatException ex){

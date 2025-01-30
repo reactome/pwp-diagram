@@ -31,7 +31,7 @@ public class ComplexDrugRenderer100 extends ComplexDrugAbstractRenderer {
         List<Participant> participantsWithExpression = Participant.asSortedList(complex.getParticipantsExpression(t));
         if (participantsWithExpression.isEmpty()) return null;
 
-        Double delta = prop.getWidth() / complex.getParticipants().size();
+        double delta = prop.getWidth() / complex.getParticipants().size();
         double minX = prop.getX();
         for (Participant participant : participantsWithExpression) {
             Double value = participant.getExpression();
@@ -88,7 +88,7 @@ public class ComplexDrugRenderer100 extends ComplexDrugAbstractRenderer {
         ctx.stroke();
         ctx.restore();
 
-        Double delta = prop.getWidth() / complex.getParticipants().size();
+        double delta = prop.getWidth() / complex.getParticipants().size();
         double x = prop.getX();
 
         AdvancedContext2d buffer = overlay.getBuffer();
@@ -134,7 +134,7 @@ public class ComplexDrugRenderer100 extends ComplexDrugAbstractRenderer {
         ctx.stroke();
         ctx.restore();
 
-        Double delta = prop.getWidth() / complex.getParticipants().size();
+        double delta = prop.getWidth() / complex.getParticipants().size();
         double x = prop.getX();
 
         AdvancedContext2d buffer = overlay.getBuffer();

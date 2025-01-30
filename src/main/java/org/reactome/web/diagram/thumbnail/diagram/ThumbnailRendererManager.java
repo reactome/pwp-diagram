@@ -13,7 +13,7 @@ public class ThumbnailRendererManager {
 
     private static final ThumbnailRendererManager manager = new ThumbnailRendererManager();
 
-    private Map<String, ThumbnailRenderer> thumbnailMap = new HashMap<>();
+    private final Map<String, ThumbnailRenderer> thumbnailMap = new HashMap<>();
 
     public ThumbnailRendererManager() {
         initialiseRenderers();
@@ -32,6 +32,7 @@ public class ThumbnailRendererManager {
 //        thumbnailMap.put("OrgGkRenderNote", new NoteThumbnailRenderer());
         thumbnailMap.put("Compartment",     new CompartmentThumbnailRenderer());
         thumbnailMap.put("Protein",         new ProteinThumbnailRenderer());
+        thumbnailMap.put("Cell",            new CellThumbnailRenderer());
         thumbnailMap.put("ProteinDrug",     new ProteinDrugThumbnailRenderer());
         thumbnailMap.put("Chemical",        new ChemicalThumbnailRenderer());
         thumbnailMap.put("ChemicalDrug",    new ChemicalDrugThumbnailRenderer());

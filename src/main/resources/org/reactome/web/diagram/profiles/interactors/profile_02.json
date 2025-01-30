@@ -1,10 +1,11 @@
 {
-  "name": "Teal",
+  "name": "Darker",
   "chemical": {
     "fill": "#80CBC4",
     "stroke": "#616161",
     "lighterFill" : "#E0F2F1",
     "lighterStroke" : "#9E9E9E",
+    "darkerStroke": "#006064",
     "text": "#000000",
     "lighterText": "#424242"
   },
@@ -13,7 +14,17 @@
     "stroke": "#616161",
     "lighterFill" : "#80CBC4",
     "lighterStroke" : "#9E9E9E",
+    "darkerStroke": "#006064",
     "text": "#000000",
+    "lighterText": "#424242"
+  },
+  "disease": {
+    "fill": "#FFE9CD",
+    "stroke": "#BA3C3C",
+    "lighterFill" : "#FFFAF3",
+    "lighterStroke" : "#E47E7E",
+    "darkerStroke": "#BA3C3C",
+    "text": "#BA3C3C",
     "lighterText": "#424242"
   }
 }

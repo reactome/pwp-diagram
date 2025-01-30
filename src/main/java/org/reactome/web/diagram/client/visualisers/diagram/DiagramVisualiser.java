@@ -92,7 +92,7 @@ public class DiagramVisualiser extends SimplePanel implements Visualiser,
     }
 
     protected void initialise() {
-        if(!initialised) {
+        if (!initialised) {
             this.initialised = true;
             this.viewportWidth = getParent().getOffsetWidth();
             this.viewportHeight = getParent().getOffsetHeight();
@@ -107,7 +107,7 @@ public class DiagramVisualiser extends SimplePanel implements Visualiser,
             AnimationScheduler.get().requestAnimationFrame(new AnimationScheduler.AnimationCallback() {
                 @Override
                 public void execute(double timestamp) {
-                    if(isVisible()) {
+                    if (isVisible()) {
                         doUpdate();
                     }
                     AnimationScheduler.get().requestAnimationFrame(this); // Call it again.
@@ -133,7 +133,7 @@ public class DiagramVisualiser extends SimplePanel implements Visualiser,
             Box visibleArea = context.getVisibleModelArea(viewportWidth, viewportHeight);
             draw(visibleArea);
             drawInteractors(visibleArea);
-        }else if (!mouseCurrent.equals(mousePrevious)) {
+        } else if (!mouseCurrent.equals(mousePrevious)) {
             mousePrevious = mouseCurrent;
             DiagramInteractor hoveredInteractor = getHoveredInteractor();
             canvas.setCursor(hoveredInteractor == null ? Style.Cursor.DEFAULT : Style.Cursor.POINTER);
@@ -249,12 +249,12 @@ public class DiagramVisualiser extends SimplePanel implements Visualiser,
     }
 
     @Override
-    public void loadAnalysis(){
+    public void loadAnalysis() {
         forceDraw = true;
     }
 
     @Override
-    public void resetAnalysis(){
+    public void resetAnalysis() {
         forceDraw = true;
     }
 
@@ -262,12 +262,12 @@ public class DiagramVisualiser extends SimplePanel implements Visualiser,
     public void onAnalysisProfileChanged(AnalysisProfileChangedEvent event) {
         forceDraw = true;
     }
-    
+
     /**
      * Helper method so extensions of the diagram project have a way to force update after adding render information.
      */
     public void forceDraw() {
-    	forceDraw = true;
+        forceDraw = true;
     }
 
     @Override
@@ -278,15 +278,15 @@ public class DiagramVisualiser extends SimplePanel implements Visualiser,
     }
 
     @Override
-    public void flagItems(Set<DiagramObject> flaggedItems, Boolean includeInteractors){
+    public void flagItems(Set<DiagramObject> flaggedItems, Boolean includeInteractors) {
         this.includeInteractors = includeInteractors;
         layoutManager.setFlagged(flaggedItems);
         forceDraw = true;
     }
 
     @Override
-    public void resetFlag(){
-        if(layoutManager.resetFlagged()) forceDraw = true;
+    public void resetFlag() {
+        if (layoutManager.resetFlagged()) forceDraw = true;
     }
 
     @Override
@@ -304,14 +304,14 @@ public class DiagramVisualiser extends SimplePanel implements Visualiser,
     }
 
     public void expressionColumnChanged() {
-            Coordinate model = context.getDiagramStatus().getModelCoordinate(mouseCurrent);
-            DiagramObject hovered = layoutManager.getHoveredDiagramObject();
-            canvas.notifyHoveredExpression(hovered, model);
-            forceDraw = true; //We give priority to other listeners here
+        Coordinate model = context.getDiagramStatus().getModelCoordinate(mouseCurrent);
+        DiagramObject hovered = layoutManager.getHoveredDiagramObject();
+        canvas.notifyHoveredExpression(hovered, model);
+        forceDraw = true; //We give priority to other listeners here
     }
 
     @Override
-    public void interactorsCollapsed(String resource){
+    public void interactorsCollapsed(String resource) {
         Collection<DiagramObject> diagramObjects = context.getContent().getDiagramObjects();
         context.getInteractors().resetBurstInteractors(resource, diagramObjects);
         forceDraw = true;
@@ -337,7 +337,7 @@ public class DiagramVisualiser extends SimplePanel implements Visualiser,
     @Override
     public void interactorsResourceChanged(OverlayResource resource) {
         context.getContent().clearDisplayedInteractors();
-        if(context.getInteractors().isInteractorResourceCached(resource.getIdentifier())) {
+        if (context.getInteractors().isInteractorResourceCached(resource.getIdentifier())) {
             context.getInteractors().restoreInteractorsSummary(resource.getIdentifier(), context.getContent());
         }
         forceDraw = true;
@@ -346,7 +346,7 @@ public class DiagramVisualiser extends SimplePanel implements Visualiser,
     @Override
     protected void onLoad() {
         super.onLoad();
-        Scheduler.get().scheduleDeferred(() -> initialise());
+        Scheduler.get().scheduleDeferred(this::initialise);
     }
 
     @Override
@@ -371,7 +371,7 @@ public class DiagramVisualiser extends SimplePanel implements Visualiser,
         this.viewportWidth = width;
         this.viewportHeight = height;
 
-        if(canvas!=null) {
+        if (canvas != null) {
             canvas.setSize(width, height);
             forceDraw = true;
 
@@ -397,7 +397,7 @@ public class DiagramVisualiser extends SimplePanel implements Visualiser,
     @Override
     public boolean resetHighlight(boolean notify) {
         boolean rtn = false;
-        if (context==null) return rtn;
+        if (context == null) return rtn;
         if (layoutManager.resetHovered()) {
             canvas.highlight(null, context);
             thumbnail.graphObjectHovered(null);
@@ -412,11 +412,11 @@ public class DiagramVisualiser extends SimplePanel implements Visualiser,
     @Override
     public boolean resetSelection(boolean notify) {
         boolean rtn = false;
-        if (context==null) return rtn;
+        if (context == null) return rtn;
         if (layoutManager.resetSelected()) {
             thumbnail.graphObjectSelected(null);
             forceDraw = true;
-            if(notify) {
+            if (notify) {
                 eventBus.fireEventFromSource(new GraphObjectSelectedEvent(null, false), this);
             }
             rtn = true;
@@ -425,7 +425,7 @@ public class DiagramVisualiser extends SimplePanel implements Visualiser,
     }
 
     @Override
-    public boolean selectGraphObject(GraphObject graphObject, boolean notify){
+    public boolean selectGraphObject(GraphObject graphObject, boolean notify) {
         if (graphObject != null) {
             return setSelection(new HoveredItem(graphObject), true, false, true);
         } else {
@@ -434,7 +434,7 @@ public class DiagramVisualiser extends SimplePanel implements Visualiser,
     }
 
     @Override
-    public void setMousePosition(Coordinate mouse){
+    public void setMousePosition(Coordinate mouse) {
         mouseCurrent = mouse;
     }
 
@@ -448,7 +448,7 @@ public class DiagramVisualiser extends SimplePanel implements Visualiser,
     }
 
     @Override
-    public void showDialog(DiagramObject item){
+    public void showDialog(DiagramObject item) {
         this.context.showDialog(this.eventBus, item, this.canvas);
     }
 
@@ -473,12 +473,12 @@ public class DiagramVisualiser extends SimplePanel implements Visualiser,
     }
 
     @Override
-    public DiagramInteractor getHoveredInteractor(){
+    public DiagramInteractor getHoveredInteractor() {
         Coordinate model = context.getDiagramStatus().getModelCoordinate(mouseCurrent);
         Collection<DiagramInteractor> hoveredItems = interactorsManager.getHovered(model);
         DiagramInteractor rtn = null;
         for (DiagramInteractor item : hoveredItems) {
-            if(item.isVisible()) {
+            if (item.isVisible()) {
                 if (item instanceof InteractorEntity) { //Preference to nodes
                     return item;
                 } else if (rtn == null) {
@@ -534,7 +534,7 @@ public class DiagramVisualiser extends SimplePanel implements Visualiser,
             }
             if (hoveredItem.getSummaryItem() != null) {
                 SummaryItem summaryItem = hoveredItem.getSummaryItem();
-                if(summaryItem.getType().equals("TR")){
+                if (summaryItem.getType().equals("TR")) {
                     forceDraw |= interactorsManager.update(summaryItem, (Node) hoveredItem.getHoveredObject());
                 }
                 eventBus.fireEventFromSource(new EntityDecoratorSelectedEvent(toSelect, hoveredItem.getSummaryItem()), this);
@@ -548,7 +548,7 @@ public class DiagramVisualiser extends SimplePanel implements Visualiser,
         return makeSelection(toSelect, zoom, fireExternally, true);
     }
 
-    private boolean makeSelection(GraphObject toSelect, boolean zoom, boolean fireExternally, boolean notify){
+    private boolean makeSelection(GraphObject toSelect, boolean zoom, boolean fireExternally, boolean notify) {
         boolean rtn = false;
         if (!layoutManager.isSelected(toSelect)) {
             layoutManager.setSelected(toSelect);
@@ -567,7 +567,7 @@ public class DiagramVisualiser extends SimplePanel implements Visualiser,
 
     @Override
     public void fitDiagram(boolean animation) {
-            diagramManager.fitDiagram(context.getContent(), animation);
+        diagramManager.fitDiagram(context.getContent(), animation);
     }
 
     private void overview() {
@@ -594,7 +594,7 @@ public class DiagramVisualiser extends SimplePanel implements Visualiser,
     }
 
     @Override
-    public void zoomIn(){
+    public void zoomIn() {
         zoom(context.getDiagramStatus().getFactor() + UserActionsManager.ZOOM_DELTA);
     }
 
@@ -610,10 +610,10 @@ public class DiagramVisualiser extends SimplePanel implements Visualiser,
     }
 
     @Override
-    public void mouseZoom(double delta){
+    public void mouseZoom(double delta) {
         if (context == null) return;
         double factor = context.getDiagramStatus().getFactor();
-        factor = ViewportUtils.checkFactor(factor  - delta);
+        factor = ViewportUtils.checkFactor(factor - delta);
         zoom(factor, mouseCurrent);
     }
 
@@ -650,7 +650,7 @@ public class DiagramVisualiser extends SimplePanel implements Visualiser,
         DiagramInteractor hoveredInteractor = getHoveredInteractor();
         canvas.setCursor(hoveredInteractor == null ? Style.Cursor.DEFAULT : Style.Cursor.POINTER);
         resetHighlight(true); // This resets the layout highlight -> please note that the method is defined in the DiagramViewer interface
-        if (hoveredInteractor == null)  { // It is needed otherwise the getHoveredDiagramObject will find a possible diagram layout object behind the interactor
+        if (hoveredInteractor == null) { // It is needed otherwise the getHoveredDiagramObject will find a possible diagram layout object behind the interactor
             HoveredItem hovered = getHoveredDiagramObject();
             DiagramObject item = hovered != null ? hovered.getHoveredObject() : null;
             canvas.setCursor(item == null ? Style.Cursor.DEFAULT : Style.Cursor.POINTER);

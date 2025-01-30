@@ -73,9 +73,9 @@ public class OverlayResource {
     private String format(String originalName){
         String rtn;
         switch (type) {
-            case STATIC:
-                rtn = DiagramFactory.INTERACTORS_INITIAL_RESOURCE_NAME; // returns the proper static name, e.g. IntAct (Static);
-                break;
+//            case STATIC:
+//                rtn = DiagramFactory.INTERACTORS_INITIAL_RESOURCE_NAME; // returns the proper static name, e.g. IntAct (Static);
+//                break;
             default:
                 //Capitalize the first character of the resource in certain cases
                 rtn = (originalName.equals(originalName.toLowerCase())) ? originalName.substring(0, 1).toUpperCase() + originalName.substring(1) : originalName;

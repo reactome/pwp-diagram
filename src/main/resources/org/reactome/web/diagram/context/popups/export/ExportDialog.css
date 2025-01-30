@@ -8,6 +8,7 @@
     font-family: Arial Unicode MS, Arial, sans-serif !important;
     font-size: small !important;
     line-height: normal !important;
+    z-index: 2;
 }
 
 .mainPanel {

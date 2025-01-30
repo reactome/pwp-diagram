@@ -347,7 +347,7 @@ public class SearchLauncher extends AbsolutePanel implements ClickHandler,
 
     private void stopExpandingByDefault() {
         Date expires = new Date();
-        Long nowLong = expires.getTime();
+        long nowLong = expires.getTime();
         nowLong = nowLong + (1000 * 60 * 60 * 24 * 365L); //One year time
         expires.setTime(nowLong);
         Cookies.setCookie(SEARCH_EXPANDED_COOKIE, "false", expires);

@@ -73,7 +73,7 @@ public class DisplayManager {
 
         //4-
         DiagramStatus status = handler.getDiagramStatus();
-        Double deltaFactor = factor - status.getFactor();
+        double deltaFactor = factor - status.getFactor();
         Coordinate targetCentre = CoordinateFactory.get(minX + width / 2.0, minY + height / 2.0);
 
         Coordinate viewportCentre = CoordinateFactory.get(vpWidth / 2.0, vpHeight / 2.0);

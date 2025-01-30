@@ -5,13 +5,14 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.user.client.ui.FlowPanel;
+import org.reactome.web.diagram.client.OptionalWidget;
 import org.reactome.web.diagram.controls.navigation.MainControlPanel;
 import org.reactome.web.diagram.controls.top.search.SearchPanel;
 
 /**
  * @author Antonio Fabregat <fabregat@ebi.ac.uk>
  */
-public class LeftTopLauncherPanel extends FlowPanel {
+public class LeftTopLauncherPanel extends FlowPanel implements OptionalWidget.Handler  {
 	
 	private SearchPanel searchPanel;
 	private MainControlPanel mainControlPanel;
@@ -20,7 +21,9 @@ public class LeftTopLauncherPanel extends FlowPanel {
         this.setStyleName(RESOURCES.getCSS().launcherPanel());
 
         //Search panel
-        this.add(searchPanel = new SearchPanel(eventBus));
+        if (OptionalWidget.SEARCH.isVisible()) {
+            this.add(searchPanel = new SearchPanel(eventBus));
+        }
         //Main Control panel
         this.add(mainControlPanel = new MainControlPanel(eventBus));
 

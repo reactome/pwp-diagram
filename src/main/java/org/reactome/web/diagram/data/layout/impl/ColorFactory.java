@@ -64,9 +64,9 @@ public class ColorFactory implements Color{
      */
     public static Color getRandomColour(Color mix){
 
-        Integer r = (int) Math.floor(Math.random() * 256);
-        Integer g = (int) Math.floor(Math.random() * 256);
-        Integer b = (int) Math.floor(Math.random() * 256);
+        int r = (int) Math.floor(Math.random() * 256);
+        int g = (int) Math.floor(Math.random() * 256);
+        int b = (int) Math.floor(Math.random() * 256);
 
         // mix the color
         if (mix != null) {

@@ -14,6 +14,10 @@ public interface DiagramProfile extends Serializable {
 
     DiagramProfileNode getAttachment();
 
+    DiagramProfileNode getCell();
+
+    DiagramProfileNode getCellNucleus();
+
     DiagramProfileNode getChemical();
 
     DiagramProfileNode getChemicaldrug();

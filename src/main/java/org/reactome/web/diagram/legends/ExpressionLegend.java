@@ -14,10 +14,7 @@ import org.reactome.web.analysis.client.model.EntityStatistics;
 import org.reactome.web.analysis.client.model.ExpressionSummary;
 import org.reactome.web.diagram.common.PwpButton;
 import org.reactome.web.diagram.data.content.Content;
-import org.reactome.web.diagram.data.graph.model.GraphComplex;
-import org.reactome.web.diagram.data.graph.model.GraphEntitySet;
-import org.reactome.web.diagram.data.graph.model.GraphObject;
-import org.reactome.web.diagram.data.graph.model.GraphPathway;
+import org.reactome.web.diagram.data.graph.model.*;
 import org.reactome.web.diagram.data.interactors.model.DiagramInteractor;
 import org.reactome.web.diagram.data.interactors.model.DynamicLink;
 import org.reactome.web.diagram.data.interactors.model.InteractorEntity;
@@ -227,7 +224,7 @@ public class ExpressionLegend extends LegendPanel implements ClickHandler, Mouse
                     drawLeftPin(ctx, p, colour, colour);
                 }
                 if (hoveredValues.size() > 1) {
-                    Double median = ExpressionUtil.median(hoveredValues);
+                    double median = ExpressionUtil.median(hoveredValues);
                     double p = ThreeColorGradient.getPercentage(median, this.min, this.max);
                     colour = AnalysisColours.get().PROFILE.getExpression().getLegend().getMedian();
                     drawLeftPin(ctx, p, colour, colour);
@@ -248,7 +245,7 @@ public class ExpressionLegend extends LegendPanel implements ClickHandler, Mouse
                     drawRightPin(ctx, p, colour, colour);
                 }
                 if (selectedValues.size() > 1) {
-                    Double median = ExpressionUtil.median(selectedValues);
+                    double median = ExpressionUtil.median(selectedValues);
                     double p = ThreeColorGradient.getPercentage(median, this.min, this.max);
                     colour = AnalysisColours.get().PROFILE.getExpression().getLegend().getMedian();
                     drawRightPin(ctx, p, colour, colour);
@@ -320,18 +317,15 @@ public class ExpressionLegend extends LegendPanel implements ClickHandler, Mouse
         List<Double> expression = new LinkedList<>();
 
         //This is temporal: in order to avoid drwing the pins for SVG diagrams (below the pValue threshold)
-        if (graphObject instanceof GraphPathway && type.equals(Content.Type.SVG)){
+        if (graphObject instanceof GraphPathway && type.equals(Content.Type.SVG)) {
             EntityStatistics es = ((GraphPathway) graphObject).getStatistics();
             if (es != null && es.getpValue() > AnalysisColours.THRESHOLD) return expression; //which is empty
         }
 
         if (graphObject != null) {
-            if (graphObject instanceof GraphComplex) {
-                GraphComplex complex = (GraphComplex) graphObject;
-                expression = new LinkedList<>(complex.getParticipantsExpression(column).values());
-            } else if (graphObject instanceof GraphEntitySet) {
-                GraphEntitySet set = (GraphEntitySet) graphObject;
-                expression = new LinkedList<>(set.getParticipantsExpression(column).values());
+            if (graphObject instanceof GraphCompositeEntity) {
+                GraphCompositeEntity composite = (GraphCompositeEntity) graphObject;
+                expression = new LinkedList<>(composite.getParticipantsExpression(column).values());
             } else {
                 List<Double> aux = graphObject.getExpression();
                 if (aux != null && !aux.isEmpty()) {

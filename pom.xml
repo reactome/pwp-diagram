@@ -6,84 +6,56 @@
 
     <groupId>org.reactome.web</groupId>
     <artifactId>diagram</artifactId>
-    <version>3.7.1</version>
     <packaging>jar</packaging>
+    <version>4.1.5</version>
 
-    <name>${project.groupId}:${project.artifactId}</name>
+    <name>Diagram Viewer</name>
+
+    <parent>
+        <groupId>org.reactome.maven</groupId>
+        <artifactId>reactome-pwp-parent</artifactId>
+        <version>1.0.3</version>
+    </parent>
+
+
     <description>
         Visualiser of Reactome diagrams, illustrations and enhanced high level diagrams (EHLD)
     </description>
-    <url>https://github.com/reactome-pwp/diagram</url>
 
     <organization>
-        <name>Reactome</name>
-        <url>https://reactome.org</url>
+        <name>The European Bioinformatics Institute</name>
+        <url>https://www.ebi.ac.uk/</url>
     </organization>
-
-    <licenses>
-        <license>
-            <name></name>
-            <url></url>
-        </license>
-    </licenses>
 
     <developers>
         <developer>
             <id>ksidiro</id>
             <name>Kostas Sidiropoulos</name>
-            <roles>
-                <role>alumni</role>
-            </roles>
+            <email>ksidiro@ebi.ac.uk</email>
+            <organization>https://www.ebi.ac.uk/</organization>
         </developer>
 
         <developer>
             <id>fabregat</id>
             <name>Antonio Fabregat</name>
-            <roles>
-                <role>alumni</role>
-            </roles>
+            <email>fabregat@ebi.ac.uk</email>
+            <organization>https://www.ebi.ac.uk/</organization>
         </developer>
     </developers>
 
-    <scm>
-        <connection>scm:git:git://github.com/reactome/graph-core.git</connection>
-        <developerConnection>scm:git:ssh://github.com:reactome/graph-core.git</developerConnection>
-        <url>https://github.com/reactome/graph-core/tree/master</url>
-    </scm>
-
     <properties>
-        <!-- dependencies -->
-        <gwt.version>2.8.2</gwt.version> <!-- Convenience property to set the GWT version -->
-        <lib.gwt.svg.version>0.5.11</lib.gwt.svg.version>
-        <reactome.web.analysis-client>1.5.3</reactome.web.analysis-client>
-        <reactome.web.model>2.1.22</reactome.web.model>
-        <reactome.web.carrousel>1.0.2</reactome.web.carrousel>
-        <reactome.web.scroller>1.0.2</reactome.web.scroller>
-        <reactome.web.quadtree>1.2.0</reactome.web.quadtree>
-        <reactome.utils.version>1.0.3</reactome.utils.version>
-        <slf4j.version>1.7.22</slf4j.version>
 
-        <!-- build -->
-        <appModule>org.reactome.web.diagram.DiagramViewer</appModule>
-        <appName>${appModule}</appName>
-        <gwtStyle>OBF</gwtStyle> <!-- OBF | PRETTY | DETAILED -->
-        <jdk.version>1.8</jdk.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Convenience property to set the GWT version -->
+        <gwtStyle>PRETTY</gwtStyle> <!-- OBF | PRETTY | DETAILED -->
+
+        <!-- GWT needs at least java 1.8 -->
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
 
-        <!-- maven build and plugins -->
-        <maven.compiler.source>${jdk.version}</maven.compiler.source>
-        <maven.compiler.target>${jdk.version}</maven.compiler.target>
-        <maven.deploy.version>2.8.2</maven.deploy.version>
-        <maven.gpg.version>1.5</maven.gpg.version>
-        <maven.gwt.version>1.0-rc-6</maven.gwt.version>
-        <maven.jar.version>2.6</maven.jar.version>
-        <maven.javadoc.version>2.10.3</maven.javadoc.version>
-        <maven.release.version>2.5.3</maven.release.version>
-        <maven.source.version>2.4</maven.source.version>
-        <maven.wagon.ssh.version>2.3</maven.wagon.ssh.version>
-        <maven.war.version>2.1.1</maven.war.version>
-        <nexus-staging-maven-plugin>1.6.7</nexus-staging-maven-plugin>
+
+        <appModule>org.reactome.web.diagram.DiagramViewer</appModule>
+        <appName>${appModule}</appName>
     </properties>
 
     <dependencyManagement>
@@ -119,6 +91,38 @@
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-codeserver</artifactId>
             <scope>provided</scope>
+             <exclusions>
+                <exclusion>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-webapp</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-servlets</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-annotations</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>apache-jsp</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.jetty.websocket</groupId>
+                    <artifactId>websocket-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>apache-jsp</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-runner</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -129,38 +133,32 @@
         <dependency>
             <groupId>org.reactome.web.pwp</groupId>
             <artifactId>model</artifactId>
-            <version>${reactome.web.model}</version>
         </dependency>
 
         <dependency>
             <groupId>org.reactome.web.pwp</groupId>
             <artifactId>analysis-client</artifactId>
-            <version>${reactome.web.analysis-client}</version>
         </dependency>
 
         <dependency>
             <groupId>org.reactome.web</groupId>
             <artifactId>carrousel</artifactId>
-            <version>${reactome.web.carrousel}</version>
         </dependency>
 
         <dependency>
             <groupId>org.reactome.web</groupId>
             <artifactId>scroller</artifactId>
-            <version>${reactome.web.scroller}</version>
         </dependency>
 
         <!-- QuadTree implementation for GWT -->
         <dependency>
             <groupId>uk.ac.ebi.pwp.widgets</groupId>
             <artifactId>quadtree</artifactId>
-            <version>${reactome.web.quadtree}</version>
         </dependency>
 
         <dependency>
             <groupId>org.reactome.server.utils</groupId>
             <artifactId>reactome-utils</artifactId>
-            <version>${reactome.utils.version}</version>
             <scope>runtime</scope>
         </dependency>
 
@@ -168,20 +166,17 @@
         <dependency>
             <groupId>org.vectomatic</groupId>
             <artifactId>lib-gwt-svg</artifactId>
-            <version>${lib.gwt.svg.version}</version>
         </dependency>
 
         <!-- logging dependencies, delegate all to slf4j and use logback -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${sl4j.version}</version>
         </dependency>
         
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-nop</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
     </dependencies>
 
@@ -208,7 +203,7 @@
             <plugin>
                 <groupId>net.ltgt.gwt.maven</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
-                <version>${maven.gwt.version}</version>
+                <version>${gwt.maven.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -236,8 +231,8 @@
                     <codeserverArgs>
                         <arg>-bindAddress</arg>
                         <arg>0.0.0.0</arg>
-                        <arg>-gen</arg>
-                        <arg>${project.build.directory}/.generated</arg>
+                        <!-- <arg>-gen</arg> -->
+                        <!-- <arg>${project.build.directory}/.generated</arg> -->
                     </codeserverArgs>
                     <warDir>${project.build.directory}/${project.build.finalName}</warDir>
                     <classpathScope>compile+runtime</classpathScope>
@@ -267,27 +262,6 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <extensions>true</extensions>
-                <version>${maven.deploy.version}</version>
-            </plugin>
-
-            <!-- Nexus staging plugin for Sonatype deployment -->
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>${nexus-staging-maven-plugin}</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
-
-            <!-- Generate source jar file -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>${maven.source.version}</version>
                 <executions>
@@ -300,48 +274,11 @@
                 </executions>
             </plugin>
 
-            <!-- Generate JavaDoc jar file -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven.javadoc.version}</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Signs deployed jar, source jar, and JavaDoc jar with GPG -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>${maven.gpg.version}</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Allows "release" mvn goal to deploy a SNAPSHOT or version release to Sonatype -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>${maven.release.version}</version>
-                <configuration>
-                    <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <useReleaseProfile>false</useReleaseProfile>
-                    <releaseProfiles>release</releaseProfiles>
-                    <goals>deploy</goals>
-                </configuration>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <extensions>true</extensions>
+                <version>${maven.deploy.version}</version>
             </plugin>
         </plugins>
 
@@ -350,7 +287,7 @@
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-ssh</artifactId>
-                <version>${maven.wagon.ssh.version}</version>
+                <version>${wagon.ssh.version}</version>
             </extension>
         </extensions>
     </build>
@@ -375,6 +312,7 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+
 
         <!-- EBI repo -->
         <repository>
@@ -401,24 +339,8 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+
     </repositories>
-
-    <!-- Configures the distribution to nexus repository -->
-    <distributionManagement>
-        <!-- Sonatype Release repo -->
-        <repository>
-            <id>ossrh</id>
-            <name>Sonatype Release Repository</name>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2</url>
-        </repository>
-
-        <!-- Sonatype SNAPSHOT repo -->
-        <snapshotRepository>
-            <id>ossrh</id>
-            <name>Sonatype Snapshot Repository</name>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <pluginRepositories>
         <pluginRepository>

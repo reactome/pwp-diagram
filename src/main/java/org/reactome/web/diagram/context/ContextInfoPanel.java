@@ -14,6 +14,7 @@ import org.reactome.web.diagram.context.dialogs.InteractorsDialogPanel;
 import org.reactome.web.diagram.context.dialogs.MoleculesDialogPanel;
 import org.reactome.web.diagram.context.dialogs.PathwaysDialogPanel;
 import org.reactome.web.diagram.data.Context;
+import org.reactome.web.diagram.data.graph.model.GraphComplex;
 import org.reactome.web.diagram.data.graph.model.GraphEntityWithAccessionedSequence;
 import org.reactome.web.diagram.data.graph.model.GraphObject;
 import org.reactome.web.diagram.data.graph.model.GraphSimpleEntity;
@@ -45,7 +46,7 @@ public class ContextInfoPanel extends Composite implements ClickHandler {
         GraphObject graphObject = diagramObject.getGraphObject();
 
         // Disable the interactors' tab in case of anything else besides protein and chemical
-        boolean enabled = graphObject instanceof GraphSimpleEntity || graphObject instanceof GraphEntityWithAccessionedSequence;
+        boolean enabled = graphObject instanceof GraphSimpleEntity || graphObject instanceof GraphEntityWithAccessionedSequence || graphObject instanceof GraphComplex;
         this.interactors.setEnabled(enabled);
 
         this.molecules.addStyleName(RESOURCES.getCSS().buttonSelected());

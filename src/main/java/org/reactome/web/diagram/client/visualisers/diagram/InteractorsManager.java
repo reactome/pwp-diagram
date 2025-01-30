@@ -36,9 +36,9 @@ import static org.reactome.web.diagram.data.content.Content.Type.DIAGRAM;
 public class InteractorsManager implements ContentLoadedHandler, ContentRequestedHandler,
         InteractorsCollapsedHandler, InteractorsResourceChangedHandler {
 
-    private static final int MAX_INTERACTORS = 10;
+    private static final int MAX_INTERACTORS = 18;
 
-    private EventBus eventBus;
+    private final EventBus eventBus;
 
     private Context context;
     private String currentResource;
@@ -304,9 +304,8 @@ public class InteractorsManager implements ContentLoadedHandler, ContentRequeste
         return interactor;
     }
 
-    private int getNumberOfInteractorsToDraw(Collection items) {
+    private int getNumberOfInteractorsToDraw(Collection<?> items) {
         if (items == null) return 0;
-        int n = items.size();
-        return n <= MAX_INTERACTORS ? n : MAX_INTERACTORS;
+        return Math.min(items.size(), MAX_INTERACTORS);
     }
 }

@@ -30,8 +30,8 @@
         </init-param>
         <!-- ONLY when connecting to localhost -->
         <!--<init-param>-->
-            <!--<param-name>proxyProtocol</param-name>-->
-            <!--<param-value>http</param-value>-->
+        <!--<param-name>proxyProtocol</param-name>-->
+        <!--<param-value>http</param-value>-->
         <!--</init-param>-->
         <init-param>
             <param-name>proxyPath</param-name>
@@ -61,8 +61,8 @@
         </init-param>
         <!-- ONLY when connecting to localhost -->
         <!--<init-param>-->
-            <!--<param-name>proxyProtocol</param-name>-->
-            <!--<param-value>http</param-value>-->
+        <!--<param-name>proxyProtocol</param-name>-->
+        <!--<param-value>http</param-value>-->
         <!--</init-param>-->
         <init-param>
             <param-name>proxyPath</param-name>
@@ -73,6 +73,36 @@
     <servlet-mapping>
         <servlet-name>ReactomeAnalysis</servlet-name>
         <url-pattern>/AnalysisService/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DisgenetProxy</servlet-name>
+        <servlet-class>org.reactome.server.utils.proxy.ProxyServlet</servlet-class>
+        <init-param>
+            <param-name>proxyHost</param-name>
+<!--            <param-value>localhost</param-value>-->
+            <param-value>dev.reactome.org</param-value>
+            <!--<param-value>reactome.org</param-value>-->
+        </init-param>
+        <init-param>
+            <param-name>proxyPort</param-name>
+<!--            <param-value>8080</param-value>-->
+            <param-value>80</param-value>
+        </init-param>
+        <!-- ONLY when connecting to localhost -->
+<!--        <init-param>-->
+<!--            <param-name>proxyProtocol</param-name>-->
+<!--            <param-value>http</param-value>-->
+<!--        </init-param>-->
+        <init-param>
+            <param-name>proxyPath</param-name>
+<!--            <param-value>/</param-value>-->
+            <param-value>/overlays/disgenet/</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DisgenetProxy</servlet-name>
+        <url-pattern>/overlays/disgenet/*</url-pattern>
     </servlet-mapping>
 
     <!-- Reactome Fireworks static files local server (ONLY USED IN DEV MODE) -->

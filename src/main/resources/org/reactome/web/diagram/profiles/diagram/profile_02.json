@@ -23,6 +23,30 @@
     "fadeOutText": "#2020FF",
     "lighterText": "#1010FF"
   },
+  "cell": {
+    "fill": "#F0C59A",
+    "fadeOutFill": "#F5D8BB",
+    "lighterFill": "#F5D8BB",
+    "stroke": "#FF8637",
+    "fadeOutStroke": "#FF8637",
+    "lighterStroke": "#FF8637",
+    "lineWidth": "0.5",
+    "text": "#0000FF",
+    "fadeOutText": "#2020FF",
+    "lighterText": "#1010FF"
+  },
+  "cellNucleus": {
+    "fill": "#ABD1E3",
+    "fadeOutFill": "#D4CAB8",
+    "lighterFill": "#D3E7F0",
+    "stroke": "#1F88A7",
+    "fadeOutStroke": "#B4C0B8",
+    "lighterStroke": "#62ACC1",
+    "lineWidth": "0.5",
+    "text": "#0000FF",
+    "fadeOutText": "#2020FF",
+    "lighterText": "#1010FF"
+  },
   "chemical": {
     "fill": "#A5D791",
     "fadeOutFill": "#D2CC97",

@@ -23,6 +23,30 @@
     "fadeOutText": "#0000FF",
     "lighterText": "#8080FF"
   },
+  "cell": {
+    "fill": "rgba(248, 244, 244, 0.5)",
+    "fadeOutFill": "rgba(248, 244, 244, 0.5)",
+    "lighterFill": "rgba(248, 244, 244, 0.5)",
+    "stroke": "rgba(255, 153, 102, 1)",
+    "fadeOutStroke": "rgba(255, 153, 102, 1)",
+    "lighterStroke": "rgba(255, 153, 102, 1)",
+    "lineWidth": "0.5",
+    "text": "#0000FF",
+    "fadeOutText": "#2020FF",
+    "lighterText": "#1010FF"
+  },
+  "cellNucleus": {
+    "fill": "#CCFFFF",
+    "fadeOutFill": "#CBDEDE",
+    "lighterFill": "#E2FFFF",
+    "stroke": "#000000",
+    "fadeOutStroke": "#000000",
+    "lighterStroke": "#6C6C6C",
+    "lineWidth": "0.5",
+    "text": "#0000FF",
+    "fadeOutText": "#2020FF",
+    "lighterText": "#1010FF"
+  },
   "chemical": {
     "fill": "#CCFFCC",
     "fadeOutFill": "#CCDECC",

@@ -17,6 +17,9 @@ public interface GraphObjectImages extends ClientBundle {
     @Source("CandidateSet.png")
     ImageResource candidateSet();
 
+    @Source("Cell.png")
+    ImageResource cell();
+
     @Source("Complex.png")
     ImageResource complex();
 

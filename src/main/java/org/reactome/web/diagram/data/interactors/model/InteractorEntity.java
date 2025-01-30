@@ -6,6 +6,8 @@ import org.reactome.web.diagram.data.interactors.raw.RawInteractor;
 import org.reactome.web.diagram.data.layout.Coordinate;
 import org.reactome.web.diagram.data.layout.Node;
 import org.reactome.web.diagram.data.layout.impl.CoordinateFactory;
+import org.reactome.web.diagram.profiles.interactors.InteractorColours;
+import org.reactome.web.diagram.profiles.interactors.model.InteractorProfileNode;
 import org.reactome.web.diagram.util.chemical.ChemicalImageLoader;
 import org.reactome.web.diagram.util.pdbe.PDBeLoader;
 import org.reactome.web.diagram.util.pdbe.model.PDBObject;
@@ -20,25 +22,27 @@ import java.util.Set;
  */
 public class InteractorEntity extends DiagramInteractor implements Draggable, PDBeLoader.Handler, ChemicalImageLoader.Handler {
 
-    private String accession;
-    private String alias;
-    private boolean chemical;
+    private final String accession;
+    private final String alias;
+    private final boolean chemical;
+    private final boolean disease;
 
     private PDBObject pdbObject;
     private ImageElement image;
 
-    private boolean isHit = false;
-    private List<Double> exp = null;
+    private boolean isHit;
+    private List<Double> exp;
 
-    private Set<InteractorLink> links = new HashSet<>();
+    private final Set<InteractorLink> links = new HashSet<>();
 
     public InteractorEntity(RawInteractor rawInteractor) {
         super(rawInteractor.getAccURL());
         this.accession = rawInteractor.getAcc();
         this.alias = rawInteractor.getAlias();
-        this.isHit = rawInteractor.getIsHit() == null ? false : rawInteractor.getIsHit();
+        this.isHit = rawInteractor.getIsHit() != null && rawInteractor.getIsHit();
         this.exp = rawInteractor.getExp();
         this.chemical = isChemical(accession);
+        this.disease = isDisease(accession);
     }
 
     public InteractorLink addLink(Node node, Long id, Integer evidences, String url, double score) {
@@ -60,7 +64,7 @@ public class InteractorEntity extends DiagramInteractor implements Draggable, PD
         return alias;
     }
 
-    public static Type getType(String acc){
+    public static Type getType(String acc) {
         return isChemical(acc) ? Type.CHEMICAL : Type.PROTEIN;
     }
 
@@ -68,8 +72,22 @@ public class InteractorEntity extends DiagramInteractor implements Draggable, PD
         return chemical;
     }
 
-    private static boolean isChemical(String accession){
+    public boolean isDisease() {
+        return disease;
+    }
+
+    private static boolean isChemical(String accession) {
         return accession.matches("^(CHEBI|CHEMBL|ZINC).*");
+    }
+
+    private static boolean isDisease(String accession) {
+        return accession.matches("^C\\d{7}$");
+    }
+
+    public InteractorProfileNode getProfile() {
+        if (disease) return InteractorColours.get().PROFILE.getDisease();
+        if (chemical) return InteractorColours.get().PROFILE.getChemical();
+        return InteractorColours.get().PROFILE.getProtein();
     }
 
     public Coordinate getCentre() {
@@ -112,16 +130,16 @@ public class InteractorEntity extends DiagramInteractor implements Draggable, PD
      * Creates a string with the names of the nodes that
      * this entity interacts with (comma separated)
      */
-    public String getAltText(){
+    public String getAltText() {
         StringBuilder builder = new StringBuilder();
         Set<String> names = new HashSet<>();
-        for(InteractorLink link : links) {
+        for (InteractorLink link : links) {
             //Avoid repeated names in the alternative name (for the tooltips)
-            if(names.add(link.getNodeFrom().getDisplayName())){
+            if (names.add(link.getNodeFrom().getDisplayName())) {
                 builder.append(link.getNodeFrom().getDisplayName()).append(",");
             }
         }
-        return builder.substring(0,builder.length()-1);
+        return builder.substring(0, builder.length() - 1);
     }
 
     public boolean isLaidOut() {
@@ -141,7 +159,7 @@ public class InteractorEntity extends DiagramInteractor implements Draggable, PD
         return false;
     }
 
-    public void resetAnalysis(){
+    public void resetAnalysis() {
         this.isHit = false;
         this.exp = null;
     }
@@ -201,6 +219,7 @@ public class InteractorEntity extends DiagramInteractor implements Draggable, PD
     }
 
     private void setImageURL() {
+        if (disease) return;
         image = ImageElement.as(ChemicalImageLoader.LOADING.getElement());
         if (chemical) {
             ChemicalImageLoader.get().loadImage(this, accession);

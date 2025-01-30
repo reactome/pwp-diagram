@@ -62,11 +62,11 @@ public abstract class ContentFactory {
 
         //Create EHLDObjects to include in the content
         List<EHLDObject> pathwayNodes = new LinkedList<>();
-        Set<String> aux = new HashSet();
-        Long id = 0L;
+        Set<String> aux = new HashSet<>();
+        long id = 0L;
         for (OMElement child : SVGUtil.getAnnotatedOMElements(svg)) {
             String stID = SVGUtil.keepStableId(child.getId());
-            if(aux.add(stID)){
+            if (aux.add(stID)) {
                 pathwayNodes.add(new EHLDObject(id++, stID)); //just a placeholder
             }
         }
@@ -76,7 +76,7 @@ public abstract class ContentFactory {
     }
 
     public static void fillGraphContent(Content content, Graph graph) {
-        if(content instanceof DiagramContent){
+        if (content instanceof DiagramContent) {
             fillGraphContent((DiagramContent) content, graph);
         } else if (content instanceof EHLDContent) {
             fillGraphContent((EHLDContent) content, graph);
@@ -103,7 +103,7 @@ public abstract class ContentFactory {
             if (obj instanceof GraphPathway) {
                 GraphPathway pathway = (GraphPathway) obj;
                 DiagramObject diagramObject = getDiagramObjectByStableId(node.getStId());
-                if(diagramObject!=null) {
+                if (diagramObject != null) {
                     pathway.addDiagramObject(diagramObject);
                     diagramObject.setGraphObject(pathway);
                 }
@@ -145,6 +145,13 @@ public abstract class ContentFactory {
                 }
 
                 //TODO: Need to keep parents and/or children?
+            }
+        }
+
+        for (EntityNode node : graph.getNodes()) {
+            GraphObject obj = content.getDatabaseObject(node.getDbId());
+            if (obj instanceof GraphComplex) {
+                content.cacheParticipants((GraphPhysicalEntity) obj);
             }
         }
 
@@ -233,11 +240,15 @@ public abstract class ContentFactory {
         interactors.getOrCreateRawInteractorCachedResource(resource);
 
         MapSet<String, GraphObject> identifierMap = context.getContent().getIdentifierMap();
-        for (RawInteractorEntity interactorEntity : rawInteractors.getEntities()) {
+        List<RawInteractorEntity> entities = rawInteractors.getEntities() == null ? Collections.EMPTY_LIST : rawInteractors.getEntities();
+
+        for (RawInteractorEntity interactorEntity : entities) {
             String acc = interactorEntity.getAcc();
             interactors.cacheInteractors(resource, acc, interactorEntity.getCount(), identifierMap);
-            for (RawInteractor rawInteractor : interactorEntity.getInteractors()) {
-                interactors.cache(resource, acc, rawInteractor);
+            if (interactorEntity.getInteractors() != null && !interactorEntity.getInteractors().isEmpty()) {
+                for (RawInteractor rawInteractor : interactorEntity.getInteractors()) {
+                    interactors.cache(resource, acc, rawInteractor);
+                }
             }
         }
     }

@@ -26,6 +26,7 @@ public abstract class SearchResultImageMapper {
     private final static ImageContainer regulation = new ImageContainer(INSTANCE.regulator(), "Regulation");
     private final static ImageContainer simpleEntity = new ImageContainer(INSTANCE.simpleEntity(), "Chemical compound");
     private final static ImageContainer chemicalDrug = new ImageContainer(INSTANCE.chemicalDrug(), "Chemical drug");
+    private final static ImageContainer cell = new ImageContainer(INSTANCE.cell(), "Cell");
     private final static ImageContainer otherEntity = new ImageContainer(INSTANCE.otherEntity(), "Other Entity");
     private final static ImageContainer exclamation = new ImageContainer(INSTANCE.exclamation(), "");
 
@@ -55,6 +56,7 @@ public abstract class SearchResultImageMapper {
                 case "blackboxevent":
                 case "polymerisation":
                 case "depolimerisation":
+                case "celldevelopmentstep":
                     return reaction;
                 case "genomeencodedentity":
                     return genomeEncodeEntity;
@@ -71,6 +73,7 @@ public abstract class SearchResultImageMapper {
                 case "interactor":
                     return interactor;
                 case "pathway":
+                case "celllineagepath":
                 case "toplevelpathway":
                     return pathway;
                 case "genes and transcripts":
@@ -99,6 +102,8 @@ public abstract class SearchResultImageMapper {
                     return rnaDrug;
                 case "otherentity":
                     return otherEntity;
+                case "cell":
+                    return cell;
                 default:
                     return exclamation;
             }

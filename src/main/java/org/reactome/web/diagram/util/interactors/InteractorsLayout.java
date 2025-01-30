@@ -5,25 +5,22 @@ import org.reactome.web.diagram.data.interactors.model.InteractorEntity;
 import org.reactome.web.diagram.data.layout.*;
 import org.reactome.web.diagram.data.layout.impl.CoordinateFactory;
 import org.reactome.web.diagram.data.layout.impl.SegmentFactory;
+import org.reactome.web.diagram.util.Console;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Antonio Fabregat <fabregat@ebi.ac.uk>
  */
 public class InteractorsLayout {
-
-    private static final double L = 2 * Math.PI;
-    private static final double OFFSET = Math.PI / 2.0;
-
     private static final int BOX_WIDTH = 45;
     private static final int BOX_HEIGHT = 20;
-    private static final int RADIUS = 175;
+    public static final int SEPARATION = Math.round(BOX_HEIGHT * 1.5f);
+    public static final int MIN_HEIGHT = 2 * (2 * BOX_HEIGHT + SEPARATION);
+    public static final int MIN_WIDTH = 2 * (2 * BOX_WIDTH + SEPARATION);
 
-    private Node node;
+    private final Node node;
+    private final static Map<Integer, LayoutParameter> layoutParameters = new HashMap<>();
 
     public InteractorsLayout(Node node) {
         this.node = node;
@@ -41,20 +38,74 @@ public class InteractorsLayout {
         if (entity == null || n == 0 || i < 0 || i > n) return false;
 
         if (force || !entity.isLaidOut()) {
-            double delta = L / (double) n;
-            double angle = delta * i + OFFSET;
             Coordinate center = getCentre(node.getProp());
 
-            double x = center.getX() - RADIUS * Math.cos(angle);
-            double y = center.getY() - RADIUS * Math.sin(angle);
+            LayoutParameter lp = layoutParameters.computeIfAbsent(n, LayoutParameter::new);
 
-            entity.setMinX(x - BOX_WIDTH);
-            entity.setMaxX(x + BOX_WIDTH);
-            entity.setMinY(y - BOX_HEIGHT);
-            entity.setMaxY(y + BOX_HEIGHT);
+            int edgeNodes = lp.nodeOnTop, nodeCount = 0, prevNodeCount = 0, edgeIndex;
+
+            List<Integer> nodePerEdges = Arrays.asList(lp.nodeOnTop, lp.nodeOnRight, lp.nodeOnBottom, lp.nodeOnLeft);
+            for (edgeIndex = 0; edgeIndex < nodePerEdges.size(); edgeIndex++) {
+                edgeNodes = nodePerEdges.get(edgeIndex);
+                prevNodeCount = nodeCount;
+                nodeCount += edgeNodes - 1;
+                if (i < nodeCount) break;
+            }
+            int edgePos = i - prevNodeCount;
+            Coordinate pos = interpolate(
+                    SegmentFactory.get(
+                            getSegmentOrigin(edgeIndex, center, lp.width, lp.height),
+                            getSegmentOrigin(edgeIndex + 1, center, lp.width, lp.height)
+                    ),
+                    edgePos,
+                    edgeNodes - 1
+            );
+
+            entity.setMinX(pos.getX() - BOX_WIDTH);
+            entity.setMaxX(pos.getX() + BOX_WIDTH);
+            entity.setMinY(pos.getY() - BOX_HEIGHT);
+            entity.setMaxY(pos.getY() + BOX_HEIGHT);
             return true;
         }
         return false;
+    }
+
+    private static class LayoutParameter {
+        final int nodeOnLeft;
+        final int nodeOnRight;
+        final int nodeOnTop;
+        final int nodeOnBottom;
+        final int width;
+        final int height;
+
+        LayoutParameter(int n) {
+            float rationalNodePerEdge = n / 4f + 1;
+            int baseNodePerEdge = (int) Math.floor(rationalNodePerEdge);
+            int remaining = Math.round((rationalNodePerEdge - baseNodePerEdge) * 4);
+
+            nodeOnLeft = baseNodePerEdge + (remaining > 0 ? 1 : 0);
+            nodeOnRight = baseNodePerEdge + (remaining > 1 ? 1 : 0);
+            nodeOnTop = baseNodePerEdge + (remaining > 2 ? 1 : 0);
+            nodeOnBottom = baseNodePerEdge;
+            height = Math.max((2 * BOX_HEIGHT + SEPARATION) * (nodeOnLeft - 1), MIN_HEIGHT);
+            width = Math.max((2 * BOX_WIDTH + SEPARATION) * (nodeOnTop - 1), MIN_WIDTH);
+        }
+    }
+
+    private static Coordinate getSegmentOrigin(int edgeIndex, Coordinate center, float width, float height) {
+        edgeIndex = edgeIndex % 4;
+        return CoordinateFactory.get(
+                center.getX() + (width / 2) * (edgeIndex == 1 || edgeIndex == 2 ? 1 : -1),
+                center.getY() + (height / 2) * (edgeIndex > 1 ? 1 : -1)
+        );
+    }
+
+    public static Coordinate interpolate(Segment segment, int pos, int totalPositions) {
+        float r = pos / (float) totalPositions;
+        return CoordinateFactory.get(
+                segment.getFrom().getX() + r * (segment.getTo().getX() - segment.getFrom().getX()),
+                segment.getFrom().getY() + r * (segment.getTo().getY() - segment.getFrom().getY())
+        );
     }
 
     public static Coordinate getCentre(NodeProperties prop) {
@@ -64,7 +115,7 @@ public class InteractorsLayout {
         );
     }
 
-    public static Coordinate getSegmentsIntersection(Segment interactor, InteractorEntity entity){
+    public static Coordinate getSegmentsIntersection(Segment interactor, InteractorEntity entity) {
         Coordinate point = interactor.getTo();
         for (Segment segment : getOuterSegments(entity)) {
             Coordinate aux = getSegmentsIntersection(segment, interactor);
@@ -127,8 +178,8 @@ public class InteractorsLayout {
 
         return CoordinateFactory.get(xi, yi);
     }
-
     //Code adapted from http://www.java-gaming.org/index.php?topic=22590.0
+
     public static boolean doesIntersect(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) {
         double d = ((y4 - y3) * (x2 - x1)) - ((x4 - x3) * (y2 - y1));
 
@@ -139,10 +190,10 @@ public class InteractorsLayout {
 
         return ((ua >= 0.0d) && (ua <= 1.0d) && (ub >= 0.0d) && (ub <= 1.0d));
     }
-
 //    public static boolean isPointInCircle(Coordinate point, Coordinate center, double radius) {
 //        Coordinate delta = point.minus(center);
 //        return Math.sqrt(delta.getX() * delta.getX() + delta.getY() * delta.getY()) <= radius;
+
 //    }
 
     private static boolean isPointInSegment(Coordinate point, Segment segment) {
@@ -151,8 +202,8 @@ public class InteractorsLayout {
         double innerProduct = (point.getX() - segment.getFrom().getX()) * dx + (point.getY() - segment.getFrom().getY()) * dy;
         return 0 <= innerProduct && innerProduct <= dx * dx + dy * dy;
     }
-
     //Code adapted from http://stackoverflow.com/questions/13053061/circle-line-intersection-points
+
     private static List<Coordinate> getSegmentCircleIntersection(Segment s, Coordinate center, double radius) {
         double baX = s.getTo().getX() - s.getFrom().getX();
         double baY = s.getTo().getY() - s.getFrom().getY();
@@ -192,7 +243,7 @@ public class InteractorsLayout {
         return rtn;
     }
 
-    private static List<Segment> getOuterSegments(Node node){
+    private static List<Segment> getOuterSegments(Node node) {
         NodeProperties prop = node.getProp();
         Coordinate a = CoordinateFactory.get(prop.getX(), prop.getY());
         Coordinate b = CoordinateFactory.get(prop.getX() + prop.getWidth(), prop.getY());
@@ -207,12 +258,12 @@ public class InteractorsLayout {
         return segments;
     }
 
-    private static List<Segment> getOuterSegments(InteractorEntity entity){
+    private static List<Segment> getOuterSegments(InteractorEntity entity) {
         List<Segment> segments = new LinkedList<>();
 
-        if(entity.isChemical()){
+        if (entity.isChemical()) {
             DiagramBox box = new DiagramBox(entity);
-            Coordinate a = CoordinateFactory.get(box.getMinX() + box.getWidth() * 0.4 , entity.getMinY());
+            Coordinate a = CoordinateFactory.get(box.getMinX() + box.getWidth() * 0.4, entity.getMinY());
             Coordinate b = CoordinateFactory.get(box.getMinX() + box.getWidth() * 0.6, entity.getMinY());
             Coordinate c = CoordinateFactory.get(box.getMaxX(), box.getMinY() + box.getHeight() * 0.35);
             Coordinate d = CoordinateFactory.get(box.getMaxX(), box.getMinY() + box.getHeight() * 0.55);

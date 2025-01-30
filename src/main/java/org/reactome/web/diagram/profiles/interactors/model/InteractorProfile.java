@@ -12,4 +12,7 @@ public interface InteractorProfile extends Serializable {
     InteractorProfileNode getChemical();
 
     InteractorProfileNode getProtein();
+
+    InteractorProfileNode getDisease();
+
 }

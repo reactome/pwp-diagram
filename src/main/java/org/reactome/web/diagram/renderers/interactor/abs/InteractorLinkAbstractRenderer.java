@@ -1,8 +1,10 @@
 package org.reactome.web.diagram.renderers.interactor.abs;
 
 import org.reactome.web.diagram.data.interactors.model.DiagramInteractor;
+import org.reactome.web.diagram.data.interactors.model.DynamicLink;
 import org.reactome.web.diagram.data.interactors.model.InteractorLink;
 import org.reactome.web.diagram.data.layout.Coordinate;
+import org.reactome.web.diagram.profiles.interactors.InteractorColours;
 import org.reactome.web.diagram.util.AdvancedContext2d;
 
 /**
@@ -10,7 +12,7 @@ import org.reactome.web.diagram.util.AdvancedContext2d;
  */
 public abstract class InteractorLinkAbstractRenderer extends InteractorAbstractRenderer {
 
-    public void shape(AdvancedContext2d ctx, DiagramInteractor item, Double factor, Coordinate offset){
+    public void shape(AdvancedContext2d ctx, DiagramInteractor item, Double factor, Coordinate offset) {
         InteractorLink link = (InteractorLink) item;
         Coordinate from = link.getCoordinateFrom().transform(factor, offset);
         Coordinate to = link.getCoordinateTo().transform(factor, offset);
@@ -21,9 +23,16 @@ public abstract class InteractorLinkAbstractRenderer extends InteractorAbstractR
 
     @Override
     public void draw(AdvancedContext2d ctx, DiagramInteractor item, Double factor, Coordinate offset) {
-        if(!item.isVisible()) return;
+        if (!item.isVisible()) return;
         shape(ctx, item, factor, offset);
-        ctx.stroke();
+        if (item instanceof DynamicLink && ((DynamicLink) item).getTo().isDisease()) {
+            ctx.save();
+            ctx.setStrokeStyle(InteractorColours.get().PROFILE.getDisease().getDarkerStroke());
+            ctx.stroke();
+            ctx.restore();
+        } else {
+            ctx.stroke();
+        }
     }
 
     @Override
@@ -47,7 +56,7 @@ public abstract class InteractorLinkAbstractRenderer extends InteractorAbstractR
     }
 
     @Override
-    public void highlight(AdvancedContext2d ctx, DiagramInteractor item, Double factor, Coordinate offset){
+    public void highlight(AdvancedContext2d ctx, DiagramInteractor item, Double factor, Coordinate offset) {
         shape(ctx, item, factor, offset);
         ctx.stroke();
     }

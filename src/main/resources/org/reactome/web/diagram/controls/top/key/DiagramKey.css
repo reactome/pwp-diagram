@@ -1,7 +1,7 @@
 .diagramCanvases {
     outline: none;
     width: 195px;
-    height: 365px;
+    height: 415px;
 }
 
 .diagramCanvases canvas {
@@ -10,7 +10,6 @@
 
 .moreInfoLabel {
     display: block;
-    font-size: small;
     text-align: center;
 
     font-family: Arial Unicode MS, Arial, sans-serif !important;

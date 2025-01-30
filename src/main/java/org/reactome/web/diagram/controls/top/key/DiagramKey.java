@@ -42,19 +42,19 @@ public class DiagramKey extends AbstractMenuDialog implements GraphObjectHovered
     private static final Double FACTOR = 0.82;
     private static final Coordinate OFFSET = CoordinateFactory.get(0, 0);
     private static final int WIDTH = 195;
-    private static final int HEIGHT = 365;
+    private static final int HEIGHT = 415;
 
     private static final String USER_GUIDE_URL = DiagramFactory.SERVER + "/user/guide/pathway-browser";
 
-    private EventBus eventBus;
+    private final EventBus eventBus;
     private Diagram diagram;
 
     private DiagramObject selected;
 
-    private AdvancedContext2d hover;
-    private AdvancedContext2d items;
-    private AdvancedContext2d selection;
-    private List<Canvas> canvases = new LinkedList<>();
+    private final AdvancedContext2d hover;
+    private final AdvancedContext2d items;
+    private final AdvancedContext2d selection;
+    private final List<Canvas> canvases = new LinkedList<>();
 
     public DiagramKey(EventBus eventBus) {
         super("Diagram key");
@@ -67,11 +67,10 @@ public class DiagramKey extends AbstractMenuDialog implements GraphObjectHovered
         this.items = this.createCanvas(canvases, WIDTH, HEIGHT);
         this.selection = this.createCanvas(canvases, WIDTH, HEIGHT);
 
-        StringBuilder builder = new StringBuilder();
-        builder.append("For more information please<br> refer to our <a href=\"")
-                .append(USER_GUIDE_URL)
-                .append("\" target=\"_black\">user guide</a>");
-        HTMLPanel htmlPanel = new HTMLPanel(builder.toString());
+        String builder = "For more information please<br> refer to our <a href=\"" +
+                USER_GUIDE_URL +
+                "\" target=\"_black\">user guide</a>";
+        HTMLPanel htmlPanel = new HTMLPanel(builder);
         htmlPanel.setStyleName(RESOURCES.getCSS().moreInfoLabel());
 
         Image reactionTypes = new Image(RESOURCES.diagramKey());

@@ -6,6 +6,7 @@ import org.reactome.web.diagram.data.content.Content;
 import org.reactome.web.diagram.search.results.data.SearchException;
 import org.reactome.web.diagram.search.results.data.SearchResultFactory;
 import org.reactome.web.diagram.search.results.data.model.Occurrences;
+import org.reactome.web.pwp.model.client.util.ResponseUtils;
 
 /**
  * @author Antonio Fabregat <fabregat@ebi.ac.uk>
@@ -71,7 +72,7 @@ public class FlaggedElementsLoader implements RequestCallback {
                 break;
             default:
                 //TODO: Propagate the error from the response from the returned JSON instead?
-                handler.onFlaggedElementsLoaderError(new Exception(response.getStatusText()));
+                handler.onFlaggedElementsLoaderError(new Exception(ResponseUtils.getStatusText(response.getStatusCode())));
         }
     }
 

@@ -9,6 +9,7 @@ import org.reactome.web.diagram.util.Console;
 import org.reactome.web.pwp.model.client.classes.DatabaseObject;
 import org.reactome.web.pwp.model.client.classes.Pathway;
 import org.reactome.web.pwp.model.client.factory.DatabaseObjectFactory;
+import org.reactome.web.pwp.model.client.util.ResponseUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -48,7 +49,7 @@ public abstract class InteractorOccurrencesFactory {
                             handler.onInteractorOccurrencesReceived(getPathways(response.getText()));
                             break;
                         default:
-                            handler.onInteractorOccurrencesError(response.getStatusText());
+                            handler.onInteractorOccurrencesError(ResponseUtils.getStatusText(response.getStatusCode()));
                     }
                 }
                 @Override

@@ -108,7 +108,7 @@ public class Context {
                     GraphObject object = this.content.getDatabaseObject(pathwaySummary.getDbId());
                     if (object instanceof GraphPathway) {
                         GraphPathway pathway = (GraphPathway) object;
-                        Double percentage = statistics.getFound() / statistics.getTotal().doubleValue();
+                        double percentage = statistics.getFound() / statistics.getTotal().doubleValue();
                         if (percentage < ANALYSIS_MIN_PERCENTAGE) percentage = ANALYSIS_MIN_PERCENTAGE;
                         pathway.setIsHit(percentage, pathwaySummary.getEntities().getExp(), statistics);
                     } else if (object instanceof GraphSubpathway){

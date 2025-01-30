@@ -48,6 +48,7 @@ public class PDBeLoader {
 
     public interface Handler {
         void onPDBObjectLoaded(PDBObject pdbObject);
+
         void onImageLoaded(Image image);
     }
 

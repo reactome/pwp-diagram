@@ -36,15 +36,15 @@ public class InteractorRendererManager implements DiagramZoomHandler, ContentLoa
 
     private static InteractorRendererManager manager;
 
-    private EventBus eventBus;
+    private final EventBus eventBus;
 
-    private Map<Class, InteractorRenderer> s000 = new HashMap<>();
-    private Map<Class, InteractorRenderer> s050 = new HashMap<>();
-    private Map<Class, InteractorRenderer> s100 = new HashMap<>();
-//    private Map<Class, InteractorRenderer> s200 = new HashMap<>();
-    private Map<Class, InteractorRenderer> s300 = new HashMap<>();
+    private final Map<Class<? extends DiagramInteractor>, InteractorRenderer> s000 = new HashMap<>();
+    private final Map<Class<? extends DiagramInteractor>, InteractorRenderer> s050 = new HashMap<>();
+    private final Map<Class<? extends DiagramInteractor>, InteractorRenderer> s100 = new HashMap<>();
+    //    private final Map<Class<? extends DiagramInteractor>, InteractorRenderer> s200 = new HashMap<>();
+    private final Map<Class<? extends DiagramInteractor>, InteractorRenderer> s300 = new HashMap<>();
 
-    private Map<Class, InteractorRenderer> current = s100;
+    private Map<Class<? extends DiagramInteractor>, InteractorRenderer> current = s100;
 
     private InteractorRendererManager(EventBus eventBus) {
         this.eventBus = eventBus;
@@ -52,7 +52,7 @@ public class InteractorRendererManager implements DiagramZoomHandler, ContentLoa
         initialiseRenderers();
     }
 
-    private void initHandlers(){
+    private void initHandlers() {
         this.eventBus.addHandler(DiagramZoomEvent.TYPE, this);
         this.eventBus.addHandler(ContentLoadedEvent.TYPE, this);
     }
@@ -71,12 +71,12 @@ public class InteractorRendererManager implements DiagramZoomHandler, ContentLoa
         return InteractorRendererManager.manager;
     }
 
-    public InteractorRenderer getRenderer(Class clazz){
+    public InteractorRenderer getRenderer(Class<? extends DiagramInteractor> clazz) {
         if (clazz == null) return null;
         return this.current.get(clazz);
     }
 
-    public InteractorRenderer getRenderer(DiagramInteractor diagramInteractor){
+    public InteractorRenderer getRenderer(DiagramInteractor diagramInteractor) {
         if (diagramInteractor == null) return null;
         return this.current.get(diagramInteractor.getClass());
     }
@@ -125,7 +125,7 @@ public class InteractorRendererManager implements DiagramZoomHandler, ContentLoa
             this.current = this.s100;
         } else if (factor < 3) {
             this.current = this.s100;
-        } else{
+        } else {
             this.current = this.s300;
         }
     }

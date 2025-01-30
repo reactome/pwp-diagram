@@ -6,12 +6,15 @@ import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.RequiresResize;
 import org.reactome.web.analysis.client.filter.ResultFilter;
 import org.reactome.web.diagram.handlers.*;
+import org.reactome.web.diagram.search.handlers.SearchPerformedHandler;
 
 /**
  * @author Antonio Fabregat <fabregat@ebi.ac.uk>
  * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
  */
 public interface DiagramViewer extends IsWidget, HasHandlers, RequiresResize {
+
+    HandlerRegistration addSearchPerformedHandler(SearchPerformedHandler handler);
 
     HandlerRegistration addAnalysisResetHandler(AnalysisResetHandler handler);
 

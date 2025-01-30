@@ -16,6 +16,7 @@ import java.util.List;
  * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
  */
 public class TextRenderer {
+    public static final int MAX_LINE = 4;
     private double fontSize;
     private double padding;
 
@@ -29,16 +30,16 @@ public class TextRenderer {
         this.padding = 0;
     }
 
-    public void drawTextSingleLine(AdvancedContext2d ctx, String message, Coordinate centerPosition, Double factor, Coordinate offset){
-        Coordinate newCenter = CoordinateFactory.get(centerPosition.getX(), centerPosition.getY()).transform(factor,offset);
+    public void drawTextSingleLine(AdvancedContext2d ctx, String message, Coordinate centerPosition, Double factor, Coordinate offset) {
+        Coordinate newCenter = CoordinateFactory.get(centerPosition.getX(), centerPosition.getY()).transform(factor, offset);
         drawTextSingleLine(ctx, message, newCenter);
     }
 
-    public void drawTextSingleLine(AdvancedContext2d ctx, String message, Coordinate centerPosition){
+    public void drawTextSingleLine(AdvancedContext2d ctx, String message, Coordinate centerPosition) {
         ctx.fillText(message, centerPosition.getX(), centerPosition.getY());
     }
 
-    public void borderTextSingleLine(AdvancedContext2d ctx, String message, Coordinate centerPosition){
+    public void borderTextSingleLine(AdvancedContext2d ctx, String message, Coordinate centerPosition) {
         ctx.fillText(message, centerPosition.getX(), centerPosition.getY());
         ctx.strokeText(message, centerPosition.getX(), centerPosition.getY());
     }
@@ -46,15 +47,15 @@ public class TextRenderer {
     public void drawPreformattedText(AdvancedContext2d ctx, String message, NodeProperties properties, boolean centreVertically) {
         // Break the message into lines
         String[] lines = message.trim().split("\\n");
-        if(lines.length>2) {
+        if (lines.length > 2) {
             double centreX = properties.getX() + properties.getWidth() / 2;
             double baseY = properties.getY();
-            if (centreVertically){
+            if (centreVertically) {
                 baseY = baseY + (properties.getHeight() / 2) - ((lines.length - 1) * fontSize) / 2;
             } else {
-                baseY = baseY + fontSize/2;
+                baseY = baseY + fontSize / 2;
             }
-            for (int i=0;i<lines.length;i++) {
+            for (int i = 0; i < lines.length; i++) {
                 ctx.fillText(lines[i], centreX, baseY + (i * fontSize));
             }
         }
@@ -65,14 +66,14 @@ public class TextRenderer {
         drawTextMultiLine(ctx, message, prop);
     }
 
-    public void drawTextMultiLine(AdvancedContext2d ctx, String message, NodeProperties properties){
+    public void drawTextMultiLine(AdvancedContext2d ctx, String message, NodeProperties properties) {
         double availableWidth = properties.getWidth() - padding;
-        List<String> textLines = spitText(ctx, message, availableWidth);
+        List<String> textLines = splitText(ctx, message, availableWidth);
 
         double x = properties.getX() + properties.getWidth() / 2;
         double y = properties.getY() + properties.getHeight() / 2;
 
-        if(textLines.size() == 1){
+        if (textLines.size() == 1) {
             //Attempt to split at the end of CHEMBL
             textLines = splitAfterPrefix(message, "CHEMBL");
             if (textLines.size() == 1) {
@@ -80,11 +81,13 @@ public class TextRenderer {
                 return;
             }
         }
+
+        textLines = ellipsisTextLines(textLines);
+
         // If multiple lines start drawing a bit higher
-        y = y - ((textLines.size()-1) * fontSize)/2;
+        y = y - ((textLines.size() - 1) * fontSize) / 2;
 
-
-        for (int i=0; i<textLines.size(); i++) {
+        for (int i = 0; i < textLines.size(); i++) {
             ctx.fillText(
                     textLines.get(i),
                     x,
@@ -93,22 +96,25 @@ public class TextRenderer {
         }
     }
 
-    public void borderTextMultiLine(AdvancedContext2d ctx, String message, NodeProperties properties){
+    public void borderTextMultiLine(AdvancedContext2d ctx, String message, NodeProperties properties) {
         double availableWidth = properties.getWidth() - padding;
-        List<String> textLines = spitText(ctx, message, availableWidth);
+        List<String> textLines = splitText(ctx, message, availableWidth);
 
         double x = properties.getX() + properties.getWidth() / 2;
         double y = (properties.getY() + properties.getHeight() / 2);
 
-        if(textLines.size()==1){
-            drawTextSingleLine(ctx, message, CoordinateFactory.get(x,y));
+        if (textLines.size() == 1) {
+            drawTextSingleLine(ctx, message, CoordinateFactory.get(x, y));
             return;
         }
+
+        textLines = ellipsisTextLines(textLines);
+
         // If multiple lines start drawing a bit higher
-        y = y - ((textLines.size()-1) * fontSize)/2;
+        y = y - ((textLines.size() - 1) * fontSize) / 2;
 
 
-        for (int i=0; i<textLines.size(); i++) {
+        for (int i = 0; i < textLines.size(); i++) {
             ctx.fillText(
                     textLines.get(i),
                     x,
@@ -122,33 +128,41 @@ public class TextRenderer {
         }
     }
 
+    private List<String> ellipsisTextLines(List<String> textLines) {
+        if (textLines.size() > MAX_LINE) {
+            textLines = textLines.subList(0, MAX_LINE - 1);
+            textLines.add("...");
+        }
+        return textLines;
+    }
+
     //**************************************************************//
     //*********** Methods used to split the long text  *************//
     //**************************************************************//
 
-    private static List<String> spitText(AdvancedContext2d ctx, String fullName, double availableWidth){
+    private static List<String> splitText(AdvancedContext2d ctx, String fullName, double availableWidth) {
         List<String> rtn = new LinkedList<>();
 
         //1. split all words
         String[] words = fullName.trim().split(" ");
-        if(words.length>0) {
+        if (words.length > 0) {
             StringBuilder singleLine = new StringBuilder();
-            for(String word : words) {
+            for (String word : words) {
                 double wordWidth = measureText(ctx, word);
 
                 // check if word is too large
-                if(wordWidth > availableWidth){
+                if (wordWidth > availableWidth) {
                     splitLongWord(ctx, rtn, singleLine, word, availableWidth);
                     continue;
                 }
 
                 String aux = singleLine.toString() + " " + word;
 
-                if(singleLine.length()==0){
+                if (singleLine.length() == 0) {
                     singleLine.append(word);
-                }else if(Math.floor(measureText(ctx, aux)) <= Math.floor(availableWidth)+2){
+                } else if (Math.floor(measureText(ctx, aux)) <= Math.floor(availableWidth) + 2) {
                     singleLine.append(" ").append(word);
-                }else{
+                } else {
                     rtn.add(singleLine.toString());
                     singleLine.setLength(0);
                     singleLine.append(word);
@@ -156,39 +170,39 @@ public class TextRenderer {
                 }
 
             }
-            if(singleLine.length()!=0) {
+            if (singleLine.length() != 0) {
                 rtn.add(singleLine.toString());
             }
         }
         return rtn;
     }
 
-    private static void splitLongWord(AdvancedContext2d ctx, List<String> allLines, StringBuilder currentLine, String longWord, double availableWidth){
+    private static void splitLongWord(AdvancedContext2d ctx, List<String> allLines, StringBuilder currentLine, String longWord, double availableWidth) {
         double currentLineWidth = measureText(ctx, currentLine.toString());
 
         //Attempt to split the word backwards
         for (int i = longWord.length() - 1; i >= 0; i--) {
             char letter = longWord.charAt(i);
             // The word can be spitted in the following points
-            if(letter == ':' || letter == '.' || letter == '-' || letter == ',' || letter == ')' || letter == '/' || letter == '+'){
+            if (letter == ':' || letter == '.' || letter == '-' || letter == ',' || letter == ')' || letter == '/' || letter == '+') {
                 // Split at this position
-                String firstPart = longWord.substring(0, i+1);
-                String secondPart = longWord.substring(i+1);
+                String firstPart = longWord.substring(0, i + 1);
+                String secondPart = longWord.substring(i + 1);
 
-                if(currentLineWidth>0){
+                if (currentLineWidth > 0) {
                     //need an extra space between the current line and the new word
                     firstPart = firstPart + " ";
                 }
 
                 String aux = currentLine.toString() + firstPart;
 
-                if (Math.floor(measureText(ctx, aux)) <= Math.floor(availableWidth) + 1 ) {
+                if (Math.floor(measureText(ctx, aux)) <= Math.floor(availableWidth) + 1) {
                     // It fits!
 
                     // Add first part into the currentLine
-                    if(currentLineWidth>0) {
+                    if (currentLineWidth > 0) {
                         currentLine.append(" ").append(firstPart);
-                    }else{
+                    } else {
                         currentLine.append(firstPart);
                     }
 
@@ -199,21 +213,21 @@ public class TextRenderer {
                     currentLine.setLength(0);
 
                     // If word needs further splitting call the method again
-                    if(measureText(ctx, secondPart) > availableWidth) {
+                    if (measureText(ctx, secondPart) > availableWidth) {
                         splitLongWord(ctx, allLines, currentLine, secondPart, availableWidth);
-                    }else{
+                    } else {
                         // Add the second part of the split word into the new line
                         currentLine.append(secondPart);
                     }
                     break;
                 }
             }
-            if(i==0 && currentLine.length()>0){
+            if (i == 0 && currentLine.length() > 0) {
                 //change line and try to split again
                 allLines.add(currentLine.toString());
                 currentLine.setLength(0);
                 splitLongWord(ctx, allLines, currentLine, longWord, availableWidth);
-            } else if(i==0 && currentLine.length()==0) {
+            } else if (i == 0 && currentLine.length() == 0) {
                 //It is impossible to split the word so just show it in new line
                 allLines.add(longWord);
             }
@@ -224,7 +238,7 @@ public class TextRenderer {
         List<String> rtn = new LinkedList<>();
 
         boolean startsWithPrefix = fullName.toLowerCase().startsWith(prefix.toLowerCase());
-        if(startsWithPrefix) {
+        if (startsWithPrefix) {
             rtn.clear();
             rtn.add(fullName.substring(0, prefix.length())); //first part
             rtn.add(fullName.substring(prefix.length())); //second part
@@ -234,7 +248,7 @@ public class TextRenderer {
         return rtn;
     }
 
-    private static double measureText(AdvancedContext2d ctx, String message){
+    private static double measureText(AdvancedContext2d ctx, String message) {
         return ctx.measureText(message).getWidth();
     }
 }

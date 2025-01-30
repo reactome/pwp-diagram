@@ -11,6 +11,7 @@ import com.google.gwt.resources.client.TextResource;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.*;
+import org.reactome.web.diagram.client.OptionalWidget;
 import org.reactome.web.diagram.common.PwpButton;
 import org.reactome.web.diagram.controls.settings.tabs.AboutTabPanel;
 import org.reactome.web.diagram.controls.settings.tabs.InteractorsTabPanel;
@@ -22,12 +23,12 @@ import java.util.List;
 /**
  * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
  */
-public class HideableContainerPanel extends FlowPanel implements ClickHandler {
+public class HideableContainerPanel extends FlowPanel implements ClickHandler, OptionalWidget.Handler {
     private boolean isExpanded = false;
-    private List<Button> btns = new LinkedList<>();
-    private Button profilesBtn;
-    private Button interactorsBtn;
-    private Button aboutBtn;
+    private final List<Button> btns = new LinkedList<>();
+    protected Button profilesBtn;
+    protected Button interactorsBtn;
+    protected Button aboutBtn;
     private PwpButton showBtn;
 
     private DeckLayoutPanel container;
@@ -39,21 +40,28 @@ public class HideableContainerPanel extends FlowPanel implements ClickHandler {
         FlowPanel buttonsPanel = new FlowPanel();               // Tab buttons panel
         buttonsPanel.setStyleName(RESOURCES.getCSS().buttonsPanel());
         buttonsPanel.addStyleName(RESOURCES.getCSS().unselectable());
-        buttonsPanel.add(this.profilesBtn = getButton("Colour Profiles", RESOURCES.profilesTabIcon()));
-        buttonsPanel.add(this.interactorsBtn = getButton("Interactors", RESOURCES.interactorsTabIcon()));
-        buttonsPanel.add(this.aboutBtn = getButton("About Reactome", RESOURCES.aboutTabIcon()));
-        this.profilesBtn.addStyleName(RESOURCES.getCSS().buttonSelected());
 
         this.container = new DeckLayoutPanel();                 // Main tab container
         this.container.setStyleName(RESOURCES.getCSS().container());
 
-        ProfilesTabPanel profilesTabPanel = new ProfilesTabPanel(eventBus);
-        InteractorsTabPanel interactorsTabPanel= new InteractorsTabPanel(eventBus);
-        AboutTabPanel aboutTabPanel = new AboutTabPanel("About the Pathway Diagram",RESOURCES.aboutThis());
-        this.container.add(profilesTabPanel);
-        this.container.add(interactorsTabPanel);
-        this.container.add(aboutTabPanel);
+        if (OptionalWidget.COLOUR_PROFILE.isVisible()) {
+            buttonsPanel.add(this.profilesBtn = getButton("Colour Profiles", RESOURCES.profilesTabIcon()));
+            ProfilesTabPanel profilesTabPanel = new ProfilesTabPanel(eventBus);
+            this.container.add(profilesTabPanel);
+        }
 
+        if (OptionalWidget.INTERACTORS.isVisible()) {
+            buttonsPanel.add(this.interactorsBtn = getButton("Interactors", RESOURCES.interactorsTabIcon()));
+            InteractorsTabPanel interactorsTabPanel = new InteractorsTabPanel(eventBus);
+            this.container.add(interactorsTabPanel);
+        }
+
+        if (OptionalWidget.ABOUT.isVisible()) {
+            buttonsPanel.add(this.aboutBtn = getButton("About", RESOURCES.aboutTabIcon()));
+            AboutTabPanel aboutTabPanel = new AboutTabPanel("About the Pathway Diagram", RESOURCES.aboutThis());
+            this.container.add(aboutTabPanel);
+        }
+        this.btns.get(0).addStyleName(RESOURCES.getCSS().buttonSelected());
         this.container.showWidget(0);
         this.container.setAnimationVertical(true);
         this.container.setAnimationDuration(500);
@@ -74,32 +82,32 @@ public class HideableContainerPanel extends FlowPanel implements ClickHandler {
         add(mainPanel);
     }
 
-    private void collapse(){
+    private void collapse() {
         removeStyleName(RESOURCES.getCSS().wrapperInitial());
-        if(isExpanded) {
+        if (isExpanded) {
             removeStyleName(RESOURCES.getCSS().wrapperExpanded());
             showBtn.removeStyleName(RESOURCES.getCSS().showHideRight());
             isExpanded = false;
         }
     }
 
-    private void expand(){
-        if(!isExpanded) {
+    private void expand() {
+        if (!isExpanded) {
             addStyleName(RESOURCES.getCSS().wrapperExpanded());
             showBtn.addStyleName(RESOURCES.getCSS().showHideRight());
             isExpanded = true;
         }
     }
 
-    private void toggle(){
-        if(!isExpanded) {
+    private void toggle() {
+        if (!isExpanded) {
             expand();
         } else {
             collapse();
         }
     }
 
-    public Button getButton(String text, ImageResource imageResource){
+    public Button getButton(String text, ImageResource imageResource) {
         FlowPanel fp = new FlowPanel();
         Image image = new Image(imageResource);
         image.addStyleName(RESOURCES.getCSS().undraggable());
@@ -119,7 +127,7 @@ public class HideableContainerPanel extends FlowPanel implements ClickHandler {
             btn.removeStyleName(RESOURCES.getCSS().buttonSelected());
         }
         selectedBtn.addStyleName(RESOURCES.getCSS().buttonSelected());
-        if(!isExpanded) {
+        if (!isExpanded) {
             expand();
             container.showWidget(btns.indexOf(selectedBtn));
         } else if (btns.indexOf(selectedBtn) != container.getVisibleWidgetIndex()) {

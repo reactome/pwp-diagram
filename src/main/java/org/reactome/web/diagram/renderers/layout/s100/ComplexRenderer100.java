@@ -27,6 +27,12 @@ import java.util.List;
 @SuppressWarnings("Duplicates")
 public class ComplexRenderer100 extends ComplexAbstractRenderer {
     @Override
+    public void draw(AdvancedContext2d ctx, DiagramObject item, Double factor, Coordinate offset) {
+        super.draw(ctx, item, factor, offset);
+        drawSummaryItems(ctx, (Node) item, factor, offset);
+    }
+
+    @Override
     public Double getExpressionHovered(DiagramObject item, Coordinate pos, int t) {
         GraphComplex complex = item.getGraphObject();
         NodeProperties prop = ((Node) item).getProp();
@@ -34,7 +40,7 @@ public class ComplexRenderer100 extends ComplexAbstractRenderer {
         List<Participant> participantsWithExpression = Participant.asSortedList(complex.getParticipantsExpression(t));
         if (participantsWithExpression.isEmpty()) return null;
 
-        Double delta = prop.getWidth() / complex.getParticipants().size();
+        double delta = prop.getWidth() / complex.getParticipants().size();
         double minX = prop.getX();
         for (Participant participant : participantsWithExpression) {
             Double value = participant.getExpression();
@@ -91,7 +97,7 @@ public class ComplexRenderer100 extends ComplexAbstractRenderer {
         ctx.stroke();
         ctx.restore();
 
-        Double delta = prop.getWidth() / complex.getParticipants().size();
+        double delta = prop.getWidth() / complex.getParticipants().size();
         double x = prop.getX();
 
         AdvancedContext2d buffer = overlay.getBuffer();
@@ -137,7 +143,7 @@ public class ComplexRenderer100 extends ComplexAbstractRenderer {
         ctx.stroke();
         ctx.restore();
 
-        Double delta = prop.getWidth() / complex.getParticipants().size();
+        double delta = prop.getWidth() / complex.getParticipants().size();
         double x = prop.getX();
 
         AdvancedContext2d buffer = overlay.getBuffer();

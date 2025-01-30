@@ -18,3 +18,40 @@
     height: 32px;
     opacity: 0.9;
 }
+
+.pharmGKB {
+    position: absolute;
+    bottom: 35px;
+    right: 80px;
+}
+
+.pharmGKB img{
+    width: auto;
+    height: 36px;
+    opacity: 0.5;
+
+    -webkit-transition: height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    -moz-transition: height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transition: height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.pharmGKB:hover img{
+    height: 42px;
+    opacity: 0.9;
+}
+
+.pharmGKBAdjustPosition {
+    position: absolute;
+    bottom: 5px;
+    right: 80px;
+}
+
+.pharmGKBAdjustPosition img{
+    width: auto;
+    height: 36px;
+    opacity: 0.6;
+
+    -webkit-transition: height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    -moz-transition: height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transition: height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}

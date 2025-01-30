@@ -1,10 +1,11 @@
 {
-  "name": "Cyan",
+  "name": "Lighter",
   "chemical": {
     "fill": "#B2EBF2",
     "stroke": "#000000",
     "lighterFill" : "#E0F7FA",
     "lighterStroke" : "#006064",
+    "darkerStroke": "#006064",
     "text": "#000000",
     "lighterText": "#424242"
   },
@@ -13,7 +14,17 @@
     "stroke": "#616161",
     "lighterFill" : "#80DEEA",
     "lighterStroke" : "#9E9E9E",
+    "darkerStroke": "#006064",
     "text": "#000000",
+    "lighterText": "#424242"
+  },
+  "disease": {
+    "fill": "#E2EFF0",
+    "stroke": "#E35656",
+    "lighterFill" : "#E2EFF0",
+    "lighterStroke" : "#FCA3A3",
+    "darkerStroke": "#BA3C3C",
+    "text": "#E35656",
     "lighterText": "#424242"
   }
 }

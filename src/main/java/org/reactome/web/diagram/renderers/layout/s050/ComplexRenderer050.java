@@ -28,6 +28,16 @@ import java.util.List;
  */
 @SuppressWarnings("Duplicates")
 public class ComplexRenderer050 extends ComplexAbstractRenderer {
+
+    @Override
+    public void draw(AdvancedContext2d ctx, DiagramObject item, Double factor, Coordinate offset) {
+        super.draw(ctx, item, factor, offset);
+        ctx.save();
+        ctx.setGlobalAlpha((factor - 0.5) * 2);
+        drawSummaryItems(ctx, (Node) item, factor, offset);
+        ctx.restore();
+    }
+
     @Override
     public Double getExpressionHovered(DiagramObject item, Coordinate pos, int t) {
         GraphComplex complex = item.getGraphObject();
@@ -97,7 +107,7 @@ public class ComplexRenderer050 extends ComplexAbstractRenderer {
 
         List<Double> expression = new LinkedList<>(complex.getParticipantsExpression(t).values());
         Collections.sort(expression);       //Collections.sort(expression, Collections.reverseOrder());
-        Double value = ExpressionUtil.median(expression);
+        double value = ExpressionUtil.median(expression);
 
         AdvancedContext2d buffer = overlay.getBuffer();
         buffer.save();
@@ -136,11 +146,11 @@ public class ComplexRenderer050 extends ComplexAbstractRenderer {
 
         List<Double> expression = new LinkedList<>(complex.getParticipantsExpression(t).values());
         Collections.sort(expression);       //Collections.sort(expression, Collections.reverseOrder());
-        Double value = ExpressionUtil.median(expression);
+        double value = ExpressionUtil.median(expression);
 
         AdvancedContext2d buffer = overlay.getBuffer();
         buffer.save();
-        buffer.setFillStyle(AnalysisColours.get().regulationColorMap.getColor(value.intValue()));
+        buffer.setFillStyle(AnalysisColours.get().regulationColorMap.getColor((int) value));
         buffer.octagon(prop.getX(), prop.getY(), prop.getWidth(), prop.getHeight(), RendererProperties.COMPLEX_RECT_ARC_WIDTH);
         buffer.fill();
         buffer.setGlobalCompositeOperation(Context2d.Composite.SOURCE_IN);
@@ -182,6 +192,5 @@ public class ComplexRenderer050 extends ComplexAbstractRenderer {
     @Override
     public void highlight(AdvancedContext2d ctx, DiagramObject item, Double factor, Coordinate offset) {
         super.highlight(ctx, item, factor, offset);
-        drawSummaryItems(ctx, (Node) item, factor, offset);
     }
 }

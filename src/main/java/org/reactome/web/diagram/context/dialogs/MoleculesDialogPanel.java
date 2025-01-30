@@ -18,6 +18,7 @@ import org.reactome.web.diagram.handlers.AnalysisProfileChangedHandler;
 import org.reactome.web.diagram.handlers.AnalysisResetHandler;
 import org.reactome.web.diagram.handlers.AnalysisResultLoadedHandler;
 import org.reactome.web.diagram.handlers.ExpressionColumnChangedHandler;
+import org.reactome.web.diagram.util.Console;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -42,6 +43,7 @@ public class MoleculesDialogPanel extends Composite implements AnalysisResultLoa
     private int selectedExpCol = 0;
 
     private List<GraphPhysicalEntity> proteins = new LinkedList<>();
+    private List<GraphPhysicalEntity> rnas = new LinkedList<>();
     private List<GraphPhysicalEntity> chemicals = new LinkedList<>();
     private List<GraphPhysicalEntity> dnas = new LinkedList<>();
     private List<GraphPhysicalEntity> polymers = new LinkedList<>();
@@ -49,6 +51,7 @@ public class MoleculesDialogPanel extends Composite implements AnalysisResultLoa
 
     private MoleculesTable<GraphPhysicalEntity> proteinsTable;
     private MoleculesTable<GraphPhysicalEntity> chemicalsTable;
+    private MoleculesTable<GraphPhysicalEntity> rnasTable;
     private MoleculesTable<GraphPhysicalEntity> dnasTable;
     private MoleculesTable<GraphPhysicalEntity> polymersTable;
     private MoleculesTable<GraphPhysicalEntity> othersTable;
@@ -131,6 +134,7 @@ public class MoleculesDialogPanel extends Composite implements AnalysisResultLoa
         if(proteinsTable!=null) proteinsTable.redraw();
         if(chemicalsTable!=null) chemicalsTable.redraw();
         if(dnasTable!=null) dnasTable.redraw();
+        if(rnasTable!=null) rnasTable.redraw();
         if(polymersTable!=null) polymersTable.redraw();
         if(othersTable!=null) othersTable.redraw();
         eventBus.fireEventFromSource(new ProteinsTableUpdatedEvent(proteinsTable), this);
@@ -140,6 +144,7 @@ public class MoleculesDialogPanel extends Composite implements AnalysisResultLoa
         if(proteinsTable!=null) proteinsTable.setMoleculesLabels(displayIds);
         if(chemicalsTable!=null) chemicalsTable.setMoleculesLabels(displayIds);
         if(dnasTable!=null) dnasTable.setMoleculesLabels(displayIds);
+        if(rnasTable!=null) rnasTable.setMoleculesLabels(displayIds);
         if(polymersTable!=null) polymersTable.setMoleculesLabels(displayIds);
         if(othersTable!=null) othersTable.setMoleculesLabels(displayIds);
         eventBus.fireEventFromSource(new ProteinsTableUpdatedEvent(proteinsTable), this);
@@ -150,6 +155,7 @@ public class MoleculesDialogPanel extends Composite implements AnalysisResultLoa
         if(proteinsTable!=null) proteinsTable.addExpressionColumns(expColumns, min, max, selectedExpCol);
         if(chemicalsTable!=null) chemicalsTable.addExpressionColumns(expColumns, min, max, selectedExpCol);
         if(dnasTable!=null) dnasTable.addExpressionColumns(expColumns, min, max, selectedExpCol);
+        if(rnasTable!=null) rnasTable.addExpressionColumns(expColumns, min, max, selectedExpCol);
         if(polymersTable!=null) polymersTable.addExpressionColumns(expColumns, min, max, selectedExpCol);
         if(othersTable!=null) othersTable.addExpressionColumns(expColumns, min, max, selectedExpCol);
         highlightColumn(selectedExpCol);
@@ -159,6 +165,7 @@ public class MoleculesDialogPanel extends Composite implements AnalysisResultLoa
         if(proteinsTable!=null) proteinsTable.setAnalysisType(analysisType);
         if(chemicalsTable!=null) chemicalsTable.setAnalysisType(analysisType);
         if(dnasTable!=null) dnasTable.setAnalysisType(analysisType);
+        if(rnasTable!=null) rnasTable.setAnalysisType(analysisType);
         if(polymersTable!=null) polymersTable.setAnalysisType(analysisType);
         if(othersTable!=null) othersTable.setAnalysisType(analysisType);
     }
@@ -167,6 +174,7 @@ public class MoleculesDialogPanel extends Composite implements AnalysisResultLoa
         if(proteinsTable!=null) proteinsTable.removeExpressionColumns();
         if(chemicalsTable!=null) chemicalsTable.removeExpressionColumns();
         if(dnasTable!=null) dnasTable.removeExpressionColumns();
+        if(rnasTable!=null) rnasTable.removeExpressionColumns();
         if(polymersTable!=null) polymersTable.removeExpressionColumns();
         if(othersTable!=null) othersTable.removeExpressionColumns();
     }
@@ -175,6 +183,7 @@ public class MoleculesDialogPanel extends Composite implements AnalysisResultLoa
         if(proteinsTable!=null) proteinsTable.highlightExpColumn(col);
         if(chemicalsTable!=null) chemicalsTable.highlightExpColumn(col);
         if(dnasTable!=null) dnasTable.highlightExpColumn(col);
+        if(rnasTable!=null) rnasTable.highlightExpColumn(col);
         if(polymersTable!=null) polymersTable.highlightExpColumn(col);
         if(othersTable!=null) othersTable.highlightExpColumn(col);
     }
@@ -189,9 +198,11 @@ public class MoleculesDialogPanel extends Composite implements AnalysisResultLoa
             participants = rle.getParticipants();
         }
 
+
         proteins = new LinkedList<>();
         chemicals = new LinkedList<>();
         dnas = new LinkedList<>();
+        rnas = new LinkedList<>();
         polymers = new LinkedList<>();
         others = new LinkedList<>();
 
@@ -199,7 +210,19 @@ public class MoleculesDialogPanel extends Composite implements AnalysisResultLoa
             if (participant instanceof GraphSimpleEntity || participant instanceof GraphChemicalDrug) {
                 chemicals.add(participant);
             } else if (participant instanceof GraphEntityWithAccessionedSequence || participant instanceof GraphProteinDrug) {
-                proteins.add(participant);
+                switch (participant.getReferenceType()) {
+                    case "ReferenceDNASequence":
+                        dnas.add(participant);
+                        break;
+                    case "ReferenceRNASequence":
+                        rnas.add(participant);
+                        break;
+                    case "ReferenceGeneProduct":
+                    case "ReferenceIsoform":
+                    default:
+                        proteins.add(participant);
+                        break;
+                }
             } else if (participant instanceof GraphGenomeEncodedEntity) {
                 dnas.add(participant);
             } else if (participant instanceof GraphPolymer){
@@ -241,6 +264,12 @@ public class MoleculesDialogPanel extends Composite implements AnalysisResultLoa
             dnasTable.addMoleculeSelectedHandler(this);
             vp.add(dnasTable);
         }
+        if (!rnas.isEmpty()) {
+            rnasTable = new MoleculesTable<>("RNA", rnas, analysisType, expColumns, min, max, selectedExpCol);
+            rnasTable.setHeight(getOptimalSize(rnas) + "px");
+            rnasTable.addMoleculeSelectedHandler(this);
+            vp.add(rnasTable);
+        }
         if (!polymers.isEmpty()){
             polymersTable = new MoleculesTable<>("Polymers", polymers, analysisType, expColumns, min, max, selectedExpCol);
             polymersTable.setHeight(getOptimalSize(polymers) + "px");
@@ -262,6 +291,7 @@ public class MoleculesDialogPanel extends Composite implements AnalysisResultLoa
         if (proteins.size() > 0)    requiredSections++;
         if (chemicals.size() > 0)   requiredSections++;
         if (dnas.size() > 0)        requiredSections++;
+        if (rnas.size() > 0)        requiredSections++;
         if (polymers.size() > 0)    requiredSections++;
         if (others.size() > 0)      requiredSections++;
 

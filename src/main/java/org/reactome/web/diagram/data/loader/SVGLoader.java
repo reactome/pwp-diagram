@@ -11,6 +11,7 @@ import org.reactome.web.pwp.model.client.classes.Pathway;
 import org.reactome.web.pwp.model.client.common.ContentClientHandler;
 import org.reactome.web.pwp.model.client.content.ContentClient;
 import org.reactome.web.pwp.model.client.content.ContentClientError;
+import org.reactome.web.pwp.model.client.util.ResponseUtils;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
 import org.vectomatic.dom.svg.utils.ParserException;
@@ -120,7 +121,7 @@ public class SVGLoader implements RequestCallback {
                 }
                 break;
             default:
-                this.handler.onSvgLoaderError(stId, new Exception(response.getStatusText()));
+                this.handler.onSvgLoaderError(stId, new Exception(ResponseUtils.getStatusText(response.getStatusCode())));
         }
     }
 

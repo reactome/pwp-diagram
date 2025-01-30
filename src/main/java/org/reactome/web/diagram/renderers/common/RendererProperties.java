@@ -8,7 +8,7 @@ import org.reactome.web.diagram.renderers.layout.abs.ChemicalDrugAbstractRendere
  * @author Antonio Fabregat <fabregat@ebi.ac.uk>
  */
 public abstract class RendererProperties {
-    private static NumberFormat myFormatter = NumberFormat.getFormat(".##");
+    private static final NumberFormat myFormatter = NumberFormat.getFormat(".##");
     private static double FACTOR;
 
     static {
@@ -28,6 +28,7 @@ public abstract class RendererProperties {
     public static double MAX_WIDGET_FONT_SIZE = 19;
     public static double NOTE_FONT_SIZE;
     public static double SEPARATION;
+    public static double CELL_SEPARATION;
     public static double PROCESS_NODE_INSET_WIDTH;
     public static double NODE_TEXT_PADDING;
     public static double NODE_LINE_WIDTH;
@@ -45,6 +46,7 @@ public abstract class RendererProperties {
         GENE_SYMBOL_PAD = 4 * factor;
         GENE_SYMBOL_WIDTH = 50 * factor;
         SEPARATION = 3 * factor;
+        CELL_SEPARATION = 2 * factor;
         PROCESS_NODE_INSET_WIDTH = 10 * factor;
         NODE_TEXT_PADDING = 10 * factor;
         WIDGET_FONT_SIZE = 9 * factor;

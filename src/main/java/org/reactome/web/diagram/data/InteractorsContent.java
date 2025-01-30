@@ -347,6 +347,10 @@ public class InteractorsContent {
         return rawInteractorsCache.keySet().contains(resource);
     }
 
+    public Set<String> getLoadedResources() {
+        return rawInteractorsCache.keySet();
+    }
+
     public Collection<DiagramInteractor> getVisibleInteractors(String resource, Box visibleArea) {
         Set<DiagramInteractor> rtn = new HashSet<>();
         if (resource != null) {

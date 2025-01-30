@@ -4,11 +4,13 @@ import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import org.reactome.web.analysis.client.filter.ResultFilter;
 import org.reactome.web.diagram.client.visualisers.Visualiser;
 import org.reactome.web.diagram.client.visualisers.diagram.InteractorsManager;
+import org.reactome.web.diagram.controls.top.search.SearchPanel;
 import org.reactome.web.diagram.data.AnalysisStatus;
 import org.reactome.web.diagram.data.Context;
 import org.reactome.web.diagram.data.GraphObjectFactory;
@@ -21,6 +23,7 @@ import org.reactome.web.diagram.data.loader.FlaggedElementsLoader;
 import org.reactome.web.diagram.data.loader.LoaderManager;
 import org.reactome.web.diagram.events.*;
 import org.reactome.web.diagram.handlers.*;
+import org.reactome.web.diagram.search.handlers.SearchPerformedHandler;
 import org.reactome.web.diagram.search.results.data.model.Occurrences;
 import org.reactome.web.diagram.util.Console;
 
@@ -59,16 +62,16 @@ public class DiagramViewerImpl extends AbstractDiagramViewer implements
         this.getElement().addClassName("pwp-DiagramViewer"); //IMPORTANT!
     }
 
-	protected ViewerContainer createViewerContainer() {
-		return new ViewerContainer(eventBus);
-	}
-	
-	protected LoaderManager createLoaderManager() {
-		return new LoaderManager(eventBus);
-	}
+    protected ViewerContainer createViewerContainer() {
+        return new ViewerContainer(eventBus);
+    }
+
+    protected LoaderManager createLoaderManager() {
+        return new LoaderManager(eventBus);
+    }
 
     protected void initialise() {
-        if(!initialised) { //initialised is defined in the AbstractDiagramViewer
+        if (!initialised) { //initialised is defined in the AbstractDiagramViewer
             super.initialise();
             this.initHandlers();
         }
@@ -111,14 +114,14 @@ public class DiagramViewerImpl extends AbstractDiagramViewer implements
     @Override
     public void flagItems(String identifier, Boolean includeInteractors) {
         if (context != null && identifier != null) {
-            if(!identifier.equalsIgnoreCase(context.getFlagTerm()) || !this.includeInteractors.equals(includeInteractors)) {
+            if (!identifier.equalsIgnoreCase(context.getFlagTerm()) || !this.includeInteractors.equals(includeInteractors)) {
                 eventBus.fireEventFromSource(new DiagramObjectsFlagRequestedEvent(identifier, includeInteractors), this);
             }
         }
     }
 
 
-	@Override
+    @Override
     public void highlightItem(String stableIdentifier) {
         try {
             GraphObject item = this.context.getContent().getDatabaseObject(stableIdentifier);
@@ -156,7 +159,7 @@ public class DiagramViewerImpl extends AbstractDiagramViewer implements
         loaderManager.load(identifier);
     }
 
-    private void clearAnalysisOverlay(){
+    private void clearAnalysisOverlay() {
         context.clearAnalysisOverlay();
         interactorsManager.clearAnalysisOverlay();
     }
@@ -174,6 +177,17 @@ public class DiagramViewerImpl extends AbstractDiagramViewer implements
     }
 
     @Override
+    public HandlerRegistration addSearchPerformedHandler(SearchPerformedHandler handler) {
+        SearchPanel searchPanel = this.viewerContainer.leftTopLauncher.getSearchPanel();
+        if (searchPanel != null) {
+            return searchPanel.launcher.addSearchPerformedHandler(handler);
+        } else {
+            return () -> {
+            };
+        }
+    }
+
+    @Override
     public void onAnalysisReset(AnalysisResetEvent event) {
         if (event.getFireExternally()) {
             fireEvent(event);
@@ -187,9 +201,7 @@ public class DiagramViewerImpl extends AbstractDiagramViewer implements
         analysisStatus.setExpressionSummary(event.getExpressionSummary());
         context.setAnalysisOverlay(analysisStatus, event.getFoundElements(), event.getPathwaySummaries());
         interactorsManager.setAnalysisOverlay(event.getFoundElements(), context.getContent().getIdentifierMap());
-        Scheduler.get().scheduleDeferred(() -> {
-            viewerContainer.loadAnalysis();
-        });
+        Scheduler.get().scheduleDeferred(viewerContainer::loadAnalysis);
     }
 
     @Override
@@ -213,7 +225,7 @@ public class DiagramViewerImpl extends AbstractDiagramViewer implements
         context.setFlagTerm(event.getTerm());
         this.includeInteractors = event.getIncludeInteractors();
         Set<DiagramObject> flagged = context.getFlagged(context.getFlagTerm() + includeInteractors);
-        if(flagged == null) {
+        if (flagged == null) {
             flaggedElementsLoader.load(context.getContent(), event.getTerm(), notify);
         } else {
             eventBus.fireEventFromSource(new DiagramObjectsFlaggedEvent(event.getTerm(), includeInteractors, flagged, notify), this);
@@ -223,7 +235,7 @@ public class DiagramViewerImpl extends AbstractDiagramViewer implements
     @Override
     public void flaggedElementsLoaded(String term, Occurrences toFlag, boolean notify) {
         Set<DiagramObject> flagged = new HashSet<>();
-        if(toFlag != null && toFlag.getOccurrences() != null) {
+        if (toFlag != null && toFlag.getOccurrences() != null) {
             for (String stId : toFlag.getOccurrences()) {
                 GraphObject graphObject = context.getContent().getDatabaseObject(stId);
                 if (graphObject != null) {
@@ -240,7 +252,7 @@ public class DiagramViewerImpl extends AbstractDiagramViewer implements
         }
 
         //Flag those diagram entities that interact with the term
-        if(toFlag != null && toFlag.getInteractsWith() != null && includeInteractors) {
+        if (toFlag != null && toFlag.getInteractsWith() != null && includeInteractors) {
             for (String stId : toFlag.getInteractsWith()) {
                 GraphObject graphObject = context.getContent().getDatabaseObject(stId);
                 if (graphObject != null) {
@@ -301,7 +313,7 @@ public class DiagramViewerImpl extends AbstractDiagramViewer implements
         } else {
             // Highlight and notify depending on the outcome
             if (context == null) return;
-            if (viewerContainer.highlightGraphObject(event.getGraphObject(), false)){
+            if (viewerContainer.highlightGraphObject(event.getGraphObject(), false)) {
                 fireEvent(event);
             }
         }
@@ -317,7 +329,7 @@ public class DiagramViewerImpl extends AbstractDiagramViewer implements
         } else {
             // Highlight and notify depending on the outcome
             if (context == null) return;
-            if (viewerContainer.selectItem(event.getGraphObject(), false)){
+            if (viewerContainer.selectItem(event.getGraphObject(), false)) {
                 if (event.getFireExternally()) {
                     fireEvent(event);
                 }
@@ -332,7 +344,6 @@ public class DiagramViewerImpl extends AbstractDiagramViewer implements
         //the outside. That is the reason of the next line of code
         if (event.getSource() instanceof Visualiser) {
             fireEvent(event); //needs outside notification
-            return;
         } else {
             if (context != null) {
                 viewerContainer.highlightInteractor(event.getInteractor());
@@ -381,7 +392,7 @@ public class DiagramViewerImpl extends AbstractDiagramViewer implements
     @Override
     protected void onLoad() {
         super.onLoad();
-        Scheduler.get().scheduleDeferred(() -> initialise());
+        Scheduler.get().scheduleDeferred(this::initialise);
     }
 
     @Override
@@ -436,14 +447,11 @@ public class DiagramViewerImpl extends AbstractDiagramViewer implements
     @Override
     public void setAnalysisToken(String token, ResultFilter filter) {
         final AnalysisStatus analysisStatus = (token == null) ? null : new AnalysisStatus(eventBus, token, filter);
-        AnalysisTokenValidator.checkTokenAvailability(token, new AnalysisTokenValidator.TokenAvailabilityHandler() {
-            @Override
-            public void onTokenAvailabilityChecked(boolean available, String message) {
-                if (available) {
-                    loadAnalysis(analysisStatus);
-                } else {
-                    eventBus.fireEventFromSource(new DiagramInternalErrorEvent(message), DiagramViewerImpl.this);
-                }
+        AnalysisTokenValidator.checkTokenAvailability(token, (available, message) -> {
+            if (available) {
+                loadAnalysis(analysisStatus);
+            } else {
+                eventBus.fireEventFromSource(new DiagramInternalErrorEvent(message), DiagramViewerImpl.this);
             }
         });
     }
@@ -484,7 +492,7 @@ public class DiagramViewerImpl extends AbstractDiagramViewer implements
 
     @Override
     public void onKeyDown(KeyDownEvent keyDownEvent) {
-        if(isVisible() && DiagramFactory.RESPOND_TO_SEARCH_SHORTCUT){
+        if (isVisible() && DiagramFactory.RESPOND_TO_SEARCH_SHORTCUT) {
             int keyCode = keyDownEvent.getNativeKeyCode();
             String platform = Window.Navigator.getPlatform();
             // If this is a Mac, check for the cmd key. In case of any other platform, check for the ctrl key

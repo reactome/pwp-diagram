@@ -106,7 +106,7 @@ public class SetDrugRenderer000 extends SetDrugAbstractRenderer {
 
         List<Double> expression = new LinkedList<>(set.getParticipantsExpression(t).values());
         Collections.sort(expression);       //Collections.sort(expression, Collections.reverseOrder());
-        Double value = ExpressionUtil.median(expression);
+        double value = ExpressionUtil.median(expression);
 
         AdvancedContext2d buffer = overlay.getBuffer();
         buffer.save();
@@ -138,11 +138,11 @@ public class SetDrugRenderer000 extends SetDrugAbstractRenderer {
 
         List<Double> expression = new LinkedList<>(set.getParticipantsExpression(t).values());
         Collections.sort(expression);       //Collections.sort(expression, Collections.reverseOrder());
-        Double value = ExpressionUtil.median(expression);
+        double value = ExpressionUtil.median(expression);
 
         AdvancedContext2d buffer = overlay.getBuffer();
         buffer.save();
-        buffer.setFillStyle(AnalysisColours.get().regulationColorMap.getColor(value.intValue()));
+        buffer.setFillStyle(AnalysisColours.get().regulationColorMap.getColor((int) value));
         buffer.fillRect(prop.getX(), prop.getY(), prop.getWidth(), prop.getHeight());
         buffer.fill();
         buffer.setGlobalCompositeOperation(Context2d.Composite.SOURCE_IN);

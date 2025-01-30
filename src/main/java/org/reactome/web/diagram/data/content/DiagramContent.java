@@ -1,9 +1,6 @@
 package org.reactome.web.diagram.data.content;
 
-import org.reactome.web.diagram.data.graph.model.GraphObject;
-import org.reactome.web.diagram.data.graph.model.GraphPathway;
-import org.reactome.web.diagram.data.graph.model.GraphPhysicalEntity;
-import org.reactome.web.diagram.data.graph.model.GraphSubpathway;
+import org.reactome.web.diagram.data.graph.model.*;
 import org.reactome.web.diagram.data.layout.Coordinate;
 import org.reactome.web.diagram.data.layout.DiagramObject;
 import org.reactome.web.diagram.data.layout.Node;
@@ -51,6 +48,15 @@ public class DiagramContent extends GenericContent {
             this.diagramObjects.add(diagramObject);
         }
         return this;
+    }
+
+    public void cacheParticipants(GraphPhysicalEntity dbObject) {
+        Set<GraphPhysicalEntity> participants = dbObject.getParticipants();
+        if (participants.size() == 1) {
+            for (GraphPhysicalEntity participant: participants) {
+                identifierMap.add(participant.getIdentifier(), dbObject);
+            }
+        }
     }
 
     public void cache(GraphObject dbObject) {

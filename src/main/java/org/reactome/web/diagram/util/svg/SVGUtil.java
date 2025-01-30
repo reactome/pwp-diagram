@@ -113,6 +113,19 @@ public abstract class SVGUtil {
         }
     }
 
+    public static void addInlineWithChildrenStyle(OMSVGSVGElement svg, String className, String cssStyle){
+        OMNodeList<OMElement> styles = svg.getElementsByTagName(SVGConstants.SVG_STYLE_TAG);
+        if (styles!=null && styles.getLength()>0) {
+            OMSVGStyleElement style = (OMSVGStyleElement) styles.getItem(0);
+            OMNode omNode  = style.getFirstChild();
+            if (omNode != null) {
+                StringBuilder sb = new StringBuilder(omNode.getNodeValue());
+                sb.append(".").append(className).append(", .").append(className).append(" > * ").append(cssStyle);
+                omNode.setNodeValue(sb.toString());
+            }
+        }
+    }
+
     @SuppressWarnings("ConstantConditions")
     public static OMSVGDefsElement getOrCreateDefs(OMSVGSVGElement svg, OMSVGDefsElement baseDefs) {
         OMSVGDefsElement rtn;

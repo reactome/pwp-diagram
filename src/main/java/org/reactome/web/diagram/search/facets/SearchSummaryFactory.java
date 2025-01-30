@@ -7,6 +7,7 @@ import org.reactome.web.diagram.search.results.data.SearchException;
 import org.reactome.web.diagram.search.results.data.SearchResultFactory;
 import org.reactome.web.diagram.search.results.data.model.SearchSummary;
 import org.reactome.web.diagram.util.Console;
+import org.reactome.web.pwp.model.client.util.ResponseUtils;
 
 /**
  *
@@ -42,7 +43,7 @@ public abstract class SearchSummaryFactory {
                             handler.onSearchSummaryReceived(getSummary(response.getText(), handler));
                             break;
                         default:
-                            handler.onSearchSummaryError(response.getStatusText());
+                            handler.onSearchSummaryError(ResponseUtils.getStatusText(response.getStatusCode()));
                     }
                 }
                 @Override

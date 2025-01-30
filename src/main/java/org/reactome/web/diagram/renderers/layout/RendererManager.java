@@ -26,13 +26,13 @@ public class RendererManager implements DiagramZoomHandler, ContentLoadedHandler
 
     private static RendererManager manager;
 
-    private EventBus eventBus;
+    private final EventBus eventBus;
 
-    private Map<String, Renderer> s000 = new HashMap<>();
-    private Map<String, Renderer> s050 = new HashMap<>();
-    private Map<String, Renderer> s100 = new HashMap<>();
-    private Map<String, Renderer> s300 = new HashMap<>();
-    private Map<String, Renderer> s800 = new HashMap<>();
+    private final Map<String, Renderer> s000 = new HashMap<>();
+    private final Map<String, Renderer> s050 = new HashMap<>();
+    private final Map<String, Renderer> s100 = new HashMap<>();
+    private final Map<String, Renderer> s300 = new HashMap<>();
+    private final Map<String, Renderer> s800 = new HashMap<>();
 
     private Map<String, Renderer> current = s100;
     private ConnectorRenderer connectorRenderer = new ConnectorRenderer100();
@@ -87,6 +87,7 @@ public class RendererManager implements DiagramZoomHandler, ContentLoadedHandler
         s000.put("Note", new NoteRenderer000());
         s000.put("Compartment", new CompartmentRenderer000());
         s000.put("Protein", new ProteinRenderer000());
+        s000.put("Cell", new CellRenderer000());
         s000.put("Chemical", new ChemicalRenderer000());
         s000.put("ChemicalDrug", new ChemicalDrugRenderer000());
         s000.put("ProteinDrug", new ProteinDrugRenderer000());
@@ -111,6 +112,7 @@ public class RendererManager implements DiagramZoomHandler, ContentLoadedHandler
         s050.put("Note", new NoteRenderer050());
         s050.put("Compartment", new CompartmentRenderer050());
         s050.put("Protein", new ProteinRenderer050());
+        s050.put("Cell", new CellRenderer050());
         s050.put("Chemical", new ChemicalRenderer050());
         s050.put("ChemicalDrug", new ChemicalDrugRenderer050());
         s050.put("ProteinDrug", new ProteinDrugRenderer050());
@@ -135,6 +137,7 @@ public class RendererManager implements DiagramZoomHandler, ContentLoadedHandler
         s100.put("Note", new NoteRenderer100());
         s100.put("Compartment", new CompartmentRenderer100());
         s100.put("Protein", new ProteinRenderer100());
+        s100.put("Cell", new CellRenderer100());
         s100.put("Chemical", new ChemicalRenderer100());
         s100.put("ChemicalDrug", new ChemicalDrugRenderer100());
         s100.put("ProteinDrug", new ProteinDrugRenderer100());
@@ -159,6 +162,7 @@ public class RendererManager implements DiagramZoomHandler, ContentLoadedHandler
         s300.put("Note", new NoteRenderer300());
         s300.put("Compartment", new CompartmentRenderer300());
         s300.put("Protein", new ProteinRenderer300());
+        s300.put("Cell", new CellRenderer300());
         s300.put("Chemical", new ChemicalRenderer300());
         s300.put("ChemicalDrug", new ChemicalDrugRenderer300());
         s300.put("ProteinDrug", new ProteinDrugRenderer300());
@@ -184,6 +188,7 @@ public class RendererManager implements DiagramZoomHandler, ContentLoadedHandler
         s800.put("Note", new NoteRenderer800());
         s800.put("Compartment", new CompartmentRenderer800());
         s800.put("Protein", new ProteinRenderer800());
+        s800.put("Cell", new CellRenderer800());
         s800.put("Chemical", new ChemicalRenderer800());
         s800.put("ChemicalDrug", new ChemicalDrugRenderer800());
         s800.put("ProteinDrug", new ProteinDrugRenderer800());
