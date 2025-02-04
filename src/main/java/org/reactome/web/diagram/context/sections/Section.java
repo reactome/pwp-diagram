@@ -17,7 +17,7 @@ import org.reactome.web.diagram.util.Console;
 import java.util.List;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class Section extends Composite implements ClickHandler, ScrollHandler {
     private String title;

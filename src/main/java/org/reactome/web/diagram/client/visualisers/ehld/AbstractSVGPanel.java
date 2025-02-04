@@ -19,7 +19,7 @@ import org.vectomatic.dom.svg.utils.SVGConstants;
 import java.util.*;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public abstract class AbstractSVGPanel extends AbsolutePanel {
     protected EventBus eventBus;

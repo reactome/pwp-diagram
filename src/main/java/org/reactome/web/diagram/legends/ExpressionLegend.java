@@ -35,7 +35,7 @@ import java.util.List;
 
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 @SuppressWarnings("Duplicates")
 public class ExpressionLegend extends LegendPanel implements ClickHandler, MouseOverHandler, MouseOutHandler,

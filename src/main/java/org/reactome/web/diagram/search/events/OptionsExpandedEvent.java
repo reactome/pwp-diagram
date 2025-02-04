@@ -4,7 +4,7 @@ import com.google.gwt.event.shared.GwtEvent;
 import org.reactome.web.diagram.search.handlers.OptionsExpandedHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class OptionsExpandedEvent extends GwtEvent<OptionsExpandedHandler> {
     public static Type<OptionsExpandedHandler> TYPE = new Type<>();

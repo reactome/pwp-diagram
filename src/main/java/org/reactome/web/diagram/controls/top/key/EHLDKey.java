@@ -12,7 +12,7 @@ import org.reactome.web.diagram.events.ControlActionEvent;
 import org.reactome.web.diagram.handlers.ControlActionHandler;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class EHLDKey extends AbstractMenuDialog implements ControlActionHandler {
 

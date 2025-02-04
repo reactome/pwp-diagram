@@ -27,7 +27,7 @@ import static org.reactome.web.diagram.data.content.Content.Type.SVG;
 
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class RightTopLauncherPanel extends FlowPanel implements ClickHandler, ContentLoadedHandler, OptionalWidget.Handler {
 

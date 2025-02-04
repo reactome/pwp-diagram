@@ -6,7 +6,7 @@ import org.reactome.web.diagram.data.graph.model.GraphObject;
 import uk.ac.ebi.pwp.structures.quadtree.client.Box;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public interface Thumbnail extends IsWidget {
 

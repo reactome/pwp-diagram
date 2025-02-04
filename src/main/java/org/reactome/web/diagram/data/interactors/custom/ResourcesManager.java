@@ -14,7 +14,7 @@ import java.util.*;
  * This class manages all custom resources and deals with choosing
  * between HTML5 and cookie storage.
  *
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 @SuppressWarnings("Duplicates")
 public class ResourcesManager {

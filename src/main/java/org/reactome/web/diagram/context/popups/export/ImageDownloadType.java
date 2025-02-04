@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public enum ImageDownloadType implements DownloadType {
     SVG     ("SVG",     "/diagram/__STID__.svg__PARAMS__",       "SVG",     ImageFormatIcons.INSTANCE.SVGIcon()),

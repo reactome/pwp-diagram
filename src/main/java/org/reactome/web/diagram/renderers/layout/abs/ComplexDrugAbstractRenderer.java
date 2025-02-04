@@ -13,7 +13,7 @@ import org.reactome.web.diagram.renderers.common.RendererProperties;
 import org.reactome.web.diagram.util.AdvancedContext2d;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public abstract class ComplexDrugAbstractRenderer extends NodeAbstractRenderer {
     protected static double COMPLEX_DRUG_RX_FONT = 5;

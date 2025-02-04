@@ -3,7 +3,7 @@ package org.reactome.web.diagram.context.sections;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class SectionCellSelectedEvent extends GwtEvent<SectionCellSelectedHandler> {
     public static GwtEvent.Type<SectionCellSelectedHandler> TYPE = new GwtEvent.Type<SectionCellSelectedHandler>();

@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
  * Used to generate and cash the regular expression used to highlight
  * both the autocomplete and search results.
  *
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public final class RegExpUtil {
 

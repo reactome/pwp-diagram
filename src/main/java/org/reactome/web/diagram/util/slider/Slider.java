@@ -16,7 +16,7 @@ import org.reactome.web.diagram.util.Console;
 /**
  * A basic implementation for a progress slider based on canvas
  *
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class Slider extends Composite implements HasHandlers, MouseMoveHandler, MouseDownHandler, MouseOutHandler, MouseUpHandler,
         ValueBoxUpdatedHandler {

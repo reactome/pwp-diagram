@@ -10,7 +10,7 @@ import org.reactome.web.diagram.data.interactors.custom.raw.factory.UploadRespon
 import org.reactome.web.diagram.data.interactors.custom.raw.factory.UploadResponseFactory;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class CustomResourceSubmitter implements FormPanel.SubmitHandler, FormPanel.SubmitCompleteHandler, RequestCallback {
 

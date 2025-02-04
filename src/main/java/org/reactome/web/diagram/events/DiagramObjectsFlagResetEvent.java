@@ -4,7 +4,7 @@ import com.google.gwt.event.shared.GwtEvent;
 import org.reactome.web.diagram.handlers.DiagramObjectsFlagResetHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class DiagramObjectsFlagResetEvent extends GwtEvent<DiagramObjectsFlagResetHandler> {
     public static final Type<DiagramObjectsFlagResetHandler> TYPE = new Type<>();

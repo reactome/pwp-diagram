@@ -5,7 +5,7 @@ import org.reactome.web.diagram.handlers.DiagramPanningHandler;
 import uk.ac.ebi.pwp.structures.quadtree.client.Box;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class DiagramPanningEvent extends GwtEvent<DiagramPanningHandler> {
     public static Type<DiagramPanningHandler> TYPE = new Type<DiagramPanningHandler>();

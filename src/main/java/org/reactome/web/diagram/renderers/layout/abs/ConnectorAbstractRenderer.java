@@ -11,7 +11,7 @@ import org.reactome.web.diagram.renderers.layout.RendererManager;
 import org.reactome.web.diagram.util.AdvancedContext2d;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public abstract class ConnectorAbstractRenderer implements ConnectorRenderer {
 

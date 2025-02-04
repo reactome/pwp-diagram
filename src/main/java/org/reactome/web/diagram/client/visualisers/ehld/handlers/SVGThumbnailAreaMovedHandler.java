@@ -4,7 +4,7 @@ import com.google.gwt.event.shared.EventHandler;
 import org.reactome.web.diagram.client.visualisers.ehld.events.SVGThumbnailAreaMovedEvent;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public interface SVGThumbnailAreaMovedHandler extends EventHandler {
 

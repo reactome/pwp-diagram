@@ -6,7 +6,7 @@ import org.reactome.web.diagram.renderers.interactor.abs.InteractorEntityAbstrac
 import org.reactome.web.diagram.util.AdvancedContext2d;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 @SuppressWarnings("Duplicates")
 public class InteractorEntityRenderer050 extends InteractorEntityAbstractRenderer {

@@ -21,7 +21,7 @@ import org.reactome.web.diagram.handlers.ContentRequestedHandler;
 
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class EnrichmentControl extends LegendPanel implements ClickHandler,
         AnalysisResultRequestedHandler, AnalysisResultLoadedHandler, AnalysisResetHandler,

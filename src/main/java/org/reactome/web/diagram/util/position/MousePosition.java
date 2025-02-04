@@ -5,7 +5,7 @@ import com.google.gwt.event.dom.client.MouseEvent;
 /**
  * Used to get the correct relative mouse position.
  *
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public abstract class MousePosition {
 

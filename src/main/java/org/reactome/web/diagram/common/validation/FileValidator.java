@@ -1,7 +1,7 @@
 package org.reactome.web.diagram.common.validation;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class FileValidator extends AbstractValidator {
     @Override

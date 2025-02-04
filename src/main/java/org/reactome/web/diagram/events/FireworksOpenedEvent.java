@@ -4,7 +4,7 @@ import com.google.gwt.event.shared.GwtEvent;
 import org.reactome.web.diagram.handlers.FireworksOpenedHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class FireworksOpenedEvent extends GwtEvent<FireworksOpenedHandler> {
     public static final Type<FireworksOpenedHandler> TYPE = new Type<FireworksOpenedHandler>();

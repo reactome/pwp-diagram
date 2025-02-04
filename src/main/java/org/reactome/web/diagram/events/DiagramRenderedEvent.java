@@ -6,7 +6,7 @@ import org.reactome.web.diagram.handlers.DiagramRenderedHandler;
 import uk.ac.ebi.pwp.structures.quadtree.client.Box;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class DiagramRenderedEvent extends GwtEvent<DiagramRenderedHandler> {
     public static Type<DiagramRenderedHandler> TYPE = new Type<DiagramRenderedHandler>();

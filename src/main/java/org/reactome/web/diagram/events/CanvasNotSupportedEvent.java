@@ -4,7 +4,7 @@ import com.google.gwt.event.shared.GwtEvent;
 import org.reactome.web.diagram.handlers.CanvasNotSupportedHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class CanvasNotSupportedEvent extends GwtEvent<CanvasNotSupportedHandler> {
     public static Type<CanvasNotSupportedHandler> TYPE = new Type<CanvasNotSupportedHandler>();

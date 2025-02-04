@@ -8,7 +8,7 @@ import org.reactome.web.diagram.renderers.common.ColourProfileType;
 import org.reactome.web.diagram.util.AdvancedContext2d;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public abstract class FlowlineAbstractRenderer extends EdgeAbstractRenderer {
 

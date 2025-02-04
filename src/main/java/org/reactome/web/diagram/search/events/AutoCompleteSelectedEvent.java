@@ -4,7 +4,7 @@ import com.google.gwt.event.shared.GwtEvent;
 import org.reactome.web.diagram.search.handlers.AutoCompleteSelectedHandler;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class AutoCompleteSelectedEvent extends GwtEvent<AutoCompleteSelectedHandler> {
     public static Type<AutoCompleteSelectedHandler> TYPE = new Type<>();

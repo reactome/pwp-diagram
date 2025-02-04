@@ -28,7 +28,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class AutoCompletePanel extends AbstractAccordionPanel implements SearchPerformedHandler,
         OptionsExpandedHandler, OptionsCollapsedHandler, SearchBoxArrowKeysHandler,

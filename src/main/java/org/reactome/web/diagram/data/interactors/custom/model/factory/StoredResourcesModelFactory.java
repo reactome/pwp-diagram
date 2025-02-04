@@ -9,7 +9,7 @@ import org.reactome.web.diagram.data.interactors.custom.model.CustomResource;
 import org.reactome.web.diagram.data.interactors.custom.model.CustomResources;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 @SuppressWarnings("Duplicates")
 public class StoredResourcesModelFactory {

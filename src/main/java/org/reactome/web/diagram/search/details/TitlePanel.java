@@ -27,7 +27,7 @@ import org.reactome.web.diagram.search.results.ResultItem;
  * The view of the title is slightly different depending on whether
  * the displayed item is a {@link ResultItem} or a {@link InteractorSearchResult}
  *
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class TitlePanel extends FlowPanel implements ClickHandler,
         DiagramObjectsFlagResetHandler, DiagramObjectsFlaggedHandler {

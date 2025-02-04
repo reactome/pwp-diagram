@@ -8,7 +8,7 @@ import org.reactome.web.diagram.data.layout.factory.DiagramObjectException;
 import org.reactome.web.pwp.model.client.util.ResponseUtils;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class GraphLoader implements RequestCallback {
 

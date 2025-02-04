@@ -14,8 +14,8 @@ import org.reactome.web.diagram.common.IconButton;
 import org.reactome.web.diagram.events.ControlActionEvent;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class MainControlPanel extends FlowPanel implements ClickHandler, OptionalWidget.Handler {
 

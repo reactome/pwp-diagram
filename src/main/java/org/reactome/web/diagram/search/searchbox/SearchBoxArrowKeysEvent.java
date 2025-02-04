@@ -3,7 +3,7 @@ package org.reactome.web.diagram.search.searchbox;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class SearchBoxArrowKeysEvent extends GwtEvent<SearchBoxArrowKeysHandler> {
     public static Type<SearchBoxArrowKeysHandler> TYPE = new Type<SearchBoxArrowKeysHandler>();

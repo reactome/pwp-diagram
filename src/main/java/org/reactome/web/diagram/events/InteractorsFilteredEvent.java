@@ -4,7 +4,7 @@ import com.google.gwt.event.shared.GwtEvent;
 import org.reactome.web.diagram.handlers.InteractorsFilteredHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class InteractorsFilteredEvent extends GwtEvent<InteractorsFilteredHandler> {
     public static final Type<InteractorsFilteredHandler> TYPE = new Type<>();

@@ -50,7 +50,7 @@ import static org.reactome.web.diagram.data.content.Content.Type.DIAGRAM;
 import static org.reactome.web.diagram.data.content.Content.Type.SVG;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class ViewerContainer extends AbsolutePanel implements RequiresResize,
         CanvasExportRequestedHandler, ControlActionHandler,

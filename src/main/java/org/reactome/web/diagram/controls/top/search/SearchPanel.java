@@ -11,7 +11,7 @@ import org.reactome.web.diagram.search.details.DetailsInfoPanel;
 import org.reactome.web.diagram.search.results.ResultsPanel;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class SearchPanel extends FlowPanel {
     public final SearchLauncher launcher;

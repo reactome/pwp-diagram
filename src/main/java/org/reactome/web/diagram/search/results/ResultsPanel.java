@@ -50,7 +50,7 @@ import java.util.*;
 
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class ResultsPanel extends AbstractAccordionPanel implements ScopeBarPanel.Handler,
         SearchSummaryFactory.Handler, SearchPerformedHandler, AutoCompleteRequestedHandler,

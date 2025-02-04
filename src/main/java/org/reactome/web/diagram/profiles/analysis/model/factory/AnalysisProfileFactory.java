@@ -8,7 +8,7 @@ import org.reactome.web.diagram.profiles.analysis.model.AnalysisProfile;
 import org.reactome.web.diagram.profiles.analysis.model.ProfileGradient;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class AnalysisProfileFactory {
 

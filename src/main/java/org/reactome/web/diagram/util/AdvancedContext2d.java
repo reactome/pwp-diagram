@@ -8,8 +8,8 @@ import org.reactome.web.diagram.renderers.layout.abs.DashedLineAbstractRenderer;
  * Methods include drawing dashed lines and shapes, ellipses, arrows
  * and shapes specific to the Reactome diagram viewer.
  *
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class AdvancedContext2d extends Context2d {
 

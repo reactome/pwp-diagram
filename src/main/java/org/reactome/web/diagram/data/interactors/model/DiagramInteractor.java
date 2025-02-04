@@ -5,7 +5,7 @@ import org.reactome.web.diagram.data.layout.Coordinate;
 import uk.ac.ebi.pwp.structures.quadtree.client.QuadTreeBox;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public abstract class DiagramInteractor implements QuadTreeBox {
 

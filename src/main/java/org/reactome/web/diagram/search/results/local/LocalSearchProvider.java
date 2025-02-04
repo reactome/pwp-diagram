@@ -26,7 +26,7 @@ import static org.reactome.web.scroller.client.util.Placeholder.ROWS;
 import static org.reactome.web.scroller.client.util.Placeholder.START;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 @SuppressWarnings("All")
 public class LocalSearchProvider extends AbstractListAsyncDataProvider<SearchResultObject> {

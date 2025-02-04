@@ -39,8 +39,8 @@ import java.util.Map;
 
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 @SuppressWarnings("Duplicates")
 public class RegulationLegend extends LegendPanel implements ClickHandler,

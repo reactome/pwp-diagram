@@ -4,7 +4,7 @@ import com.google.gwt.event.shared.GwtEvent;
 import org.reactome.web.diagram.handlers.InteractorsCollapsedHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class InteractorsCollapsedEvent extends GwtEvent<InteractorsCollapsedHandler> {
     public static final Type<InteractorsCollapsedHandler> TYPE = new Type<>();

@@ -8,7 +8,7 @@ import org.reactome.web.diagram.profiles.diagram.model.DiagramProfile;
 import org.reactome.web.diagram.util.AdvancedContext2d;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class RNAThumbnailRenderer extends AbstractThumbnailRenderer {
     @Override

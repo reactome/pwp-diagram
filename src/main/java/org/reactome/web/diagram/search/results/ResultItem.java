@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class ResultItem implements SearchResultObject, Entry {
 

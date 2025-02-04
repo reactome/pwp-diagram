@@ -8,7 +8,7 @@ import org.reactome.web.diagram.data.layout.DiagramObject;
 /**
  * Used to represent the Pathways inside an EHLD.
  *
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class EHLDObject implements DiagramObject {
     private Long id;

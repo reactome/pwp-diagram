@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.ToggleButton;
 
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class SpeedButton extends ToggleButton implements MouseOutHandler, MouseOverHandler, ValueChangeHandler<Boolean> {
 

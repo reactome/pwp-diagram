@@ -6,7 +6,7 @@ import org.reactome.web.pwp.model.client.factory.DatabaseObjectImages;
 
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public abstract class SearchResultImageMapper {
 

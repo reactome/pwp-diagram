@@ -15,7 +15,7 @@ import java.util.List;
  * Performs a request to the Content Service and retrieves the
  * autocomplete suggestions.
  *
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public abstract class AutoCompleteResultsFactory {
 

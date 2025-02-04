@@ -9,7 +9,7 @@ import org.reactome.web.diagram.data.interactors.custom.raw.RawSummary;
 import org.reactome.web.diagram.data.interactors.custom.raw.RawUploadResponse;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public abstract class UploadResponseFactory {
 

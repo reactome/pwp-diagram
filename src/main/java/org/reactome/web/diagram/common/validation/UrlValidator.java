@@ -3,7 +3,7 @@ package org.reactome.web.diagram.common.validation;
 import com.google.gwt.regexp.shared.RegExp;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 @SuppressWarnings("Duplicates")
 public class UrlValidator extends AbstractValidator {

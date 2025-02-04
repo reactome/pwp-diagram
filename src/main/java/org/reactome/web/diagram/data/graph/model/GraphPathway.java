@@ -8,7 +8,7 @@ import org.reactome.web.diagram.data.graph.raw.EntityNode;
 import java.util.List;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class GraphPathway extends GraphEvent {
 

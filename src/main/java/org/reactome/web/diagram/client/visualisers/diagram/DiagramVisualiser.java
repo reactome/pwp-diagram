@@ -38,8 +38,8 @@ import java.util.Set;
 import static org.reactome.web.analysis.client.model.AnalysisType.*;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class DiagramVisualiser extends SimplePanel implements Visualiser,
         UserActionsManager.Handler, DiagramAnimationHandler,

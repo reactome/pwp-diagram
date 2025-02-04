@@ -3,7 +3,7 @@ package org.reactome.web.diagram.data.layout.impl;
 import org.reactome.web.diagram.data.layout.Color;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class ColorFactory implements Color{
 

@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 @SuppressWarnings("all")
 public class SVGThumbnail extends AbstractSVGPanel implements Thumbnail, ContextMenuHandler,

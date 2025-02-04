@@ -15,7 +15,7 @@ import org.reactome.web.diagram.util.Console;
 import java.util.List;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 @SuppressWarnings("Duplicates")
 public abstract class AbstractRenderer implements Renderer {

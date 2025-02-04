@@ -1,7 +1,7 @@
 package org.reactome.web.diagram.util.slider;
 
 /**
-* @author Antonio Fabregat <fabregat@ebi.ac.uk>
+* @author Antonio Fabregat (fabregat@ebi.ac.uk)
 */
 enum PinStatus {
     STD ("#58ACFA"),

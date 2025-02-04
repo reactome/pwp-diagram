@@ -8,7 +8,7 @@ import org.reactome.web.diagram.data.layout.SummaryItem;
 import org.reactome.web.diagram.handlers.EntityDecoratorHoveredHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class EntityDecoratorHoveredEvent extends GwtEvent<EntityDecoratorHoveredHandler> {
     public static final Type<EntityDecoratorHoveredHandler> TYPE = new Type<>();

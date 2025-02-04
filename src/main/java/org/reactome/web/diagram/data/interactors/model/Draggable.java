@@ -1,7 +1,7 @@
 package org.reactome.web.diagram.data.interactors.model;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public interface Draggable {
 

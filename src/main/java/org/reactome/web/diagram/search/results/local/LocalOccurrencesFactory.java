@@ -9,7 +9,7 @@ import org.reactome.web.diagram.search.results.data.model.Occurrences;
 import org.reactome.web.diagram.search.results.data.model.SearchError;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public abstract class LocalOccurrencesFactory {
 

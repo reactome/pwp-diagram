@@ -3,7 +3,7 @@ package org.reactome.web.diagram.util;
 //import net.auroris.ColorPicker.client.Color;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class ColorGradient {
 

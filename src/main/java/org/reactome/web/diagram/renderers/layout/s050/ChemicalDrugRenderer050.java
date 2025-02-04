@@ -9,8 +9,8 @@ import org.reactome.web.diagram.renderers.layout.abs.ChemicalDrugAbstractRendere
 import org.reactome.web.diagram.util.AdvancedContext2d;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class ChemicalDrugRenderer050 extends ChemicalDrugAbstractRenderer {
 

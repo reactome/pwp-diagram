@@ -4,7 +4,7 @@ import com.google.gwt.event.shared.GwtEvent;
 import org.reactome.web.diagram.handlers.InteractorsErrorHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class InteractorsErrorEvent extends GwtEvent<InteractorsErrorHandler> {
     public static final Type<InteractorsErrorHandler> TYPE = new Type<>();

@@ -3,7 +3,7 @@ package org.reactome.web.diagram.context.dialogs.molecules;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class ChangeLabelsEvent extends GwtEvent<ChangeLabelsHandler> {
     public static Type<ChangeLabelsHandler> TYPE = new Type<>();

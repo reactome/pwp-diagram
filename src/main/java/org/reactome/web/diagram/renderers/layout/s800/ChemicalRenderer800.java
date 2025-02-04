@@ -7,8 +7,8 @@ import org.reactome.web.diagram.renderers.layout.s300.ChemicalRenderer300;
 import org.reactome.web.diagram.util.AdvancedContext2d;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class ChemicalRenderer800 extends ChemicalRenderer300 {
     @Override

@@ -15,7 +15,7 @@ import org.reactome.web.diagram.handlers.DiagramInternalErrorHandler;
 import org.reactome.web.diagram.handlers.LayoutLoadedHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class LoadingMessage extends MessagesPanel implements ContentRequestedHandler, LayoutLoadedHandler, ContentLoadedHandler, DiagramInternalErrorHandler {
 

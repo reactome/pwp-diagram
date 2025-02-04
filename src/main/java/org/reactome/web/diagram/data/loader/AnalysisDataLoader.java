@@ -20,17 +20,17 @@ import java.util.List;
  * This class is in charge of providing the analysis result for a given token, resource and pathway.
  * For the pair (token, resource) there is a analysisSummary associated that ONLY needs to be retrieved
  * when these change (either one, the other or both).
- * <p/>
+ *
  * Related to pathways, please note that there are two components to take into account: (1) the hit
  * entities in the pathway diagram and (2) the entities hit in the encapsulated pathways.
- * <p/>
+ *
  * It is right to think that the hit entities in the encapsulated pathways are retrieved with the first
  * query but since the deconstruction of the encapsulated pathways (process nodes) is not contained in
  * the graph original graph (and this is done in purpose to optimise memory usage) the easiest way of
  * knowing the percentage of hit elements in this process nodes is querying the analysis service for the
  * pathway summary.
  *
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class AnalysisDataLoader implements AnalysisHandler.Summary, AnalysisHandler.Summaries, AnalysisHandler.Elements {
     private static AnalysisDataLoader analysisDataLoader;

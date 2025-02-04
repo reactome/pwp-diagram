@@ -5,7 +5,7 @@ import org.reactome.web.diagram.data.Context;
 import org.reactome.web.diagram.handlers.LayoutLoadedHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class LayoutLoadedEvent extends GwtEvent<LayoutLoadedHandler> {
     public static Type<LayoutLoadedHandler> TYPE = new Type<LayoutLoadedHandler>();

@@ -8,7 +8,7 @@ import org.reactome.web.diagram.renderers.layout.abs.ShapeAbstractRenderer;
 import org.reactome.web.diagram.util.AdvancedContext2d;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class ReactionRenderer000 extends ReactionAbstractRenderer {
     @Override

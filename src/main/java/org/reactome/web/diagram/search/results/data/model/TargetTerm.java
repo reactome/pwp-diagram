@@ -1,7 +1,7 @@
 package org.reactome.web.diagram.search.results.data.model;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk> lalal
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk) lalal
  */
 public interface TargetTerm {
 

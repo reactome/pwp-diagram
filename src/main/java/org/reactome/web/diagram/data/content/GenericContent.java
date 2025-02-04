@@ -3,7 +3,7 @@ package org.reactome.web.diagram.data.content;
 import org.reactome.web.analysis.client.model.EntityStatistics;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public abstract class GenericContent implements Content {
     protected Long dbId;

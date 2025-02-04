@@ -35,7 +35,7 @@ import static org.reactome.web.diagram.search.events.ResultSelectedEvent.ResultT
 
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 @SuppressWarnings("all")
 public class LocalSearchResultsWidget extends Composite implements ResultsWidget, SelectionChangeEvent.Handler,

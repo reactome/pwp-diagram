@@ -5,7 +5,7 @@ import org.reactome.web.diagram.data.layout.impl.CoordinateFactory;
 import uk.ac.ebi.pwp.structures.quadtree.client.Box;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class DiagramStatus {
 

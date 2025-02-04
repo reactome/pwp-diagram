@@ -9,7 +9,7 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import java.util.Collection;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class GeneNameListPanel extends Composite {
 

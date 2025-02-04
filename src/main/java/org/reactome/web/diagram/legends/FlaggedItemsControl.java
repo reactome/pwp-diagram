@@ -17,7 +17,7 @@ import org.reactome.web.diagram.handlers.*;
 import java.util.Set;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class FlaggedItemsControl extends LegendPanel implements ClickHandler, ChangeHandler,
         ContentRequestedHandler,

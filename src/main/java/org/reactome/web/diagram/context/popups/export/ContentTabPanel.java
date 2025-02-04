@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class ContentTabPanel extends FlowPanel {
     private static String DESCRIPTION = "To enable integration with other tools and resources, the content of our pathway diagrams can be exported in the following formats:";

@@ -11,7 +11,7 @@ import org.reactome.web.pwp.model.client.util.ResponseUtils;
 
 /**
  *
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public abstract class SearchSummaryFactory {
     private static final String BASE_URL = DiagramFactory.SERVER + "/ContentService/search/diagram/summary?query=##QUERY##&species=##SPECIES##&diagram=##DIAGRAM##";

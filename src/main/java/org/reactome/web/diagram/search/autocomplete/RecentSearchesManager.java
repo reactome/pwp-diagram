@@ -15,7 +15,7 @@ import java.util.List;
  * This class manages all recent searches and deals with choosing
  * between HTML5 and cookie storage.
  *
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 @SuppressWarnings("Duplicates")
 public class RecentSearchesManager {

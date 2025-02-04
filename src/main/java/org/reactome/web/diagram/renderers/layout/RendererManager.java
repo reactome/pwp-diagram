@@ -19,8 +19,8 @@ import java.util.Map;
 import static org.reactome.web.diagram.data.content.Content.Type.DIAGRAM;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class RendererManager implements DiagramZoomHandler, ContentLoadedHandler {
 

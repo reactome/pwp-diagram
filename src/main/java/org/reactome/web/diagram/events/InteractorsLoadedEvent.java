@@ -5,7 +5,7 @@ import org.reactome.web.diagram.data.interactors.raw.RawInteractors;
 import org.reactome.web.diagram.handlers.InteractorsLoadedHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class InteractorsLoadedEvent extends GwtEvent<InteractorsLoadedHandler> {
     public static final Type<InteractorsLoadedHandler> TYPE = new Type<>();

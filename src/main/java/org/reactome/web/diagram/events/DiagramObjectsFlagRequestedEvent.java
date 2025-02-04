@@ -4,7 +4,7 @@ import com.google.gwt.event.shared.GwtEvent;
 import org.reactome.web.diagram.handlers.DiagramObjectsFlagRequestHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class DiagramObjectsFlagRequestedEvent extends GwtEvent<DiagramObjectsFlagRequestHandler> {
     public static final Type<DiagramObjectsFlagRequestHandler> TYPE = new Type<>();

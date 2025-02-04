@@ -38,7 +38,7 @@ import java.util.stream.Stream;
 import static org.reactome.web.diagram.data.content.Content.Type.DIAGRAM;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 @SuppressWarnings("FieldCanBeLocal")
 public class InteractorsTabPanel extends Composite implements ClickHandler, ValueChangeHandler, InteractorsResourceLoader.Handler,

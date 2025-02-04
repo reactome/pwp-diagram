@@ -9,12 +9,12 @@ import java.util.*;
  * Immutable class that holds the arguments of the specific search.
  * e.g. the query, each of the search terms, the diagramId etc.
  * All query terms are stored in lowercase.
- * <p/>
+ *
  * Also this class is responsible for compiling once the regular expression
  * used for highlighting of the results.
  *
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class SearchArguments {
     private String query;

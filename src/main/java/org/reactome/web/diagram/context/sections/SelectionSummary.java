@@ -1,7 +1,7 @@
 package org.reactome.web.diagram.context.sections;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class SelectionSummary {
     private int rowIndex;

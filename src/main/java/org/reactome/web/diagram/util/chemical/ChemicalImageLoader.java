@@ -14,7 +14,7 @@ import org.reactome.web.diagram.events.StructureImageLoadedEvent;
 import org.reactome.web.diagram.util.Console;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class ChemicalImageLoader {
 

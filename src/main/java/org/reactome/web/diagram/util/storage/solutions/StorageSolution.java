@@ -1,7 +1,7 @@
 package org.reactome.web.diagram.util.storage.solutions;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public interface StorageSolution {
 

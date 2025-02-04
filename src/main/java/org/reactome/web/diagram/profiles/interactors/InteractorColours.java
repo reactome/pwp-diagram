@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class InteractorColours implements InteractorProfileChangedHandler {
     @SuppressWarnings("SpellCheckingInspection")

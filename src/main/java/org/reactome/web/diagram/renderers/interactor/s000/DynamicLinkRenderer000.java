@@ -6,7 +6,7 @@ import org.reactome.web.diagram.renderers.interactor.abs.DynamicLinkAbstractRend
 import org.reactome.web.diagram.util.AdvancedContext2d;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class DynamicLinkRenderer000 extends DynamicLinkAbstractRenderer {
     @Override

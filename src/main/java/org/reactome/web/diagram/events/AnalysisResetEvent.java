@@ -4,7 +4,7 @@ import com.google.gwt.event.shared.GwtEvent;
 import org.reactome.web.diagram.handlers.AnalysisResetHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class AnalysisResetEvent extends GwtEvent<AnalysisResetHandler> {
     public static Type<AnalysisResetHandler> TYPE = new Type<AnalysisResetHandler>();

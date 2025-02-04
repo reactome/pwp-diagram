@@ -1,7 +1,7 @@
 package org.reactome.web.diagram.controls.navigation;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public enum ControlAction {
     NONE,

@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class InteractorsListPanel extends FlowPanel {
 

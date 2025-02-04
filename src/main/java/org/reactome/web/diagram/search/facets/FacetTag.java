@@ -13,7 +13,7 @@ import org.reactome.web.diagram.util.SearchResultImageMapper.ImageContainer;
 
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class FacetTag extends FocusPanel {
 

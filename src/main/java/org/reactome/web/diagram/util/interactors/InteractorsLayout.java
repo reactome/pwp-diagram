@@ -10,7 +10,7 @@ import org.reactome.web.diagram.util.Console;
 import java.util.*;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class InteractorsLayout {
     private static final int BOX_WIDTH = 45;

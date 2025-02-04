@@ -3,7 +3,7 @@ package org.reactome.web.diagram.data;
 import org.vectomatic.dom.svg.OMSVGMatrix;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class SVGStatus {
     private OMSVGMatrix ctm = null;

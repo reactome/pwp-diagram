@@ -4,7 +4,7 @@ import com.google.gwt.canvas.dom.client.Context2d;
 import org.reactome.web.diagram.profiles.diagram.model.DiagramProfileNode;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public enum ColourProfileType{
     NORMAL,

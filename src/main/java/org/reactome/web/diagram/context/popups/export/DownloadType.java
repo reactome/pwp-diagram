@@ -3,7 +3,7 @@ package org.reactome.web.diagram.context.popups.export;
 import com.google.gwt.resources.client.ImageResource;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public interface DownloadType {
 

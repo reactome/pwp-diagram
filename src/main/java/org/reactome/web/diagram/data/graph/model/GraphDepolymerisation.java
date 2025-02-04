@@ -5,7 +5,7 @@ import org.reactome.web.diagram.data.graph.model.images.GraphObjectImages;
 import org.reactome.web.diagram.data.graph.raw.EventNode;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class GraphDepolymerisation extends GraphReactionLikeEvent {
 

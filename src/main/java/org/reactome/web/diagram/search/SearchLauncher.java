@@ -30,7 +30,7 @@ import org.reactome.web.diagram.search.searchbox.*;
 import java.util.Date;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class SearchLauncher extends AbsolutePanel implements ClickHandler,
         ContentLoadedHandler, ContentRequestedHandler, LayoutLoadedHandler, SearchBoxUpdatedHandler,

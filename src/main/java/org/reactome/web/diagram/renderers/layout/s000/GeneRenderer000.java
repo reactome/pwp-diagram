@@ -9,7 +9,7 @@ import org.reactome.web.diagram.renderers.layout.abs.GeneAbstractRenderer;
 import org.reactome.web.diagram.util.AdvancedContext2d;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class GeneRenderer000 extends GeneAbstractRenderer {
     @Override

@@ -30,7 +30,7 @@ import static org.reactome.web.analysis.client.model.AnalysisType.*;
 
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class ExpressionControl extends LegendPanel implements ClickHandler, SliderValueChangedHandler,
         AnalysisResultRequestedHandler, AnalysisResultLoadedHandler, AnalysisResetHandler,

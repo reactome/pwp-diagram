@@ -8,7 +8,7 @@ import org.reactome.web.diagram.data.layout.DiagramObject;
 import java.util.Set;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 class DiagramManager {
 

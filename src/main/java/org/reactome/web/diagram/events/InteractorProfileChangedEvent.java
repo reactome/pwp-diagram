@@ -5,7 +5,7 @@ import org.reactome.web.diagram.handlers.InteractorProfileChangedHandler;
 import org.reactome.web.diagram.profiles.interactors.model.InteractorProfile;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class InteractorProfileChangedEvent extends GwtEvent<InteractorProfileChangedHandler> {
     public static final Type<InteractorProfileChangedHandler> TYPE = new Type<>();

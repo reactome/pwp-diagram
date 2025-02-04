@@ -29,7 +29,7 @@ import static org.reactome.web.diagram.data.content.Content.Type.DIAGRAM;
  *      2nd step: Loads Graph
  *      3rd step: Loads Interactors (if INTERACTORS_RESOURCE is not null)
  *
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class LoaderManager implements SVGLoader.Handler, LayoutLoader.Handler, GraphLoader.Handler, InteractorsLoader.Handler,
         InteractorsResourceChangedHandler, InteractorsRequestCanceledHandler, ContentRequestedHandler, ContentLoadedHandler {

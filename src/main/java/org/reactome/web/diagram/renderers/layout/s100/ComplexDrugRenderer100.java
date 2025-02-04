@@ -19,7 +19,7 @@ import org.reactome.web.diagram.util.AdvancedContext2d;
 import java.util.List;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 @SuppressWarnings("Duplicates")
 public class ComplexDrugRenderer100 extends ComplexDrugAbstractRenderer {

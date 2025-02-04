@@ -7,7 +7,7 @@ import org.reactome.web.diagram.data.layout.impl.SegmentFactory;
 import org.reactome.web.diagram.util.interactors.InteractorsLayout;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class DynamicLink extends InteractorLink {
     

@@ -6,7 +6,7 @@ import org.reactome.web.diagram.renderers.layout.abs.RNADrugAbstractRenderer;
 import org.reactome.web.diagram.util.AdvancedContext2d;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class RNADrugRenderer800 extends RNADrugAbstractRenderer {
     @Override

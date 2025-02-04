@@ -30,7 +30,7 @@ import java.util.Map;
 import static org.reactome.web.diagram.data.content.Content.Type.DIAGRAM;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class InteractorRendererManager implements DiagramZoomHandler, ContentLoadedHandler {
 

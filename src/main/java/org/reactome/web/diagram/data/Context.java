@@ -25,7 +25,7 @@ import java.util.Set;
  * The context is kept in an LruCache so previously loaded information (content and status) is kept
  * and presented back to the user in the 'near' future.
  *
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class Context {
     public static final double ANALYSIS_MIN_PERCENTAGE = 0.03;

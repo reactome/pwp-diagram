@@ -1,7 +1,7 @@
 package org.reactome.web.diagram.search.results.data;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class SearchException extends Exception {
 

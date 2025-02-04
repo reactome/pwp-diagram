@@ -3,7 +3,7 @@ package org.reactome.web.diagram.util.slider;
 import com.google.gwt.canvas.dom.client.Context2d;
 
 /**
-* @author Antonio Fabregat <fabregat@ebi.ac.uk>
+* @author Antonio Fabregat (fabregat@ebi.ac.uk)
 */
 class SliderBar {
     String color = "#6E6E6E";
