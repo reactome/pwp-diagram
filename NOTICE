@@ -1,0 +1,16 @@
+NOTICE
+------
+
+This project includes the following software that is licensed under the GNU Lesser General Public License version 3.0 (LGPL-3.0):
+
+* lib-gwt-svg (version 0.5.11)
+  - Group ID: org.vectomatic
+  - Artifact ID: lib-gwt-svg
+
+The full text of the LGPL-3.0 license can be found at:
+https://www.gnu.org/licenses/lgpl-3.0.html
+
+You may obtain a copy of the LGPL-3.0 license along with the source code for the LGPL-licensed library from the following location:
+https://www.vectomatic.org/libs/lib-gwt-svg
+
+Modifications, if any, to the LGPL-licensed library are subject to the terms of the LGPL-3.0 license.
