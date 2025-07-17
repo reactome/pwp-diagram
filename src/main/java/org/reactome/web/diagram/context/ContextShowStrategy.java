@@ -8,8 +8,8 @@ import org.reactome.web.diagram.data.layout.impl.BoundFactory;
 import org.reactome.web.diagram.data.layout.impl.CoordinateFactory;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public abstract class ContextShowStrategy {
 

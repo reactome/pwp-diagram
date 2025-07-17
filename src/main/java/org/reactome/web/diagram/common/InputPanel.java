@@ -6,7 +6,7 @@ import com.google.gwt.user.client.ui.TextBoxBase;
 import org.reactome.web.diagram.common.validation.AbstractValidator;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class InputPanel<T extends TextBoxBase, V extends AbstractValidator> extends FlowPanel {
 

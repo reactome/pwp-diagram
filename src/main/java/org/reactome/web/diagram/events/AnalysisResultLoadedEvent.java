@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class AnalysisResultLoadedEvent extends GwtEvent<AnalysisResultLoadedHandler> {
     public static Type<AnalysisResultLoadedHandler> TYPE = new Type<>();

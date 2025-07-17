@@ -5,7 +5,7 @@ import org.reactome.web.diagram.client.visualisers.ehld.handlers.SVGThumbnailAre
 import org.vectomatic.dom.svg.OMSVGPoint;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class SVGThumbnailAreaMovedEvent  extends GwtEvent<SVGThumbnailAreaMovedHandler> {
     public static Type<SVGThumbnailAreaMovedHandler> TYPE = new Type<>();

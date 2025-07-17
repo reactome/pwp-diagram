@@ -6,7 +6,7 @@ import org.reactome.web.diagram.renderers.interactor.abs.StaticLinkAbstractRende
 import org.reactome.web.diagram.util.AdvancedContext2d;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 @SuppressWarnings("Duplicates")
 public class StaticLinkRenderer050 extends StaticLinkAbstractRenderer {

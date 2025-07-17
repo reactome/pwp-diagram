@@ -4,7 +4,7 @@ import com.google.gwt.event.shared.GwtEvent;
 import org.reactome.web.diagram.handlers.SearchKeyPressedHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class SearchKeyPressedEvent extends GwtEvent<SearchKeyPressedHandler> {
     public static final Type<SearchKeyPressedHandler> TYPE = new Type<>();

@@ -3,7 +3,7 @@ package org.reactome.web.diagram.data.interactors.custom.model;
 import java.util.List;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public interface CustomResources {
 

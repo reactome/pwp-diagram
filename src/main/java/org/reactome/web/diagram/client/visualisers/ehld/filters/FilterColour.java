@@ -5,7 +5,7 @@ package org.reactome.web.diagram.client.visualisers.ehld.filters;
  * Please have a look at this http://alistapart.com/article/finessing-fecolormatrix
  * for more information on how the color matrix works.
  *
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public enum FilterColour {
     YELLOW( "1 0 0 1 0 " +

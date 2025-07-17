@@ -6,7 +6,7 @@ import org.reactome.web.diagram.renderers.layout.abs.CompartmentAbstractRenderer
 import org.reactome.web.diagram.util.AdvancedContext2d;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class CompartmentRenderer800 extends CompartmentAbstractRenderer {
     @Override

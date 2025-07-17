@@ -8,7 +8,7 @@ import org.reactome.web.diagram.data.layout.SummaryItem;
 import org.reactome.web.diagram.handlers.EntityDecoratorSelectedHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class EntityDecoratorSelectedEvent extends GwtEvent<EntityDecoratorSelectedHandler> {
     public final static Type<EntityDecoratorSelectedHandler> TYPE = new Type<>();

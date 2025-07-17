@@ -10,7 +10,7 @@ import org.reactome.web.diagram.data.graph.raw.Graph;
 import org.reactome.web.diagram.data.layout.factory.DiagramObjectException;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 @SuppressWarnings("Duplicates")
 public class GraphFactory {

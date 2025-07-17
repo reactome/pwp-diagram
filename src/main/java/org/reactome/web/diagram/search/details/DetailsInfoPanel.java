@@ -52,7 +52,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class DetailsInfoPanel extends AbstractAccordionPanel implements ResultSelectedHandler,
         ContentRequestedHandler, ContentLoadedHandler,

@@ -4,7 +4,7 @@ import org.reactome.web.diagram.data.DiagramStatus;
 import org.reactome.web.diagram.data.layout.Coordinate;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public interface DiagramAnimationHandler {
 

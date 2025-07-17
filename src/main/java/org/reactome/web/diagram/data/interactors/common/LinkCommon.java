@@ -1,7 +1,7 @@
 package org.reactome.web.diagram.data.interactors.common;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class LinkCommon {
     private String id;

@@ -5,7 +5,7 @@ import org.reactome.web.diagram.search.SearchArguments;
 import org.reactome.web.diagram.search.handlers.SearchPerformedHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class SearchPerformedEvent extends GwtEvent<SearchPerformedHandler> {
     public static Type<SearchPerformedHandler> TYPE = new Type<>();

@@ -17,7 +17,7 @@ import org.reactome.web.diagram.util.pdbe.model.PDBObject;
 import org.reactome.web.diagram.util.pdbe.model.QueryResult;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 @SuppressWarnings("Duplicates")
 public class PDBeLoader {

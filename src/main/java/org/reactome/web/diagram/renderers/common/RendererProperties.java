@@ -5,7 +5,7 @@ import org.reactome.web.diagram.renderers.layout.abs.ChemicalDrugAbstractRendere
 
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public abstract class RendererProperties {
     private static final NumberFormat myFormatter = NumberFormat.getFormat(".##");

@@ -5,7 +5,7 @@ import org.reactome.web.diagram.data.interactors.model.DiagramInteractor;
 import org.reactome.web.diagram.handlers.InteractorHoveredHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class InteractorHoveredEvent extends GwtEvent<InteractorHoveredHandler> {
     public static final Type<InteractorHoveredHandler> TYPE = new Type<>();

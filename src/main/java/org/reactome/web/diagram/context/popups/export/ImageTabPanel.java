@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 import static org.reactome.web.analysis.client.model.AnalysisType.*;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class ImageTabPanel extends FlowPanel {
     private final String diagramStId;

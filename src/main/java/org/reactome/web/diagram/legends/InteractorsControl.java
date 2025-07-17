@@ -29,7 +29,7 @@ import java.util.List;
 import static org.reactome.web.diagram.data.content.Content.Type.DIAGRAM;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class InteractorsControl extends LegendPanel implements ClickHandler, SliderValueChangedHandler,
         ContentRequestedHandler, ContentLoadedHandler,

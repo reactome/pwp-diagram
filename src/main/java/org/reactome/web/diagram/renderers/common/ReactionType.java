@@ -1,7 +1,7 @@
 package org.reactome.web.diagram.renderers.common;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public enum ReactionType {
 

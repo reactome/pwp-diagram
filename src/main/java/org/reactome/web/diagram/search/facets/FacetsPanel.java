@@ -20,7 +20,7 @@ import java.util.*;
 /**
  * A panel that contains all the available facets
  *
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class FacetsPanel extends FlowPanel implements ClickHandler {
     private Map<String, FacetTag> facetsMap;

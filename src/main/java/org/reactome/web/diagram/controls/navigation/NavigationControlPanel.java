@@ -19,7 +19,7 @@ import org.reactome.web.diagram.handlers.ContentRequestedHandler;
 import org.reactome.web.diagram.handlers.LayoutLoadedHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class NavigationControlPanel extends AbsolutePanel implements ClickHandler,
         ContentRequestedHandler, LayoutLoadedHandler, ContentLoadedHandler {

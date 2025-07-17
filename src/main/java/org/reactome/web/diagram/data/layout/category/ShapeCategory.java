@@ -6,7 +6,7 @@ import org.reactome.web.diagram.data.layout.Shape;
 import org.reactome.web.diagram.data.layout.impl.SegmentFactory;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public abstract class ShapeCategory {
 

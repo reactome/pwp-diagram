@@ -8,7 +8,7 @@ import org.reactome.web.diagram.data.layout.NodeCommon;
 import org.reactome.web.diagram.data.layout.impl.CoordinateFactory;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 @SuppressWarnings("unused")
 public class DiagramObjectCategory {

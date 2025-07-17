@@ -5,7 +5,7 @@ import org.reactome.web.diagram.handlers.AnalysisProfileChangedHandler;
 import org.reactome.web.diagram.profiles.analysis.model.AnalysisProfile;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class AnalysisProfileChangedEvent extends GwtEvent<AnalysisProfileChangedHandler> {
     public static Type<AnalysisProfileChangedHandler> TYPE = new Type<AnalysisProfileChangedHandler>();

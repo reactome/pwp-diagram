@@ -13,7 +13,7 @@ import org.reactome.web.diagram.handlers.AnalysisResultRequestedHandler;
 import org.reactome.web.diagram.handlers.DiagramInternalErrorHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class AnalysisMessage extends MessagesPanel implements AnalysisResultRequestedHandler, AnalysisResultLoadedHandler,
         DiagramInternalErrorHandler {

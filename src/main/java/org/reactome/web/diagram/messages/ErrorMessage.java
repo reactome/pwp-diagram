@@ -18,7 +18,7 @@ import org.reactome.web.diagram.handlers.DiagramInternalErrorHandler;
 import org.reactome.web.diagram.util.Console;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class ErrorMessage extends MessagesPanel implements AnalysisResultRequestedHandler, AnalysisResultLoadedHandler,
         ContentRequestedHandler, DiagramInternalErrorHandler, ClickHandler {

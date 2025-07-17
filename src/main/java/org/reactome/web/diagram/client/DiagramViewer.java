@@ -9,8 +9,8 @@ import org.reactome.web.diagram.handlers.*;
 import org.reactome.web.diagram.search.handlers.SearchPerformedHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public interface DiagramViewer extends IsWidget, HasHandlers, RequiresResize {
 

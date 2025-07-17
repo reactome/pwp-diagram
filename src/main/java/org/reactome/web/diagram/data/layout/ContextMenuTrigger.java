@@ -15,7 +15,7 @@ import org.reactome.web.diagram.data.layout.impl.CoordinateFactory;
  * |   /
  * [c]/
  *
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class ContextMenuTrigger {
 

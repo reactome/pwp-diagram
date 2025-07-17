@@ -14,7 +14,7 @@ import org.reactome.web.diagram.renderers.layout.abs.ProcessNodeAbstractRenderer
 import org.reactome.web.diagram.util.AdvancedContext2d;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class ProcessNodeRenderer100 extends ProcessNodeAbstractRenderer {
     @Override

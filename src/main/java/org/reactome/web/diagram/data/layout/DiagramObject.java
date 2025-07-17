@@ -4,7 +4,7 @@ import org.reactome.web.diagram.data.graph.model.GraphObject;
 import uk.ac.ebi.pwp.structures.quadtree.client.QuadTreeBox;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public interface DiagramObject extends QuadTreeBox {
 

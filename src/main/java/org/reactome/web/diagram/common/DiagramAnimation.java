@@ -4,7 +4,7 @@ import com.google.gwt.animation.client.Animation;
 import org.reactome.web.diagram.data.layout.Coordinate;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class DiagramAnimation extends Animation {
 

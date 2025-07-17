@@ -12,7 +12,7 @@ package org.reactome.web.diagram.data.interactors.common;
  *
  * Note 2: The pointer from the 'Node' class has to be updated when the resource is changed.
  *
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class InteractorsSummary {
 

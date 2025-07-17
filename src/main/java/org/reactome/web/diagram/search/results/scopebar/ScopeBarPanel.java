@@ -14,11 +14,11 @@ import java.util.List;
 /**
  * A panel that can accommodate one or many buttons ({@link ScopeButton})
  * acting as a selector and enabling the user to change scope.
- * <p/>
+ *
  * On click of a button, the {@link Handler} is notified with the
  * index of that button.
  *
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class ScopeBarPanel extends FlowPanel implements ClickHandler {
     private List<ScopeButton> btns = new LinkedList<>();

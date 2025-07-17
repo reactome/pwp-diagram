@@ -1,7 +1,7 @@
 package org.reactome.web.diagram.data.interactors.custom.model;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public interface CustomResource {
 

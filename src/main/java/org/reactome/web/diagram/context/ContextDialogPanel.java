@@ -24,7 +24,7 @@ import org.reactome.web.diagram.events.GraphObjectSelectedEvent;
 import org.reactome.web.diagram.handlers.GraphObjectSelectedHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class ContextDialogPanel extends DialogBox implements ClickHandler, GraphObjectSelectedHandler {
 

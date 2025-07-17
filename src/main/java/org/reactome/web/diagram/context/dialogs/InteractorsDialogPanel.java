@@ -30,7 +30,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class InteractorsDialogPanel extends Composite implements TableItemSelectedHandler, InteractorsLoadedHandler,
         InteractorsResourceChangedHandler, InteractorsErrorHandler, InteractorHoveredHandler, InteractorsFilteredHandler,

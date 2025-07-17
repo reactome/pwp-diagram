@@ -12,7 +12,7 @@ import org.reactome.web.diagram.data.graph.model.GraphSubpathway;
 import java.util.Collection;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class DatabaseObjectListPanel extends FlowPanel {
 

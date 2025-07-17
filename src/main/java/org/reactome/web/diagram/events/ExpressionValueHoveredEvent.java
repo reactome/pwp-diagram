@@ -4,7 +4,7 @@ import com.google.gwt.event.shared.GwtEvent;
 import org.reactome.web.diagram.handlers.ExpressionValueHoveredHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class ExpressionValueHoveredEvent extends GwtEvent<ExpressionValueHoveredHandler> {
     public static Type<ExpressionValueHoveredHandler> TYPE = new Type<ExpressionValueHoveredHandler>();

@@ -11,7 +11,7 @@ import java.util.Set;
 
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public interface Visualiser extends IsWidget {
     //ControlActions

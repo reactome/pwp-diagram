@@ -6,7 +6,7 @@ import org.reactome.web.diagram.data.layout.impl.NodePropertiesFactory;
 import java.util.function.Function;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public interface NodeProperties {
 

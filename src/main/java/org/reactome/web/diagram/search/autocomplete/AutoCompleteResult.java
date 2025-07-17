@@ -3,7 +3,7 @@ package org.reactome.web.diagram.search.autocomplete;
 import com.google.gwt.regexp.shared.RegExp;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class AutoCompleteResult {
 

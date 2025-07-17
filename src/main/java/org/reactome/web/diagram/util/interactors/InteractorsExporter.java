@@ -12,7 +12,7 @@ import java.util.Set;
 /**
  * This class is used to export the interactors to a file
  *
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class InteractorsExporter {
 
@@ -22,7 +22,7 @@ public class InteractorsExporter {
 
     /***
      * This method takes as input the name of the file to be saved and
-     * a MapSet containing:  DiagramAccession -> Set<RawInteractors>
+     * a MapSet containing:  DiagramAccession -> Set of RawInteractors
      *
      * If Blob.js and FileSaver.js are present then this class utilises them to
      * store the file. Otherwise, when the widget runs as standalone, the class

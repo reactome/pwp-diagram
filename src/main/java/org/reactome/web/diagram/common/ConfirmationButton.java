@@ -17,7 +17,7 @@ import com.google.gwt.user.client.ui.FocusPanel;
  * A simple button that when clicked presents the user with two buttons to confirm the selected action.
  * The button automatically collapses to its original status shortly after the mouse moves out of it.
  *
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class ConfirmationButton extends Composite implements ClickHandler, MouseOverHandler, MouseOutHandler {
     private static int WIDTH_COLLAPSED = 19;

@@ -4,7 +4,7 @@ import com.google.gwt.event.shared.GwtEvent;
 import org.reactome.web.diagram.handlers.ContentRequestedHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class ContentRequestedEvent extends GwtEvent<ContentRequestedHandler> {
     public static Type<ContentRequestedHandler> TYPE = new Type<>();

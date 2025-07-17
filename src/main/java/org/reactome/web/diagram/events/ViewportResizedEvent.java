@@ -5,7 +5,7 @@ import org.reactome.web.diagram.handlers.ViewportResizedHandler;
 import uk.ac.ebi.pwp.structures.quadtree.client.Box;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class ViewportResizedEvent extends GwtEvent<ViewportResizedHandler> {
     public static Type<ViewportResizedHandler> TYPE = new Type<ViewportResizedHandler>();

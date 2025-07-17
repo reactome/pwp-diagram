@@ -9,7 +9,7 @@ import org.reactome.web.analysis.client.model.PathwaySummary;
 import java.util.List;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 interface AnalysisLoaderHandler {
 

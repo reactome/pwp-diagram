@@ -11,7 +11,7 @@ import org.reactome.web.diagram.profiles.diagram.model.DiagramProfileThumbnail;
 
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class DiagramProfileFactory {
 

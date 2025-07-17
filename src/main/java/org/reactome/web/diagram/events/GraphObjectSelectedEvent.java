@@ -5,7 +5,7 @@ import org.reactome.web.diagram.data.graph.model.GraphObject;
 import org.reactome.web.diagram.handlers.GraphObjectSelectedHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class GraphObjectSelectedEvent extends GwtEvent<GraphObjectSelectedHandler> {
     public static Type<GraphObjectSelectedHandler> TYPE = new Type<>();

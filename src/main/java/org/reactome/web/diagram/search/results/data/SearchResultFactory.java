@@ -7,7 +7,7 @@ import com.google.web.bindery.autobean.shared.AutoBeanFactory;
 import org.reactome.web.diagram.search.results.data.model.*;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class SearchResultFactory {
 

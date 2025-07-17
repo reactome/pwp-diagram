@@ -6,7 +6,7 @@ import org.reactome.web.diagram.renderers.layout.abs.ShadowAbstractRenderer;
 import org.reactome.web.diagram.util.AdvancedContext2d;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class ShadowRenderer300 extends ShadowAbstractRenderer {
 

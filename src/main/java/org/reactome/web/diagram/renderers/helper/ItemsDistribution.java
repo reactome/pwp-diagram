@@ -13,12 +13,12 @@ import java.util.*;
  * Items are distributed at two different levels. The most generic one is at the level of
  * RenderableClass. We want to iterate all of them at the time to minimise the number of
  * times the associated renderer needs to be changed.
- * <p/>
+ *
  * On the other hand, every RenderableClass group will contain different item types which
  * requires changes in the canvas Context2d. By keeping them in the same set, and drawing
  * one after the other, we minimise the number of times the Context2d properties are set.
  *
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class ItemsDistribution {
 

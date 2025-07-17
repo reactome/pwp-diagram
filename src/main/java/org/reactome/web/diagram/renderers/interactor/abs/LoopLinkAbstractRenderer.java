@@ -6,7 +6,7 @@ import org.reactome.web.diagram.data.layout.Coordinate;
 import org.reactome.web.diagram.util.AdvancedContext2d;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public abstract class LoopLinkAbstractRenderer extends InteractorAbstractRenderer {
 

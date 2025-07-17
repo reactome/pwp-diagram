@@ -8,7 +8,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
 
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class NotificationsContainer extends FlowPanel {
 

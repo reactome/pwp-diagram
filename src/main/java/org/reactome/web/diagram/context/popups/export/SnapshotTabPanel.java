@@ -10,7 +10,7 @@ import org.reactome.web.diagram.common.IconButton;
 import org.reactome.web.diagram.data.content.Content;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class SnapshotTabPanel extends FlowPanel {
     private static String DISCLAIMER = "Please keep in mind that you can download a high resolution image of the diagram from the second tab panel of this dialog.";

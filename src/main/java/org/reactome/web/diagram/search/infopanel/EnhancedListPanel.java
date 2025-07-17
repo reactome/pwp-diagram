@@ -12,7 +12,7 @@ import org.reactome.web.pwp.model.client.classes.Event;
 import java.util.Collection;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class EnhancedListPanel extends FlowPanel {
 

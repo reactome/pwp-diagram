@@ -4,7 +4,7 @@ import com.google.gwt.resources.client.ImageResource;
 import org.reactome.web.pwp.model.client.factory.SchemaClass;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public interface SearchResultObject {
 

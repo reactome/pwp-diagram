@@ -9,7 +9,7 @@ import org.reactome.web.diagram.util.pdbe.PDBeLoader;
 import org.reactome.web.diagram.util.pdbe.model.PDBObject;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class GraphEntityWithAccessionedSequence extends GraphGenomeEncodedEntity implements PDBeLoader.Handler {
 

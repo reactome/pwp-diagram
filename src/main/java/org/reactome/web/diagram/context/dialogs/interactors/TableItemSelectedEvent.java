@@ -4,7 +4,7 @@ import com.google.gwt.event.shared.GwtEvent;
 import org.reactome.web.diagram.data.interactors.raw.RawInteractor;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class TableItemSelectedEvent<T extends RawInteractor> extends GwtEvent<TableItemSelectedHandler> {
     public static Type<TableItemSelectedHandler> TYPE = new Type<>();

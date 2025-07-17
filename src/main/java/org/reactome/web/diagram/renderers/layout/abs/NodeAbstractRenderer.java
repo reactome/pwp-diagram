@@ -15,7 +15,7 @@ import org.reactome.web.diagram.util.AdvancedContext2d;
 import java.util.List;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public abstract class NodeAbstractRenderer extends AbstractRenderer {
 

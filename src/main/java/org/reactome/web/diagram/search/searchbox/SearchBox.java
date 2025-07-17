@@ -15,7 +15,7 @@ import com.google.gwt.user.client.ui.TextBox;
  * fire the event to avoid unnecessary searches while the user is
  * still typing.
  *
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class SearchBox extends TextBox implements KeyUpHandler {
 

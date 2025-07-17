@@ -9,7 +9,7 @@ import org.reactome.web.diagram.search.results.data.model.Occurrences;
 import org.reactome.web.pwp.model.client.util.ResponseUtils;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class FlaggedElementsLoader implements RequestCallback {
 

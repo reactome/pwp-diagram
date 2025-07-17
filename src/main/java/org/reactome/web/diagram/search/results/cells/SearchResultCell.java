@@ -14,7 +14,7 @@ import org.reactome.web.diagram.search.SearchResultObject;
 /**
  * The Cell used to render a {@link SearchResultObject}.
  *
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class SearchResultCell extends AbstractCell<SearchResultObject> {
 

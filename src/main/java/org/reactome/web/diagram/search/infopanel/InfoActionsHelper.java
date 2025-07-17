@@ -13,7 +13,7 @@ import org.reactome.web.diagram.events.InteractorSelectedEvent;
 import org.reactome.web.pwp.model.client.classes.Event;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 abstract class InfoActionsHelper {
 

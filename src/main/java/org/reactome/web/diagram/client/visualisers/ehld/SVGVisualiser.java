@@ -56,7 +56,7 @@ import uk.ac.ebi.pwp.structures.quadtree.client.Box;
 import java.util.*;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 @SuppressWarnings("All")
 public class SVGVisualiser extends AbstractSVGPanel implements Visualiser,

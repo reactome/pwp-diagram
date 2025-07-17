@@ -22,7 +22,7 @@ import static org.reactome.web.diagram.data.content.Content.Type.SVG;
 import static org.reactome.web.diagram.profiles.analysis.AnalysisColours.THRESHOLD;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 @SuppressWarnings("Duplicates")
 public class EnrichmentLegend extends LegendPanel implements AnalysisResultLoadedHandler,

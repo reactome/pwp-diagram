@@ -5,7 +5,7 @@ import org.reactome.web.diagram.events.DiagramRenderedEvent;
 
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public interface DiagramRenderedHandler extends EventHandler {
 

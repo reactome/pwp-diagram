@@ -4,7 +4,7 @@ import com.google.gwt.event.shared.GwtEvent;
 import org.reactome.web.diagram.handlers.InteractorSelectedHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class InteractorSelectedEvent extends GwtEvent<InteractorSelectedHandler> {
     public static final Type<InteractorSelectedHandler> TYPE = new Type<>();

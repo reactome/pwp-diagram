@@ -5,7 +5,7 @@ import org.reactome.web.diagram.events.ControlActionEvent;
 
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public interface ControlActionHandler extends EventHandler {
 

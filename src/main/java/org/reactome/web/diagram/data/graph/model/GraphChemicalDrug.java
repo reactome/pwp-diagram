@@ -8,7 +8,7 @@ import org.reactome.web.diagram.data.graph.raw.EntityNode;
 import org.reactome.web.diagram.util.chemical.ChemicalImageLoader;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class GraphChemicalDrug extends GraphPhysicalEntity implements ChemicalImageLoader.Handler {
 

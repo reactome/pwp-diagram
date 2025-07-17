@@ -8,7 +8,7 @@ import org.reactome.web.diagram.data.layout.impl.SegmentFactory;
 import org.reactome.web.diagram.data.loader.LoaderManager;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public abstract class InteractorLink extends DiagramInteractor implements Comparable<InteractorLink> {
 

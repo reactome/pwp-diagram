@@ -7,7 +7,7 @@ import org.reactome.web.diagram.data.interactors.custom.ResourcesManager;
 import java.util.List;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class NameValidator extends AbstractValidator {
 

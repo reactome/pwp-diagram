@@ -17,7 +17,7 @@ import org.reactome.web.pwp.model.client.content.ContentClient;
 import org.reactome.web.pwp.model.client.content.ContentClientError;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class SVGContextPanel extends DialogBox implements ClickHandler, ContentClientHandler.ObjectLoaded<DatabaseObject> {
     private static String MESSAGE = "Go to ";

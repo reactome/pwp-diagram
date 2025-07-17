@@ -15,7 +15,7 @@ import java.util.*;
 
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public abstract class GraphObject implements Comparable<GraphObject>, SearchResultObject {
     private Long dbId;

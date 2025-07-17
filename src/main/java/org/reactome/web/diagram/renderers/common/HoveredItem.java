@@ -23,7 +23,7 @@ import java.util.List;
  *   |                          |
  *  [X]------------------------[X]
  *
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class HoveredItem {
 

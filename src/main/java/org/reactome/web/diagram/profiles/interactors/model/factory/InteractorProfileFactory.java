@@ -9,7 +9,7 @@ import org.reactome.web.diagram.profiles.interactors.model.InteractorProfile;
 import org.reactome.web.diagram.profiles.interactors.model.InteractorProfileNode;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class InteractorProfileFactory {
 

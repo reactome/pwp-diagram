@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class FilterAlertControl extends LegendPanel implements ClickHandler,
         AnalysisResultRequestedHandler, AnalysisResultLoadedHandler, AnalysisResetHandler, AnalysisHandler.Summaries,

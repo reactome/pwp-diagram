@@ -9,7 +9,7 @@ import org.reactome.web.diagram.data.layout.impl.CoordinateFactory;
 /**
  * This is a specific link for those proteins/chemicals that interact with themselves
  *
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class LoopLink extends InteractorLink {
 

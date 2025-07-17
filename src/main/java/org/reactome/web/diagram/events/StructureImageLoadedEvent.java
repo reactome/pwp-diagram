@@ -5,7 +5,7 @@ import com.google.gwt.user.client.ui.Image;
 import org.reactome.web.diagram.handlers.StructureImageLoadedHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class StructureImageLoadedEvent extends GwtEvent<StructureImageLoadedHandler> {
     public static final Type<StructureImageLoadedHandler> TYPE = new Type<>();

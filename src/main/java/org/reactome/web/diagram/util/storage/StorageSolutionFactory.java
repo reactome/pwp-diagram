@@ -10,7 +10,7 @@ import org.reactome.web.diagram.util.storage.solutions.StorageSolution;
  * This class checks whether there is HTML5 Storage support by the browser
  * and returns the appropriate StorageSolution.
  *
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public abstract class StorageSolutionFactory {
     public static StorageSolution getStorage(){

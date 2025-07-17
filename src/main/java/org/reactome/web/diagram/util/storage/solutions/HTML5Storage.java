@@ -5,7 +5,7 @@ import com.google.gwt.storage.client.Storage;
 /**
  * HTML5 based storage supporting low lever read/write operations
  *
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class HTML5Storage implements StorageSolution {
 

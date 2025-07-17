@@ -6,7 +6,7 @@ import org.reactome.web.diagram.handlers.DiagramZoomHandler;
 import uk.ac.ebi.pwp.structures.quadtree.client.Box;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class DiagramZoomEvent extends GwtEvent<DiagramZoomHandler> {
     public static Type<DiagramZoomHandler> TYPE = new Type<DiagramZoomHandler>();

@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  *
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public abstract class InteractorOccurrencesFactory {
     private static final String BASE_URL = DiagramFactory.SERVER + "/ContentService/interactors/static/molecule/##QUERY##/pathways?&species=##SPECIES##&onlyDiagrammed=true";

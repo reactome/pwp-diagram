@@ -5,7 +5,7 @@ import org.reactome.web.diagram.data.layout.Coordinate;
 import org.reactome.web.diagram.handlers.ThumbnailAreaMovedHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class ThumbnailAreaMovedEvent extends GwtEvent<ThumbnailAreaMovedHandler> {
     public static Type<ThumbnailAreaMovedHandler> TYPE = new Type<ThumbnailAreaMovedHandler>();

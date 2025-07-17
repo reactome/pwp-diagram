@@ -4,7 +4,7 @@ import com.google.gwt.event.shared.GwtEvent;
 import org.reactome.web.diagram.handlers.DiagramInternalErrorHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class DiagramInternalErrorEvent extends GwtEvent<DiagramInternalErrorHandler> {
     public static final Type<DiagramInternalErrorHandler> TYPE = new Type<>();

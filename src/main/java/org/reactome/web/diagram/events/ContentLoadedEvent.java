@@ -5,7 +5,7 @@ import org.reactome.web.diagram.data.Context;
 import org.reactome.web.diagram.handlers.ContentLoadedHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class ContentLoadedEvent extends GwtEvent<ContentLoadedHandler> {
 

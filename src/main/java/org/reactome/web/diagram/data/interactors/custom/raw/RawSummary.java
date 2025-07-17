@@ -1,7 +1,7 @@
 package org.reactome.web.diagram.data.interactors.custom.raw;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public interface RawSummary {
 

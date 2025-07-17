@@ -30,8 +30,8 @@ import org.reactome.web.pwp.model.client.util.Path;
 import java.util.*;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class PathwaysDialogPanel extends Composite implements SectionCellSelectedHandler,
         ContentClientHandler.ObjectLoaded<DatabaseObject>,

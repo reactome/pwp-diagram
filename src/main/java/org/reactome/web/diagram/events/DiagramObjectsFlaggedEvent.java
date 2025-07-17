@@ -7,7 +7,7 @@ import org.reactome.web.diagram.handlers.DiagramObjectsFlaggedHandler;
 import java.util.Set;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class DiagramObjectsFlaggedEvent extends GwtEvent<DiagramObjectsFlaggedHandler> {
     public static final Type<DiagramObjectsFlaggedHandler> TYPE = new Type<>();

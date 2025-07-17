@@ -5,7 +5,7 @@ import org.reactome.web.diagram.data.interactors.common.OverlayResource;
 import org.reactome.web.diagram.handlers.InteractorsResourceChangedHandler;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class InteractorsResourceChangedEvent extends GwtEvent<InteractorsResourceChangedHandler> {
     public static final Type<InteractorsResourceChangedHandler> TYPE = new Type<>();

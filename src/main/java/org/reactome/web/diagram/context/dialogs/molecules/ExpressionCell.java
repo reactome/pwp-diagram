@@ -13,7 +13,7 @@ import com.google.gwt.text.shared.SimpleSafeHtmlRenderer;
 import org.reactome.web.diagram.profiles.analysis.AnalysisColours;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class ExpressionCell extends TextCell {
 

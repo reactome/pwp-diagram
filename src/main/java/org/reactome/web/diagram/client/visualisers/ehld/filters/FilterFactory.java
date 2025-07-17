@@ -7,7 +7,7 @@ import org.vectomatic.dom.svg.utils.SVGConstants;
  * This class is responsible for instantiating all the
  * SVG filters used by the SVGPanel
  *
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public abstract class FilterFactory {
 

@@ -10,7 +10,7 @@ import org.reactome.web.diagram.controls.navigation.MainControlPanel;
 import org.reactome.web.diagram.controls.top.search.SearchPanel;
 
 /**
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class LeftTopLauncherPanel extends FlowPanel implements OptionalWidget.Handler  {
 	

@@ -7,7 +7,7 @@ import com.google.gwt.user.client.ui.DoubleBox;
 
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class ValueBox extends DoubleBox implements KeyUpHandler, KeyPressHandler {
     private final int updateDelay = 300;

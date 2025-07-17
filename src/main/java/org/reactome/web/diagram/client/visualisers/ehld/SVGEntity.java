@@ -3,7 +3,7 @@ package org.reactome.web.diagram.client.visualisers.ehld;
 import org.vectomatic.dom.svg.OMElement;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class SVGEntity {
     private String stId;

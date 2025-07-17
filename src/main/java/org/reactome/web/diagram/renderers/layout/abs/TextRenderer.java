@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Contains the methods for rendering text on a canvas in both single and multiple lines.
  *
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class TextRenderer {
     public static final int MAX_LINE = 4;

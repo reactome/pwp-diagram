@@ -6,7 +6,7 @@ import com.google.gwt.resources.client.ImageResource;
 import org.reactome.web.diagram.client.DiagramFactory;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public enum ContentDownloadType implements DownloadType {
     SBML     ("SBML",        "/ContentService/exporter/event/__STID__.sbml",                 "SBML",     ImageFormatIcons.INSTANCE.SBMLIcon(),

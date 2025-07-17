@@ -3,7 +3,7 @@ package org.reactome.web.diagram.util.slider;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
- * @author Kostas Sidiropoulos <ksidiro@ebi.ac.uk>
+ * @author Kostas Sidiropoulos (ksidiro@ebi.ac.uk)
  */
 public class ValueBoxUpdatedEvent extends GwtEvent<ValueBoxUpdatedHandler> {
     public static Type<ValueBoxUpdatedHandler> TYPE = new Type<>();

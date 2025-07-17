@@ -14,7 +14,7 @@ import org.reactome.web.pwp.model.client.factory.SchemaClass;
  * This factory is created and kept for every diagram in its context. This is meant to keep previous loaded
  * diagrams in memory for quick revisiting (LRU is recommended though)
  *
- * @author Antonio Fabregat <fabregat@ebi.ac.uk>
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public abstract class GraphObjectFactory {
     //LayoutLoader is in charge of update the content when a new
